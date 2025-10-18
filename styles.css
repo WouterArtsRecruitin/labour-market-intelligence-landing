@@ -1,11 +1,12 @@
 /* Labour Market Intelligence - Landing Page Styles */
 :root {
-  /* Brand Colors */
-  --brand-primary: #FF6B35;
-  --brand-secondary: #1E3A8A; 
-  --brand-accent: #10B981;
+  /* Recruitin Brand Colors */
+  --brand-primary: #4B4F51;      /* Recruitin Dark Gray (Primary) */
+  --brand-secondary: #77797B;    /* Recruitin Light Gray */ 
+  --brand-accent: #EF7D00;       /* Recruitin Orange (Accent/Support) */
   --brand-dark: #1F2937;
   --brand-light: #F8FAFC;
+  --brand-success: #10B981;
   
   /* Typography */
   --font-primary: 'Inter', system-ui, sans-serif;
@@ -69,7 +70,7 @@ body {
   font-family: var(--font-heading);
   font-weight: 700;
   font-size: 1.25rem;
-  color: var(--brand-primary);
+  color: var(--brand-accent);
 }
 
 .nav-brand i {
@@ -90,7 +91,7 @@ body {
 }
 
 .nav-links a:hover {
-  color: var(--brand-primary);
+  color: var(--brand-accent);
 }
 
 .btn-cta {
@@ -105,7 +106,7 @@ body {
 }
 
 .btn-cta:hover {
-  background: #E55A2B;
+  background: #3A3E40;
   transform: translateY(-1px);
 }
 
@@ -201,9 +202,9 @@ body {
 }
 
 .btn-primary:hover {
-  background: #E55A2B;
+  background: #3A3E40;
   transform: translateY(-2px);
-  box-shadow: 0 8px 25px rgba(255, 107, 53, 0.3);
+  box-shadow: 0 8px 25px rgba(75, 79, 81, 0.3);
 }
 
 .btn-secondary {
