@@ -814,19 +814,22 @@ body {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
   width: 100%;
   padding: var(--space-4);
   border: 2px solid #E5E7EB;
   border-radius: var(--border-radius);
   font-size: 1rem;
   transition: border-color 0.3s;
+  background-color: white;
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
   outline: none;
-  border-color: var(--brand-primary);
+  border-color: var(--brand-accent);
 }
 
 .score-grid {
