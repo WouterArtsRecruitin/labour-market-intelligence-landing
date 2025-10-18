@@ -410,48 +410,260 @@ body {
   box-shadow: var(--box-shadow);
 }
 
-/* Demo Rapport Styling */
-.demo-rapport-container {
-  height: 600px;
-  overflow-y: auto;
-  border-radius: var(--border-radius);
+/* Professional Demo Report Styling */
+.professional-report-container {
   background: white;
+  border-radius: 16px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  border: 1px solid #E5E7EB;
+  overflow: hidden;
+  max-height: 800px;
+  overflow-y: auto;
+  font-size: 0.85rem;
+  width: 100%;
 }
 
-.demo-header {
-  background: linear-gradient(135deg, var(--brand-primary), #E55A2B);
+/* Report Header */
+.report-header {
+  background: linear-gradient(135deg, var(--brand-primary) 0%, #3A3E40 100%);
   color: white;
-  padding: var(--space-8);
-  text-align: center;
+  padding: var(--space-6);
   position: relative;
 }
 
-.confidence-badge {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-  background: var(--brand-accent);
-  color: white;
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+}
+
+.report-logo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.confidence-indicator {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  background: rgba(255, 255, 255, 0.2);
   padding: 4px 12px;
-  border-radius: 16px;
-  font-size: 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
   font-weight: 600;
 }
 
-.demo-header h1 {
-  font-size: 1.5rem;
+.confidence-score {
+  color: var(--brand-accent);
+  margin-right: 4px;
+}
+
+.report-title {
+  text-align: center;
+}
+
+.report-title h1 {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
   font-weight: 800;
-  margin-bottom: var(--space-2);
+  margin-bottom: var(--space-1);
+  letter-spacing: -0.5px;
 }
 
-.demo-header .subtitle {
+.report-title h2 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: var(--space-1);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.report-title p {
+  font-size: 0.8rem;
+  opacity: 0.8;
+  margin: 0;
+}
+
+/* Executive Summary */
+.executive-summary {
+  padding: var(--space-6);
+  background: #ECFDF5;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.summary-header h3 {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+  margin-bottom: var(--space-4);
+  text-align: center;
+}
+
+.market-status {
+  text-align: center;
+}
+
+.status-badge {
+  display: inline-block;
+  background: var(--brand-accent);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 25px;
+  font-weight: 700;
   font-size: 0.9rem;
-  opacity: 0.9;
+  margin-bottom: var(--space-4);
 }
 
-.demo-content {
-  padding: var(--space-8);
-  font-size: 0.875rem;
+.status-details {
+  margin-bottom: var(--space-4);
+}
+
+.detail-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  margin-bottom: var(--space-2);
+  font-size: 0.85rem;
+  color: #374151;
+}
+
+.detail-item i {
+  color: var(--brand-accent);
+  font-size: 0.8rem;
+}
+
+.recommendation-cta {
+  background: rgba(239, 125, 0, 0.1);
+  padding: var(--space-3);
+  border-radius: 8px;
+  font-size: 0.9rem;
+  color: var(--brand-primary);
+}
+
+/* Metrics Dashboard */
+.metrics-dashboard {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: #F8FAFC;
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.metric-card {
+  background: white;
+  padding: var(--space-4);
+  border-radius: 8px;
+  text-align: center;
+  border: 1px solid #E5E7EB;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.metric-icon {
+  font-size: 1.2rem;
+  margin-bottom: var(--space-1);
+}
+
+.metric-value {
+  font-family: var(--font-heading);
+  font-size: 1.4rem;
+  font-weight: 800;
+  color: var(--brand-primary);
+  margin-bottom: var(--space-1);
+}
+
+.metric-label {
+  font-size: 0.75rem;
+  color: #6B7280;
+  margin-bottom: var(--space-2);
+  font-weight: 500;
+}
+
+.metric-bar {
+  background: #E5E7EB;
+  height: 4px;
+  border-radius: 2px;
+  margin-bottom: var(--space-1);
+  overflow: hidden;
+}
+
+.bar-fill {
+  background: linear-gradient(90deg, var(--brand-accent), var(--brand-primary));
+  height: 100%;
+  border-radius: 2px;
+  transition: width 0.8s ease;
+}
+
+.metric-status {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--brand-accent);
+}
+
+/* Analysis Section */
+.analysis-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-6);
+  padding: var(--space-6);
+  border-bottom: 1px solid #E5E7EB;
+}
+
+.analysis-column h4 {
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+  margin-bottom: var(--space-3);
+  text-align: center;
+}
+
+.analysis-content {
+  font-size: 0.8rem;
+}
+
+.data-point {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--space-1) 0;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.data-point .label {
+  color: #6B7280;
+  font-weight: 500;
+}
+
+.data-point .value {
+  color: var(--brand-primary);
+  font-weight: 600;
+}
+
+/* Report CTA */
+.report-cta {
+  background: linear-gradient(135deg, var(--brand-accent), #D97706);
+  color: white;
+  padding: var(--space-4);
+  text-align: center;
+}
+
+.cta-content strong {
+  display: block;
+  font-size: 0.9rem;
+  margin-bottom: var(--space-1);
+  font-weight: 700;
+}
+
+.cta-content p {
+  font-size: 0.8rem;
+  margin: 0;
+  opacity: 0.9;
 }
 
 .recommendation {
