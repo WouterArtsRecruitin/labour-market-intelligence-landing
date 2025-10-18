@@ -1,6 +1,7 @@
 [build]
   # No build command needed for static site
   publish = "."
+  command = ""
 
 [build.environment]
   NODE_VERSION = "18"
