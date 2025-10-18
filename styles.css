@@ -397,17 +397,18 @@ body {
 }
 
 .demo-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: var(--space-12);
-  align-items: center;
+  display: block;
 }
 
 .demo-preview {
   background: white;
-  border-radius: var(--border-radius);
-  padding: var(--space-4);
-  box-shadow: var(--box-shadow);
+  border-radius: 16px;
+  padding: 0;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+  margin-bottom: var(--space-8);
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Professional Demo Report Styling */
@@ -652,9 +653,11 @@ body {
   box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
   border: 1px solid #E5E7EB;
   overflow: hidden;
-  max-height: 1000px;
+  max-height: 800px;
   overflow-y: auto;
   position: relative;
+  width: 100%;
+  font-size: 0.9rem;
 }
 
 /* Report Notice */
@@ -806,8 +809,20 @@ body {
 
 .key-metrics-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-4);
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-3);
+}
+
+@media (max-width: 768px) {
+  .key-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .key-metrics-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .metric-tile {
