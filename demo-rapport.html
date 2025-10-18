@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo Recruitment Assessment Report</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            line-height: 1.6;
+            color: #1F2937;
+            background: #F9FAFB;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #FF6B35, #E55A2B);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+        }
+        
+        .header .subtitle {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            padding: 30px;
+        }
+        
+        .section {
+            margin-bottom: 30px;
+        }
+        
+        .section h2 {
+            color: #FF6B35;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #10B981;
+        }
+        
+        .section h3 {
+            color: #1E3A8A;
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+        }
+        
+        .recommendation {
+            background: #ECFDF5;
+            border-left: 4px solid #10B981;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        
+        .recommendation .status {
+            color: #10B981;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+        
+        .score {
+            display: inline-block;
+            background: #FF6B35;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            margin: 5px 0;
+        }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .card {
+            background: #F8FAFC;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #E5E7EB;
+        }
+        
+        .card h4 {
+            color: #374151;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 10px 0;
+        }
+        
+        .skill {
+            background: #DBEAFE;
+            color: #1E3A8A;
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        .stars {
+            color: #FBBF24;
+            margin-left: 10px;
+        }
+        
+        .list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .list li {
+            padding: 5px 0;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .list li::before {
+            content: '✅';
+            position: absolute;
+            left: 0;
+        }
+        
+        .salary-box {
+            background: linear-gradient(135deg, #10B981, #059669);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .salary-amount {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+        
+        .risk-low {
+            color: #10B981;
+            font-weight: 600;
+        }
+        
+        .risk-medium {
+            color: #F59E0B;
+            font-weight: 600;
+        }
+        
+        .footer {
+            background: #F3F4F6;
+            padding: 20px;
+            text-align: center;
+            color: #6B7280;
+            font-size: 0.875rem;
+        }
+        
+        .confidence-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #10B981;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.875rem;
+        }
+        
+        @media (max-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                margin: 10px;
+            }
+            
+            .content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="confidence-badge">
+            Confidence: 8.2/10 ✅
+        </div>
+        
+        <div class="header">
+            <h1>🎯 RECRUITMENT ASSESSMENT</h1>
+            <div class="subtitle">Professional Labour Market Intelligence Report</div>
+        </div>
+        
+        <div class="content">
+            <div class="section">
+                <div class="recommendation">
+                    <div class="status">✅ STERK AANBEVOLEN</div>
+                    <div class="score">Overall Score: 8.2/10 ⭐⭐⭐⭐⭐</div>
+                </div>
+                
+                <div class="grid">
+                    <div>
+                        <strong>Functie:</strong> Senior Marketing Manager<br>
+                        <strong>Kandidaat:</strong> Sarah van der Berg<br>
+                        <strong>Locatie:</strong> Amsterdam
+                    </div>
+                    <div>
+                        <strong>Ervaring:</strong> 8 jaar marketing<br>
+                        <strong>Bedrijf:</strong> Recruitin BV<br>
+                        <strong>Datum:</strong> Oktober 2025
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🎯 Kandidaat Profiel</h2>
+                
+                <h3>Sterke Punten:</h3>
+                <ul class="list">
+                    <li>Digital Marketing Expertise - Uitgebreide kennis moderne tools</li>
+                    <li>Analytische Vaardigheden - Datagedreven campagne optimalisatie</li>
+                    <li>Leiderschapskwaliteiten - Ervaring teammanagement</li>
+                    <li>Resultaatgericht - Bewezen impact op business groei</li>
+                </ul>
+                
+                <div class="skills">
+                    <span class="skill">Google Ads</span>
+                    <span class="skill">HubSpot</span>
+                    <span class="skill">SEO/SEA</span>
+                    <span class="skill">Analytics</span>
+                    <span class="skill">Team Leadership</span>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🔍 Competentie Evaluatie</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h4>Technical Skills</h4>
+                        <div>Google Ads: Expert niveau <span class="stars">⭐⭐⭐⭐⭐</span></div>
+                        <div>HubSpot: Gevorderd niveau <span class="stars">⭐⭐⭐⭐</span></div>
+                        <div>SEO/SEA: Expert niveau <span class="stars">⭐⭐⭐⭐⭐</span></div>
+                        <div class="score">Technical: 8/10</div>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Soft Skills</h4>
+                        <div>Communicatie: <span class="score">9/10</span></div>
+                        <div>Teamleiding: <span class="score">8/10</span></div>
+                        <div>Probleemoplossing: <span class="score">8/10</span></div>
+                        <div>Adaptabiliteit: <span class="score">7/10</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>💰 Salaris Analyse</h2>
+                
+                <div class="grid">
+                    <div class="salary-box">
+                        <div class="salary-amount">€65.000 - €70.000</div>
+                        <div>Aanbevolen Basissalaris</div>
+                    </div>
+                    <div class="card">
+                        <h4>Markt Vergelijking</h4>
+                        <div>• Marktvraag: Zeer hoog 📈</div>
+                        <div>• Gemiddeld salaris: €58.000 - €72.000</div>
+                        <div>• Beschikbare kandidaten: Beperkt</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>📈 ROI Forecast</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h4>Korte Termijn (3-6 maanden)</h4>
+                        <ul class="list">
+                            <li>Onboarding: Soepel verwacht</li>
+                            <li>Impact: Directe bijdrage campagnes</li>
+                            <li>Team Integratie: Goede fit</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Lange Termijn (1-2 jaar)</h4>
+                        <ul class="list">
+                            <li>Groeipotentieel: Hoog</li>
+                            <li>Retentierisico: Laag</li>
+                            <li>ROI Verwachting: 185% jaar 1</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>⚠️ Risico Analyse</h2>
+                
+                <div class="grid">
+                    <div class="card">
+                        <h4>Lage Risico's</h4>
+                        <div class="risk-low">• Technical Fit: 92% match</div>
+                        <div class="risk-low">• Cultural Fit: Sterke alignment</div>
+                        <div class="risk-low">• Motivatie: Hoge intrinsieke drive</div>
+                    </div>
+                    
+                    <div class="card">
+                        <h4>Aandachtspunten</h4>
+                        <div class="risk-medium">• Salarisverwachtingen valideren</div>
+                        <div class="risk-medium">• Leiderschapsstijl afstemmen</div>
+                        <div class="risk-medium">• Werkdruk verwachtingen</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>🚀 Aanbeveling</h2>
+                
+                <div class="recommendation">
+                    <h3>Final Recommendation: PROCEED TO OFFER 🎯</h3>
+                    <p><strong>Sarah van der Berg</strong> is een uitstekende kandidaat voor de Senior Marketing Manager positie. Met haar sterke commerciële achtergrond en bewezen leiderschapskwaliteiten verwachten we direct impact en lange termijn groei.</p>
+                    
+                    <h4>Volgende Stappen:</h4>
+                    <ul class="list">
+                        <li>Referentiecheck bij vorige werkgever</li>
+                        <li>Technical assessment met marketing cases</li>
+                        <li>Cultural fit interview met teamleden</li>
+                        <li>Proposal opstellen binnen bandbreedte</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Labour Market Intelligence Platform</strong> | Gegenereerd: Oktober 2025</p>
+            <p>85% Betrouwbaarheidsgarantie | AI-Powered Analysis</p>
+        </div>
+    </div>
+</body>
+</html>
