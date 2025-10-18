@@ -409,10 +409,166 @@ body {
   box-shadow: var(--box-shadow);
 }
 
-.demo-preview iframe {
-  width: 100%;
+/* Demo Rapport Styling */
+.demo-rapport-container {
   height: 600px;
+  overflow-y: auto;
   border-radius: var(--border-radius);
+  background: white;
+}
+
+.demo-header {
+  background: linear-gradient(135deg, var(--brand-primary), #E55A2B);
+  color: white;
+  padding: var(--space-8);
+  text-align: center;
+  position: relative;
+}
+
+.confidence-badge {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: var(--brand-accent);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.demo-header h1 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: var(--space-2);
+}
+
+.demo-header .subtitle {
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+.demo-content {
+  padding: var(--space-8);
+  font-size: 0.875rem;
+}
+
+.recommendation {
+  background: #ECFDF5;
+  border-left: 4px solid var(--brand-accent);
+  padding: var(--space-4);
+  border-radius: 6px;
+  margin-bottom: var(--space-6);
+}
+
+.recommendation .status {
+  color: var(--brand-accent);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: var(--space-2);
+}
+
+.score-badge {
+  display: inline-block;
+  background: var(--brand-primary);
+  color: white;
+  padding: 4px 12px;
+  border-radius: 16px;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.kandidaat-info {
+  margin-bottom: var(--space-6);
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.competenties {
+  margin-bottom: var(--space-6);
+}
+
+.competenties h3 {
+  color: var(--brand-primary);
+  margin-bottom: var(--space-4);
+  font-size: 1.125rem;
+}
+
+.competentie-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
+
+.competentie-card {
+  background: var(--brand-light);
+  padding: var(--space-4);
+  border-radius: 6px;
+  border: 1px solid #E5E7EB;
+}
+
+.competentie-card h4 {
+  color: #374151;
+  margin-bottom: var(--space-2);
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.competentie-card > div {
+  margin-bottom: var(--space-1);
+  font-size: 0.8rem;
+}
+
+.score-mini {
+  background: var(--brand-primary);
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+  margin-top: var(--space-2);
+}
+
+.salaris-section {
+  margin-bottom: var(--space-6);
+}
+
+.salaris-box {
+  background: linear-gradient(135deg, var(--brand-accent), #059669);
+  color: white;
+  padding: var(--space-4);
+  border-radius: 6px;
+  text-align: center;
+}
+
+.salaris-amount {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: var(--space-1);
+}
+
+.aanbeveling {
+  background: #ECFDF5;
+  border: 1px solid var(--brand-accent);
+  border-radius: 6px;
+  padding: var(--space-4);
+}
+
+.aanbeveling h3 {
+  color: var(--brand-primary);
+  font-size: 0.9rem;
+  margin-bottom: var(--space-2);
+}
+
+.aanbeveling p {
+  color: #374151;
+  font-size: 0.8rem;
+  line-height: 1.4;
 }
 
 .demo-info h3 {
