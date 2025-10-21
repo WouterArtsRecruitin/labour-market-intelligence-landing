@@ -10,12 +10,16 @@ domain = os.getenv('PIPEDRIVE_DOMAIN')
 print(f"Testing connection to: {domain}.pipedrive.com")
 print(f"Using API key: {api_key[:10]}..." if api_key else "No API key set")
 
-# Test basic connectivity
+# Test basic connectivity using header-based authentication
 url = f"https://{domain}.pipedrive.com/api/v1/users"
-params = {'api_token': api_key}
+headers = {
+    'x-api-token': api_key,
+    'Accept': 'application/json'
+}
 
 print(f"\nTrying to fetch users (basic permission check)...")
-response = requests.get(url, params=params)
+print(f"Authentication: Using x-api-token header")
+response = requests.get(url, headers=headers)
 
 print(f"Status Code: {response.status_code}")
 print(f"Response: {response.text[:500]}")

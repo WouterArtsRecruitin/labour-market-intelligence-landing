@@ -43,12 +43,16 @@ class PipedriveClient:
         if params is None:
             params = {}
 
-        params['api_token'] = self.api_key
+        # Use header-based authentication (recommended by Pipedrive)
+        headers = {
+            'x-api-token': self.api_key,
+            'Accept': 'application/json'
+        }
 
         url = f"{self.base_url}{endpoint}"
 
         try:
-            response = self.session.get(url, params=params)
+            response = self.session.get(url, params=params, headers=headers)
             response.raise_for_status()
             return response.json()
         except requests.exceptions.RequestException as e:
