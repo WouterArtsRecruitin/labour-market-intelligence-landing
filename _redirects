@@ -1,2 +1,2 @@
 # Netlify redirects file
-/*    /index.html   200
+# No catch-all redirect - this is a multi-page static site
