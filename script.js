@@ -2,10 +2,14 @@
 class LandingPageController {
   constructor() {
     this.selectedPlan = 'single';
-    // API URL - will be configured for Claude AI backend
-    this.apiUrl = window.location.hostname === 'localhost'
-      ? 'http://localhost:3002'
-      : '/api'; // Relative URL for production
+    // API URL - automatically configured based on environment
+    this.apiUrl = CONFIG.api.baseUrl;
+
+    // Log current configuration (only in development)
+    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+      console.log('🔧 Development Mode');
+      console.log('API URL:', this.apiUrl);
+    }
 
     this.init();
   }

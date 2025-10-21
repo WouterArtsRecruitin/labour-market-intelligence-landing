@@ -1,0 +1,42 @@
+# Render Blueprint voor Labour Market Intelligence
+# Deze file zorgt voor automatische deployment van de backend API
+
+services:
+  # Backend API Service
+  - type: web
+    name: labour-market-intelligence-api
+    runtime: node
+    region: frankfurt  # EU region voor GDPR compliance
+    plan: free  # Start met gratis tier, upgrade later naar $7/maand voor 24/7 uptime
+    rootDir: api
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/status
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3002
+      - key: ALLOWED_ORIGINS
+        value: https://labour-market-intelligence.netlify.app,http://localhost:3000
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 900000
+      - key: RATE_LIMIT_MAX_REQUESTS
+        value: 10
+      - key: LOG_LEVEL
+        value: info
+      # BELANGRIJK: Onderstaande secrets moeten handmatig worden toegevoegd in Render dashboard
+      - key: ANTHROPIC_API_KEY
+        sync: false  # Dit moet je handmatig invullen in Render dashboard
+      - key: EMAIL_HOST
+        value: smtp.gmail.com
+      - key: EMAIL_PORT
+        value: 587
+      - key: EMAIL_SECURE
+        value: false
+      - key: EMAIL_USER
+        sync: false  # Handmatig invullen
+      - key: EMAIL_PASSWORD
+        sync: false  # Handmatig invullen
+      - key: EMAIL_FROM
+        value: "Recruitin <noreply@recruitin.com>"
