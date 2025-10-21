@@ -1,0 +1,63 @@
+═══════════════════════════════════════════════════════════════════════════
+  ALTERNATIEVE ZAPIER FLOW - NEW DEAL TRIGGER
+═══════════════════════════════════════════════════════════════════════════
+
+Als "Find Deals" errors geeft, gebruik deze alternatieve flow:
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OPTIE A: NEW/UPDATED DEAL TRIGGER (Real-time)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: TRIGGER
+App: Pipedrive
+Event: New or Updated Deal
+Account: recruitinbv.pipedrive.com
+
+STEP 2: ACTION - Google Sheets
+App: Google Sheets
+Event: Create Spreadsheet Row
+(Zelfde field mappings als voorheen)
+
+Voordeel: Real-time updates, geen errors
+Nadeel: Alleen nieuwe/gewijzigde deals, niet alle bestaande
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OPTIE B: SIMPLIFIED DAILY EXPORT
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Als Zapier Find niet werkt, gebruik Pipedrive's eigen export:
+
+DAGELIJKSE WORKFLOW:
+1. Log in bij Pipedrive
+2. Ga naar Deals
+3. Klik Export → CSV
+4. Download het bestand
+5. Hernoem naar: pipedrive_deals.csv
+6. Run: python pipedrive_zapier_workaround.py
+
+Voordeel: Geen Zapier errors, volledige controle
+Nadeel: Handmatige stap (1x per dag, duurt 30 seconden)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+OPTIE C: PROBEER "SEARCH" IN PLAATS VAN "FIND"
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+STEP 1: TRIGGER
+App: Schedule by Zapier
+Event: Every Day
+Time: 09:00 AM
+
+STEP 2: ACTION
+App: Pipedrive
+Event: Find or Create Deal (probeer deze!)
+Account: recruitinbv.pipedrive.com
+
+Search Settings:
+  Search Field: Title
+  Search Value: (laat leeg voor alle deals)
+  OR probeer: Status
+  Search Value: open
+
+Als dit werkt, voeg Google Sheets toe als Step 3.
+
+═══════════════════════════════════════════════════════════════════════════
