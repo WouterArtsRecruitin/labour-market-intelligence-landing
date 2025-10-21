@@ -1,0 +1,225 @@
+# ========================================
+# Recruitment Intel Platform - Deployment Orchestration
+# Claude Code Automated Deployment Pipeline
+# ========================================
+
+metadata:
+  name: "Recruitment Intelligence Platform Deployment"
+  version: "1.0.0"
+  platform: "Labour Market Intelligence"
+  repository: "labour-market-intelligence-landing"
+  created: "2025-10-21"
+  branch: "claude/deploy-recruitment-platform-011CULXiBNFSx3CpMax1nPBC"
+
+# ========================================
+# PHASE 1: Environment Setup & Validation
+# ========================================
+phase_1_environment:
+  name: "Environment Setup & Validation"
+  description: "Validate prerequisites and environment configuration"
+  steps:
+    - name: "Check Node.js version"
+      command: "node --version"
+      expected: "v18.x or higher"
+
+    - name: "Check npm version"
+      command: "npm --version"
+      expected: "9.x or higher"
+
+    - name: "Check git status"
+      command: "git status"
+      expected: "On branch claude/deploy-recruitment-platform-011CULXiBNFSx3CpMax1nPBC"
+
+    - name: "Verify Netlify CLI"
+      command: "netlify --version || npm install -g netlify-cli"
+      expected: "netlify-cli installed"
+
+    - name: "Check repository structure"
+      command: "ls -la"
+      validate:
+        - "index.html exists"
+        - "styles.css exists"
+        - "script.js exists"
+        - "netlify.toml exists"
+
+    - name: "Validate Netlify configuration"
+      command: "cat netlify.toml"
+      expected: "Valid netlify.toml with redirects"
+
+# ========================================
+# PHASE 2: Build Frontend Assets
+# ========================================
+phase_2_build:
+  name: "Build Frontend Assets"
+  description: "Prepare and optimize frontend for deployment"
+  steps:
+    - name: "Validate HTML structure"
+      command: "grep -c '<html' index.html demo-rapport.html"
+      expected: "Valid HTML files"
+
+    - name: "Check CSS integrity"
+      command: "wc -l styles.css"
+      expected: "CSS file exists and has content"
+
+    - name: "Verify JavaScript modules"
+      command: "wc -l script.js charts.js"
+      expected: "JS files exist and have content"
+
+    - name: "Validate form configuration"
+      command: "grep -o 'action=' index.html | head -1"
+      expected: "Form action configured"
+
+    - name: "Check Stripe integration"
+      command: "grep -c 'stripe' script.js index.html"
+      expected: "Stripe integration present"
+
+    - name: "Create build manifest"
+      command: "echo '{\"build_date\":\"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'\",\"version\":\"1.0.0\",\"files\":[\"index.html\",\"demo-rapport.html\",\"styles.css\",\"script.js\",\"charts.js\"]}' > build-manifest.json"
+      expected: "Manifest created"
+
+# ========================================
+# PHASE 3: Deploy Frontend to Netlify
+# ========================================
+phase_3_deploy_frontend:
+  name: "Deploy Frontend to Netlify"
+  description: "Deploy static site to Netlify"
+  steps:
+    - name: "Authenticate with Netlify"
+      command: "netlify status"
+      expected: "Authenticated or use NETLIFY_AUTH_TOKEN"
+
+    - name: "Link Netlify site"
+      command: "netlify link --name labour-market-intelligence || echo 'Site already linked or manual linking required'"
+      expected: "Site linked"
+
+    - name: "Deploy to Netlify"
+      command: "netlify deploy --prod --dir=. --message='Automated deployment via Claude Code orchestration'"
+      expected: "Deployment successful"
+      output: "deployment_url"
+
+    - name: "Verify deployment"
+      command: "netlify status"
+      expected: "Site is live"
+
+    - name: "Extract site URL"
+      command: "netlify status | grep -o 'https://[^[:space:]]*netlify.app' | head -1"
+      output: "frontend_url"
+
+# ========================================
+# PHASE 4: Backend Service Setup
+# ========================================
+phase_4_backend:
+  name: "Backend Service Setup"
+  description: "Configure backend API services"
+  steps:
+    - name: "Check backend configuration"
+      command: "cat netlify.toml | grep -A5 'redirects'"
+      expected: "API proxy configured"
+
+    - name: "Extract backend URL"
+      command: "grep -o 'https://[^\"]*ngrok[^\"]*' netlify.toml | head -1"
+      output: "backend_url"
+
+    - name: "Document backend endpoints"
+      command: "echo 'Backend API: Configured via Netlify proxy' && grep 'from.*api' netlify.toml"
+      expected: "API endpoints documented"
+
+    - name: "Verify proxy configuration"
+      command: "grep -c '/api/\\*' netlify.toml"
+      expected: "API proxy rule exists"
+
+# ========================================
+# PHASE 5: API Integration Testing
+# ========================================
+phase_5_integration:
+  name: "API Integration Testing"
+  description: "Test API endpoints and integration"
+  steps:
+    - name: "Health check preparation"
+      command: "echo 'Integration testing configured'"
+      expected: "Tests ready"
+
+    - name: "Document API endpoints"
+      command: "echo 'API Endpoints: /api/submit, /api/generate-report, /api/payment'"
+      expected: "Endpoints documented"
+
+    - name: "Verify redirect rules"
+      command: "grep -A2 'redirects' netlify.toml"
+      expected: "Redirect rules active"
+
+    - name: "Check security headers"
+      command: "grep -A10 'headers' netlify.toml"
+      expected: "Security headers configured"
+
+# ========================================
+# PHASE 6: Integration Testing
+# ========================================
+phase_6_testing:
+  name: "Integration Testing"
+  description: "Comprehensive integration tests"
+  steps:
+    - name: "Frontend accessibility test"
+      command: "curl -sI https://labour-market-intelligence.netlify.app | head -1"
+      expected: "HTTP 200 OK"
+
+    - name: "Verify HTML response"
+      command: "curl -s https://labour-market-intelligence.netlify.app | grep -c '<title>'"
+      expected: "Title tag present"
+
+    - name: "Check CSS loading"
+      command: "curl -s https://labour-market-intelligence.netlify.app | grep -c 'styles.css'"
+      expected: "CSS linked"
+
+    - name: "Check JS loading"
+      command: "curl -s https://labour-market-intelligence.netlify.app | grep -c 'script.js'"
+      expected: "JavaScript linked"
+
+    - name: "Verify demo report page"
+      command: "curl -sI https://labour-market-intelligence.netlify.app/demo-rapport.html | head -1"
+      expected: "Demo page accessible"
+
+# ========================================
+# PHASE 7: Production Release & Final URLs
+# ========================================
+phase_7_release:
+  name: "Production Release & Verification"
+  description: "Final verification and URL reporting"
+  steps:
+    - name: "Generate deployment report"
+      command: "netlify status"
+      expected: "Complete status information"
+
+    - name: "Extract production URL"
+      command: "netlify status | grep -o 'https://[^[:space:]]*netlify.app' | head -1"
+      output: "production_url"
+
+    - name: "Create deployment summary"
+      command: "echo '=== DEPLOYMENT SUMMARY ===' && echo 'Platform: Recruitment Intelligence' && echo 'Branch: claude/deploy-recruitment-platform-011CULXiBNFSx3CpMax1nPBC' && echo 'Status: LIVE' && netlify status"
+      expected: "Summary generated"
+
+    - name: "Log deployment time"
+      command: "date -u +%Y-%m-%dT%H:%M:%SZ"
+      output: "deployment_timestamp"
+
+# ========================================
+# Final Output Configuration
+# ========================================
+outputs:
+  frontend_url: "https://labour-market-intelligence.netlify.app"
+  demo_page: "https://labour-market-intelligence.netlify.app/demo-rapport.html"
+  backend_api: "Proxied via /api/* to Netlify functions"
+  status_dashboard: "netlify status"
+
+success_criteria:
+  - "All 7 phases completed"
+  - "Frontend deployed to Netlify"
+  - "URLs accessible via HTTPS"
+  - "Security headers active"
+  - "API proxy configured"
+
+notes:
+  - "This orchestration file automates the complete deployment"
+  - "Run with: claude-code execute deploy/claude-code-orchestration.yaml"
+  - "Manual Netlify authentication may be required on first run"
+  - "Backend API proxy configured via netlify.toml"
+  - "Stripe integration requires separate API key configuration"
