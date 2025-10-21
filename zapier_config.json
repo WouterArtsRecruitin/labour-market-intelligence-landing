@@ -1,0 +1,139 @@
+{
+  "zap_name": "Pipedrive JobDigger Deals to Google Sheets (Daily Sync)",
+  "description": "Daily sync of Pipedrive deals to Google Sheets for Labour Market Intelligence reporting",
+  "status": "active",
+  "steps": [
+    {
+      "step_number": 1,
+      "type": "trigger",
+      "app": "Schedule by Zapier",
+      "event": "Every Day",
+      "config": {
+        "time_of_day": "09:00",
+        "timezone": "Europe/Amsterdam"
+      }
+    },
+    {
+      "step_number": 2,
+      "type": "action",
+      "app": "Pipedrive",
+      "event": "Find Many Deals",
+      "account": "recruitinbv.pipedrive.com",
+      "config": {
+        "status": "all",
+        "limit": 500,
+        "sort": "update_time DESC",
+        "fields_to_return": [
+          "id",
+          "title",
+          "value",
+          "currency",
+          "status",
+          "stage_id",
+          "person_id",
+          "person_name",
+          "org_id",
+          "org_name",
+          "add_time",
+          "update_time",
+          "won_time",
+          "lost_time",
+          "expected_close_date",
+          "owner_id",
+          "owner_name"
+        ]
+      }
+    },
+    {
+      "step_number": 3,
+      "type": "action",
+      "app": "Google Sheets",
+      "event": "Create Spreadsheet Row",
+      "config": {
+        "spreadsheet": "Pipedrive JobDigger Deals",
+        "worksheet": "Sheet1",
+        "field_mappings": {
+          "Deal ID": "{{step_2.id}}",
+          "Title": "{{step_2.title}}",
+          "Status": "{{step_2.status}}",
+          "Value": "{{step_2.value}}",
+          "Currency": "{{step_2.currency}}",
+          "Stage": "{{step_2.stage_id}}",
+          "Person": "{{step_2.person_name}}",
+          "Organization": "{{step_2.org_name}}",
+          "Owner": "{{step_2.owner_name}}",
+          "Created Date": "{{step_2.add_time}}",
+          "Updated Date": "{{step_2.update_time}}",
+          "Expected Close": "{{step_2.expected_close_date}}",
+          "Won Time": "{{step_2.won_time}}",
+          "Lost Time": "{{step_2.lost_time}}"
+        }
+      }
+    }
+  ],
+  "google_sheets_setup": {
+    "spreadsheet_name": "Pipedrive JobDigger Deals",
+    "worksheet_name": "Sheet1",
+    "headers": [
+      "Deal ID",
+      "Title",
+      "Status",
+      "Value",
+      "Currency",
+      "Stage",
+      "Person",
+      "Organization",
+      "Owner",
+      "Created Date",
+      "Updated Date",
+      "Expected Close",
+      "Won Time",
+      "Lost Time"
+    ],
+    "column_formats": {
+      "A": "number",
+      "B": "text",
+      "C": "text",
+      "D": "currency_eur",
+      "E": "text",
+      "F": "text",
+      "G": "text",
+      "H": "text",
+      "I": "text",
+      "J": "datetime",
+      "K": "datetime",
+      "L": "date",
+      "M": "datetime",
+      "N": "datetime"
+    }
+  },
+  "pipedrive_fields_reference": {
+    "id": "Unique deal identifier",
+    "title": "Deal name/title",
+    "value": "Deal monetary value",
+    "currency": "Currency code (EUR, USD, etc)",
+    "status": "Deal status (open, won, lost)",
+    "stage_id": "Current pipeline stage",
+    "person_name": "Contact person name",
+    "org_name": "Organization/company name",
+    "owner_name": "Deal owner (sales rep)",
+    "add_time": "When deal was created",
+    "update_time": "Last modification time",
+    "expected_close_date": "Expected closing date",
+    "won_time": "When deal was won",
+    "lost_time": "When deal was lost"
+  },
+  "schedule": {
+    "frequency": "daily",
+    "time": "09:00",
+    "timezone": "Europe/Amsterdam",
+    "runs_on": "every_day"
+  },
+  "notes": [
+    "This Zap runs daily at 9:00 AM Amsterdam time",
+    "Fetches up to 500 deals from Pipedrive",
+    "Creates/updates rows in Google Sheets",
+    "OAuth connection to Pipedrive bypasses personal API token requirements",
+    "Data can be exported as CSV for Python script processing"
+  ]
+}
