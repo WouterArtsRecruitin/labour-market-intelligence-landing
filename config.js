@@ -8,9 +8,8 @@ const CONFIG = {
   // API Configuration
   api: {
     // Production API URL (Render deployment)
-    // TODO: Replace with your actual Render URL after deployment
-    // Format: https://your-service-name.onrender.com
-    productionUrl: 'https://labour-market-intelligence-api.onrender.com',
+    // ✅ Updated with actual deployed URL
+    productionUrl: 'https://labour-market-intelligence-landing.onrender.com',
 
     // Local development URL
     developmentUrl: 'http://localhost:3002',
