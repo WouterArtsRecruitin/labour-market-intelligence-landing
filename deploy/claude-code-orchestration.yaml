@@ -89,7 +89,7 @@ phase_3_deploy_frontend:
       expected: "Authenticated or use NETLIFY_AUTH_TOKEN"
 
     - name: "Link Netlify site"
-      command: "netlify link --name labour-market-intelligence || echo 'Site already linked or manual linking required'"
+      command: "netlify link --name labour-market-intelligence-landing || echo 'Site already linked or manual linking required'"
       expected: "Site linked"
 
     - name: "Deploy to Netlify"
@@ -159,23 +159,23 @@ phase_6_testing:
   description: "Comprehensive integration tests"
   steps:
     - name: "Frontend accessibility test"
-      command: "curl -sI https://labour-market-intelligence.netlify.app | head -1"
+      command: "curl -sI https://labour-market-intelligence-landing.netlify.app | head -1"
       expected: "HTTP 200 OK"
 
     - name: "Verify HTML response"
-      command: "curl -s https://labour-market-intelligence.netlify.app | grep -c '<title>'"
+      command: "curl -s https://labour-market-intelligence-landing.netlify.app | grep -c '<title>'"
       expected: "Title tag present"
 
     - name: "Check CSS loading"
-      command: "curl -s https://labour-market-intelligence.netlify.app | grep -c 'styles.css'"
+      command: "curl -s https://labour-market-intelligence-landing.netlify.app | grep -c 'styles.css'"
       expected: "CSS linked"
 
     - name: "Check JS loading"
-      command: "curl -s https://labour-market-intelligence.netlify.app | grep -c 'script.js'"
+      command: "curl -s https://labour-market-intelligence-landing.netlify.app | grep -c 'script.js'"
       expected: "JavaScript linked"
 
     - name: "Verify demo report page"
-      command: "curl -sI https://labour-market-intelligence.netlify.app/demo-rapport.html | head -1"
+      command: "curl -sI https://labour-market-intelligence-landing.netlify.app/demo-rapport.html | head -1"
       expected: "Demo page accessible"
 
 # ========================================
@@ -205,8 +205,8 @@ phase_7_release:
 # Final Output Configuration
 # ========================================
 outputs:
-  frontend_url: "https://labour-market-intelligence.netlify.app"
-  demo_page: "https://labour-market-intelligence.netlify.app/demo-rapport.html"
+  frontend_url: "https://labour-market-intelligence-landing.netlify.app"
+  demo_page: "https://labour-market-intelligence-landing.netlify.app/demo-rapport.html"
   backend_api: "Proxied via /api/* to Netlify functions"
   status_dashboard: "netlify status"
 

@@ -32,7 +32,7 @@ Professional recruitment assessment platform with AI-powered reporting capabilit
 
 ## 🌐 Live Demo
 
-Visit our live demo: [Labour Market Intelligence](https://labour-market-intelligence.netlify.app)
+Visit our live demo: [Labour Market Intelligence](https://labour-market-intelligence-landing.netlify.app)
 
 ## 🚀 Quick Start
 
