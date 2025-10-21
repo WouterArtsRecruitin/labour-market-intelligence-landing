@@ -1,62 +1,18 @@
 // Labour Market Intelligence - Landing Page Script
 class LandingPageController {
   constructor() {
-    this.stripe = null;
-    this.elements = null;
-    this.cardElement = null;
     this.selectedPlan = 'single';
-    // Use production API URL or fallback to current ngrok
-    this.apiUrl = window.location.hostname === 'localhost' 
-      ? 'http://localhost:3002' 
-      : 'https://del-untreadable-nonspeciously.ngrok-free.dev';
-    
+    // API URL - will be configured for Claude AI backend
+    this.apiUrl = window.location.hostname === 'localhost'
+      ? 'http://localhost:3002'
+      : '/api'; // Relative URL for production
+
     this.init();
   }
 
   async init() {
-    await this.initStripe();
     this.bindEvents();
     this.initSliders();
-  }
-
-  async initStripe() {
-    try {
-      // Initialize Stripe (you'll need your publishable key)
-      this.stripe = Stripe('pk_test_YOUR_STRIPE_PUBLISHABLE_KEY_HERE'); // Replace with your key
-      
-      this.elements = this.stripe.elements({
-        appearance: {
-          theme: 'stripe',
-          variables: {
-            colorPrimary: '#FF6B35',
-            colorBackground: '#ffffff',
-            colorText: '#1F2937',
-            colorDanger: '#EF4444',
-            fontFamily: 'Inter, system-ui, sans-serif',
-            spacingUnit: '4px',
-            borderRadius: '8px',
-          }
-        }
-      });
-
-      this.cardElement = this.elements.create('card');
-      this.cardElement.mount('#card-element');
-
-      this.cardElement.on('change', (event) => {
-        const displayError = document.getElementById('card-errors');
-        if (event.error) {
-          displayError.textContent = event.error.message;
-        } else {
-          displayError.textContent = '';
-        }
-      });
-
-    } catch (error) {
-      console.error('Stripe initialization failed:', error);
-      // Show fallback message
-      document.getElementById('card-element').innerHTML = 
-        '<div style="padding: 16px; background: #FEF2F2; border: 1px solid #FECACA; border-radius: 8px; color: #DC2626;">Stripe loading... Please refresh the page if this persists.</div>';
-    }
   }
 
   bindEvents() {
@@ -112,12 +68,12 @@ class LandingPageController {
 
   selectPlan(plan) {
     this.selectedPlan = plan;
-    
+
     // Update UI to show selected plan
     const cards = document.querySelectorAll('.pricing-card');
     cards.forEach(card => card.classList.remove('selected'));
-    
-    // Add visual feedback (you might want to add CSS for this)
+
+    // Add visual feedback
     const selectedCard = document.querySelector(`[onclick="selectPlan('${plan}')"]`).closest('.pricing-card');
     if (selectedCard) {
       selectedCard.classList.add('selected');
@@ -125,69 +81,34 @@ class LandingPageController {
 
     // Scroll to order form
     this.scrollToSection('order');
-    
-    // Update pricing if needed
-    this.updatePricing(plan);
   }
 
-  updatePricing(plan) {
-    const priceMap = {
-      single: { price: 59.00, description: 'Professional Assessment Rapport' },
-      monthly: { price: 199.00, description: 'Maandelijks Pakket (5 rapporten)' },
-      enterprise: { price: 999.00, description: 'Enterprise Pakket (50 rapporten)' }
-    };
-
-    const planData = priceMap[plan];
-    if (planData) {
-      const priceElement = document.querySelector('.payment-item span:last-child');
-      const descriptionElement = document.querySelector('.payment-item span:first-child');
-      const totalElement = document.querySelector('.payment-total span:last-child');
-      const submitButton = document.getElementById('submit-button');
-      
-      if (priceElement && descriptionElement && totalElement && submitButton) {
-        const vat = planData.price * 0.21;
-        const total = planData.price + vat;
-        
-        priceElement.textContent = `€${planData.price.toFixed(2)}`;
-        descriptionElement.textContent = planData.description;
-        totalElement.textContent = `€${total.toFixed(2)}`;
-        submitButton.innerHTML = `<i class="fas fa-credit-card"></i> Betaal €${total.toFixed(2)} & Genereer Rapport`;
-      }
-    }
-  }
 
   async handleSubmit(event) {
     event.preventDefault();
-    
+
     const submitButton = document.getElementById('submit-button');
     const originalText = submitButton.innerHTML;
-    
+
     // Show loading state
-    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verwerken...';
+    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Rapport wordt gegenereerd...';
     submitButton.disabled = true;
 
     try {
       const formData = this.collectFormData();
-      
+
       // Validate form data
       if (!this.validateFormData(formData)) {
-        throw new Error('Please fill in all required fields');
+        throw new Error('Vul alle verplichte velden in');
       }
 
-      // Process payment (mock for demo)
-      const paymentResult = await this.processPayment(formData);
-      
-      if (paymentResult.success) {
-        // Generate report
-        const reportResult = await this.generateReport(formData);
-        
-        if (reportResult.success) {
-          this.showSuccessModal(reportResult);
-        } else {
-          throw new Error('Report generation failed');
-        }
+      // Generate report directly (no payment needed)
+      const reportResult = await this.generateReport(formData);
+
+      if (reportResult.success) {
+        this.showSuccessModal(reportResult);
       } else {
-        throw new Error(paymentResult.error || 'Payment failed');
+        throw new Error(reportResult.error || 'Rapport generatie mislukt');
       }
 
     } catch (error) {
@@ -216,88 +137,75 @@ class LandingPageController {
   }
 
   validateFormData(data) {
-    const required = ['company', 'position', 'candidateName', 'candidateEmail', 'experience', 'skills'];
-    
+    // Required fields for market analysis
+    const required = ['company', 'email', 'position', 'sector', 'location', 'experienceLevel', 'keySkills'];
+
+    const fieldLabels = {
+      company: 'Bedrijfsnaam',
+      email: 'Email',
+      position: 'Functietitel',
+      sector: 'Sector/Industrie',
+      location: 'Regio',
+      experienceLevel: 'Ervaring Niveau',
+      keySkills: 'Belangrijkste Vaardigheden'
+    };
+
     for (let field of required) {
       if (!data[field] || data[field].trim() === '') {
-        this.showError(`Veld '${field}' is verplicht`);
+        this.showError(`${fieldLabels[field]} is verplicht`);
         return false;
       }
     }
-    
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.candidateEmail)) {
+    if (!emailRegex.test(data.email)) {
       this.showError('Voer een geldig email adres in');
       return false;
     }
-    
-    return true;
-  }
 
-  async processPayment(formData) {
-    // Mock payment processing for demo
-    // In production, you'd create a PaymentIntent on your backend
-    // and confirm it with Stripe
-    
-    try {
-      // Simulate payment processing delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // For demo purposes, always succeed
-      return {
-        success: true,
-        paymentId: 'pi_demo_' + Date.now(),
-        amount: this.calculateTotal(this.selectedPlan)
-      };
-      
-      // Real Stripe implementation would look like:
-      /*
-      const {error, paymentIntent} = await this.stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: this.cardElement,
-          billing_details: {
-            name: formData.candidateName,
-            email: formData.candidateEmail,
-          },
-        }
-      });
-      
-      if (error) {
-        return { success: false, error: error.message };
-      } else {
-        return { success: true, paymentId: paymentIntent.id };
+    // Validate salary range if provided
+    if (data.minSalary && data.maxSalary) {
+      const min = parseInt(data.minSalary);
+      const max = parseInt(data.maxSalary);
+      if (min >= max) {
+        this.showError('Maximum salaris moet hoger zijn dan minimum salaris');
+        return false;
       }
-      */
-      
-    } catch (error) {
-      return { success: false, error: error.message };
     }
+
+    return true;
   }
 
   async generateReport(formData) {
     try {
-      // Transform form data to API format
+      // Transform form data to API format for Claude AI
       const apiData = {
+        email: formData.email,
         company: formData.company,
         position: formData.position,
-        candidate: {
-          name: formData.candidateName,
-          email: formData.candidateEmail,
-          experience: formData.experience,
-          skills: formData.skills.split(',').map(s => s.trim()),
-          education: formData.education,
-          location: formData.location || 'Nederland'
+        sector: formData.sector,
+        location: formData.location,
+        experienceLevel: formData.experienceLevel,
+        keySkills: formData.keySkills.split(',').map(s => s.trim()),
+        salaryRange: {
+          min: formData.minSalary ? parseInt(formData.minSalary) : null,
+          max: formData.maxSalary ? parseInt(formData.maxSalary) : null
         },
-        scores: {
-          technical: parseInt(formData.technicalScore) || 7,
-          communication: parseInt(formData.communicationScore) || 8,
-          teamwork: parseInt(formData.teamworkScore) || 7,
-          leadership: parseInt(formData.leadershipScore) || 6
-        }
+        analysisFocus: formData.analysisFocus || '',
+        priorities: {
+          marketDemand: parseInt(formData.marketDemand) || 5,
+          competitionAnalysis: parseInt(formData.competitionAnalysis) || 5,
+          salaryBenchmarking: parseInt(formData.salaryBenchmarking) || 5,
+          recruitmentStrategy: parseInt(formData.recruitmentStrategy) || 5
+        },
+        timestamp: new Date().toISOString()
       };
 
-      const response = await fetch(`${this.apiUrl}/demo-report`, {
+      console.log('Sending request to:', `${this.apiUrl}/generate-report`);
+      console.log('Request data:', apiData);
+
+      const response = await fetch(`${this.apiUrl}/generate-report`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -306,18 +214,19 @@ class LandingPageController {
       });
 
       if (!response.ok) {
-        throw new Error('API request failed');
+        const errorText = await response.text();
+        throw new Error(`API request failed: ${response.status} - ${errorText}`);
       }
 
       const result = await response.json();
-      
+
       return {
-        success: result.success,
+        success: true,
         report: result.report,
         reportUrl: `data:text/html;charset=utf-8,${encodeURIComponent(this.formatReportAsHTML(result.report))}`,
         pdfUrl: this.generatePDFDataUrl(result.report, formData)
       };
-      
+
     } catch (error) {
       console.error('Report generation error:', error);
       return { success: false, error: error.message };
@@ -369,18 +278,6 @@ class LandingPageController {
     const fileName = `rapport_${formData.candidateName.replace(/\s+/g, '_')}_${Date.now()}.html`;
     
     return `data:text/html;charset=utf-8,${encodeURIComponent(htmlContent)}`;
-  }
-
-  calculateTotal(plan) {
-    const prices = {
-      single: 59.00,
-      monthly: 199.00,
-      enterprise: 999.00
-    };
-    
-    const basePrice = prices[plan] || 59.00;
-    const vat = basePrice * 0.21;
-    return basePrice + vat;
   }
 
   showSuccessModal(reportResult) {
@@ -458,9 +355,75 @@ class LandingPageController {
   }
 }
 
+// Cookie Consent Management
+class CookieConsent {
+  constructor() {
+    this.cookieName = 'recruitin_cookie_consent';
+    this.init();
+  }
+
+  init() {
+    // Check if user has already made a choice
+    const consent = this.getConsent();
+    if (consent === null) {
+      this.showBanner();
+    }
+
+    // Bind events
+    document.getElementById('accept-cookies')?.addEventListener('click', () => this.acceptCookies());
+    document.getElementById('decline-cookies')?.addEventListener('click', () => this.declineCookies());
+  }
+
+  showBanner() {
+    const banner = document.getElementById('cookie-consent');
+    if (banner) {
+      banner.style.display = 'block';
+      setTimeout(() => banner.classList.add('show'), 100);
+    }
+  }
+
+  hideBanner() {
+    const banner = document.getElementById('cookie-consent');
+    if (banner) {
+      banner.classList.remove('show');
+      setTimeout(() => banner.style.display = 'none', 300);
+    }
+  }
+
+  acceptCookies() {
+    this.setConsent('accepted');
+    this.hideBanner();
+    console.log('Cookies accepted');
+  }
+
+  declineCookies() {
+    this.setConsent('declined');
+    this.hideBanner();
+    console.log('Cookies declined');
+  }
+
+  setConsent(value) {
+    const expiryDate = new Date();
+    expiryDate.setFullYear(expiryDate.getFullYear() + 1); // 1 year
+    document.cookie = `${this.cookieName}=${value}; expires=${expiryDate.toUTCString()}; path=/; SameSite=Strict`;
+  }
+
+  getConsent() {
+    const cookies = document.cookie.split(';');
+    for (let cookie of cookies) {
+      const [name, value] = cookie.trim().split('=');
+      if (name === this.cookieName) {
+        return value;
+      }
+    }
+    return null;
+  }
+}
+
 // Initialize when DOM is ready
 document.addEventListener('DOMContentLoaded', () => {
   new LandingPageController();
+  new CookieConsent();
 });
 
 // Additional utility functions

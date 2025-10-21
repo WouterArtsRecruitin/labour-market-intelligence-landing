@@ -6,9 +6,6 @@
     <title>Recruitin - AI Recruitment Reports | Labour Market Intelligence</title>
     <meta name="description" content="Recruitin's AI-powered recruitment rapporten in seconden. 85% betrouwbaar, €59 per rapport. Bespaar €26.191 per maand vs handmatige processen.">
     
-    <!-- Stripe Integration -->
-    <script src="https://js.stripe.com/v3/"></script>
-    
     <!-- Chart.js for Data Visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
@@ -554,6 +551,13 @@
                                     <input type="text" id="company" name="company" required>
                                 </div>
                                 <div class="form-group">
+                                    <label for="email">Email voor Rapport</label>
+                                    <input type="email" id="email" name="email" placeholder="naam@bedrijf.nl" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
                                     <label for="position">Functietitel voor Analyse</label>
                                     <input type="text" id="position" name="position" placeholder="Senior Marketing Manager" required>
                                 </div>
@@ -632,33 +636,23 @@
                             </div>
                         </div>
 
-                        <div class="payment-section">
-                            <h3>💳 Betaling</h3>
-                            <div class="payment-summary">
-                                <div class="payment-item">
-                                    <span>Complete Arbeidsmarkt Analyse Rapport</span>
-                                    <span>€59,00</span>
-                                </div>
-                                <div class="payment-item">
-                                    <span>BTW (21%)</span>
-                                    <span>€12,39</span>
-                                </div>
-                                <div class="payment-total">
-                                    <span>Totaal</span>
-                                    <span>€71,39</span>
-                                </div>
+                        <div class="submit-section">
+                            <h3>🚀 Klaar voor je Markt Analyse?</h3>
+                            <div class="submit-info">
+                                <p><strong>Ontvang binnen 30 seconden:</strong></p>
+                                <ul>
+                                    <li>✅ Complete arbeidsmarkt analyse</li>
+                                    <li>✅ Salaris benchmarks en trends</li>
+                                    <li>✅ Concurrentie analyse</li>
+                                    <li>✅ Recruitment strategie aanbevelingen</li>
+                                    <li>✅ Professional PDF rapport</li>
+                                </ul>
                             </div>
-
-                            <!-- Stripe Card Element -->
-                            <div id="card-element">
-                                <!-- Stripe Elements will create form elements here -->
-                            </div>
-                            <div id="card-errors" role="alert"></div>
                         </div>
 
                         <button type="submit" id="submit-button" class="btn-submit">
                             <i class="fas fa-chart-bar"></i>
-                            Betaal €71,39 & Start Markt Analyse
+                            Genereer Arbeidsmarkt Rapport
                         </button>
 
                         <div class="security-badges">
@@ -668,11 +662,11 @@
                             </div>
                             <div class="badge">
                                 <i class="fas fa-lock"></i>
-                                <span>Stripe Payments</span>
+                                <span>GDPR Compliant</span>
                             </div>
                             <div class="badge">
-                                <i class="fas fa-undo"></i>
-                                <span>30 Dagen Geld Terug</span>
+                                <i class="fas fa-robot"></i>
+                                <span>AI-Powered by Claude</span>
                             </div>
                         </div>
                     </form>
@@ -711,9 +705,9 @@
                     <p>AI-powered recruitment reports met 85% betrouwbaarheidsgarantie</p>
                 </div>
                 <div class="footer-links">
-                    <a href="#privacy">Privacy Policy</a>
-                    <a href="#terms">Terms of Service</a>
-                    <a href="#contact">Contact</a>
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="mailto:info@recruitin.com">Contact</a>
                 </div>
             </div>
             <div class="footer-bottom">
@@ -721,6 +715,20 @@
             </div>
         </div>
     </footer>
+
+    <!-- GDPR Cookie Consent Banner -->
+    <div id="cookie-consent" class="cookie-consent" style="display: none;">
+        <div class="cookie-content">
+            <div class="cookie-text">
+                <h4>🍪 Cookie Melding</h4>
+                <p>We gebruiken cookies om je ervaring te verbeteren en de website te optimaliseren. Door verder te gaan, ga je akkoord met ons <a href="privacy.html">Privacy Beleid</a>.</p>
+            </div>
+            <div class="cookie-buttons">
+                <button id="accept-cookies" class="btn-accept">Accepteren</button>
+                <button id="decline-cookies" class="btn-decline">Weigeren</button>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
     <script src="charts.js"></script>
