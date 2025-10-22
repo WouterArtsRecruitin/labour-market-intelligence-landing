@@ -2081,47 +2081,6 @@ body {
   text-align: center;
 }
 
-.payment-section {
-  border-top: 2px solid var(--brand-light);
-  padding-top: var(--space-8);
-}
-
-.payment-summary {
-  background: var(--brand-light);
-  padding: var(--space-4);
-  border-radius: var(--border-radius);
-  margin-bottom: var(--space-4);
-}
-
-.payment-item {
-  display: flex;
-  justify-content: space-between;
-  padding: var(--space-2) 0;
-}
-
-.payment-total {
-  display: flex;
-  justify-content: space-between;
-  padding: var(--space-2) 0;
-  border-top: 1px solid #D1D5DB;
-  font-weight: 600;
-  font-size: 1.125rem;
-  color: var(--brand-primary);
-}
-
-#card-element {
-  padding: var(--space-4);
-  border: 2px solid #E5E7EB;
-  border-radius: var(--border-radius);
-  margin-bottom: var(--space-4);
-}
-
-#card-errors {
-  color: #EF4444;
-  font-size: 0.875rem;
-  margin-top: var(--space-2);
-}
-
 .btn-submit {
   width: 100%;
   padding: var(--space-4);
