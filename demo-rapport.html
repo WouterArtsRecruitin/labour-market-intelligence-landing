@@ -28,13 +28,34 @@
         .skill-bar-animation {
             transition: width 1s ease-out;
         }
+
+        /* Recruitin Brand Colors */
+        .bg-recruitin-primary { background-color: #4B4F51; }
+        .bg-recruitin-secondary { background-color: #77797B; }
+        .bg-recruitin-accent { background-color: #EF7D00; }
+        .text-recruitin-accent { color: #EF7D00; }
+        .border-recruitin-accent { border-color: #EF7D00; }
+        .hover\:bg-recruitin-primary-dark:hover { background-color: #3A3E40; }
     </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'recruitin-primary': '#4B4F51',
+                        'recruitin-secondary': '#77797B',
+                        'recruitin-accent': '#EF7D00',
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="bg-slate-50">
+<body class="bg-gray-50">
 
     <!-- Print Button -->
     <div class="print-hide fixed top-4 right-4 z-50">
-        <button onclick="window.print()" class="bg-slate-900 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-slate-800 transition-colors flex items-center gap-2">
+        <button onclick="window.print()" class="bg-recruitin-primary text-white px-6 py-3 rounded-lg shadow-lg hover:bg-recruitin-primary-dark transition-colors flex items-center gap-2">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
             </svg>
@@ -47,11 +68,11 @@
         <div class="max-w-5xl mx-auto bg-white shadow-2xl rounded-xl overflow-hidden">
 
             <!-- Header -->
-            <div class="bg-gradient-to-r from-slate-800 via-slate-900 to-slate-800 text-white p-10">
+            <div class="bg-gradient-to-r from-recruitin-primary via-recruitin-secondary to-recruitin-primary text-white p-10">
                 <div class="flex justify-between items-start">
                     <div>
                         <h1 class="text-4xl font-bold mb-3">Arbeidsmarkt Intelligence Rapport</h1>
-                        <p class="text-slate-300 text-xl">Labour Market Analysis • Versie A - Professional</p>
+                        <p class="text-gray-300 text-xl">Labour Market Analysis • Versie A - Professional</p>
                     </div>
                     <div class="text-right">
                         <div class="bg-emerald-500 text-white px-6 py-3 rounded-full text-sm font-bold shadow-lg">
@@ -65,30 +86,30 @@
             <div class="p-10 space-y-10">
 
                 <!-- Executive Summary -->
-                <section class="border-l-4 border-emerald-500 pl-8 bg-emerald-50 p-8 rounded-r-xl">
-                    <h2 class="text-3xl font-bold text-slate-900 mb-4">📊 Executive Summary</h2>
-                    <div class="text-lg text-slate-700 space-y-3">
+                <section class="border-l-4 border-recruitin-accent pl-8 bg-orange-50 p-8 rounded-r-xl">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-4">📊 Executive Summary</h2>
+                    <div class="text-lg text-gray-700 space-y-3">
                         <p>
                             <strong>Vacature:</strong> Senior Marketing Manager<br>
                             <strong>Sector:</strong> Marketing & Communicatie<br>
                             <strong>Locatie:</strong> Amsterdam & omgeving
                         </p>
-                        <div class="bg-white p-4 rounded-lg mt-4 border border-emerald-200">
-                            <p class="font-semibold text-slate-800">Markt Status:</p>
-                            <p class="text-emerald-600 font-bold text-xl">Kandidaatmarkt - Hoge concurrentie voor talent</p>
+                        <div class="bg-white p-4 rounded-lg mt-4 border border-orange-200">
+                            <p class="font-semibold text-gray-800">Markt Status:</p>
+                            <p class="text-recruitin-accent font-bold text-xl">Kandidaatmarkt - Hoge concurrentie voor talent</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Vacancy Profile -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 mb-6 pb-3 border-b-2 border-slate-200">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
                         🎯 Vacature Profiel
                     </h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
-                            <h3 class="font-bold text-slate-800 mb-4 text-lg">Functie Vereisten</h3>
-                            <div class="space-y-3 text-slate-700">
+                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                            <h3 class="font-bold text-gray-800 mb-4 text-lg">Functie Vereisten</h3>
+                            <div class="space-y-3 text-gray-700">
                                 <div class="flex justify-between">
                                     <span class="font-medium">Functieniveau:</span>
                                     <span class="font-semibold">Senior / Management</span>
@@ -108,9 +129,9 @@
                             </div>
                         </div>
 
-                        <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
-                            <h3 class="font-bold text-slate-800 mb-4 text-lg">Organisatie Context</h3>
-                            <div class="space-y-3 text-slate-700">
+                        <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                            <h3 class="font-bold text-gray-800 mb-4 text-lg">Organisatie Context</h3>
+                            <div class="space-y-3 text-gray-700">
                                 <div class="flex justify-between">
                                     <span class="font-medium">Industrie:</span>
                                     <span class="font-semibold">Tech/SaaS</span>
@@ -134,7 +155,7 @@
 
                 <!-- Labour Market Status -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 mb-6 pb-3 border-b-2 border-slate-200">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
                         📈 Arbeidsmarkt Status
                     </h2>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -163,67 +184,67 @@
 
                 <!-- Target Audience Analysis -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 mb-6 pb-3 border-b-2 border-slate-200">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
                         🎯 Doelgroep Analyse
                     </h2>
                     <div class="space-y-5">
                         <div>
                             <div class="flex justify-between mb-3">
-                                <span class="font-semibold text-slate-800 text-lg">Digital Marketing Skills</span>
-                                <span class="text-slate-600 font-bold text-lg">35% heeft ervaring</span>
+                                <span class="font-semibold text-gray-800 text-lg">Digital Marketing Skills</span>
+                                <span class="text-gray-600 font-bold text-lg">35% heeft ervaring</span>
                             </div>
-                            <div class="w-full bg-slate-200 rounded-full h-4">
+                            <div class="w-full bg-gray-200 rounded-full h-4">
                                 <div class="skill-bar-animation bg-blue-600 h-4 rounded-full" style="width: 35%"></div>
                             </div>
-                            <p class="text-sm text-slate-600 mt-2">Van alle marketing professionals in NL</p>
+                            <p class="text-sm text-gray-600 mt-2">Van alle marketing professionals in NL</p>
                         </div>
 
                         <div>
                             <div class="flex justify-between mb-3">
-                                <span class="font-semibold text-slate-800 text-lg">Leadership Experience (5+ jaar)</span>
-                                <span class="text-slate-600 font-bold text-lg">18% beschikbaar</span>
+                                <span class="font-semibold text-gray-800 text-lg">Leadership Experience (5+ jaar)</span>
+                                <span class="text-gray-600 font-bold text-lg">18% beschikbaar</span>
                             </div>
-                            <div class="w-full bg-slate-200 rounded-full h-4">
+                            <div class="w-full bg-gray-200 rounded-full h-4">
                                 <div class="skill-bar-animation bg-emerald-600 h-4 rounded-full" style="width: 18%"></div>
                             </div>
-                            <p class="text-sm text-slate-600 mt-2">Met aantoonbare teamleiding ervaring</p>
+                            <p class="text-sm text-gray-600 mt-2">Met aantoonbare teamleiding ervaring</p>
                         </div>
 
                         <div>
                             <div class="flex justify-between mb-3">
-                                <span class="font-semibold text-slate-800 text-lg">Tech/SaaS Ervaring</span>
-                                <span class="text-slate-600 font-bold text-lg">22% sector ervaring</span>
+                                <span class="font-semibold text-gray-800 text-lg">Tech/SaaS Ervaring</span>
+                                <span class="text-gray-600 font-bold text-lg">22% sector ervaring</span>
                             </div>
-                            <div class="w-full bg-slate-200 rounded-full h-4">
+                            <div class="w-full bg-gray-200 rounded-full h-4">
                                 <div class="skill-bar-animation bg-purple-600 h-4 rounded-full" style="width: 22%"></div>
                             </div>
-                            <p class="text-sm text-slate-600 mt-2">Met relevante sector kennis</p>
+                            <p class="text-sm text-gray-600 mt-2">Met relevante sector kennis</p>
                         </div>
 
                         <div>
                             <div class="flex justify-between mb-3">
-                                <span class="font-semibold text-slate-800 text-lg">Actief Zoekend</span>
-                                <span class="text-slate-600 font-bold text-lg">12% open voor switch</span>
+                                <span class="font-semibold text-gray-800 text-lg">Actief Zoekend</span>
+                                <span class="text-gray-600 font-bold text-lg">12% open voor switch</span>
                             </div>
-                            <div class="w-full bg-slate-200 rounded-full h-4">
+                            <div class="w-full bg-gray-200 rounded-full h-4">
                                 <div class="skill-bar-animation bg-orange-600 h-4 rounded-full" style="width: 12%"></div>
                             </div>
-                            <p class="text-sm text-slate-600 mt-2">Kandidaten actief op zoek</p>
+                            <p class="text-sm text-gray-600 mt-2">Kandidaten actief op zoek</p>
                         </div>
                     </div>
                 </section>
 
                 <!-- Salary Benchmark -->
                 <section class="print-break">
-                    <h2 class="text-3xl font-bold text-slate-900 mb-6 pb-3 border-b-2 border-slate-200">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
                         💰 Salaris Benchmark
                     </h2>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                        <div class="bg-gradient-to-br from-emerald-500 to-emerald-600 p-8 rounded-xl shadow-xl text-white">
+                        <div class="bg-gradient-to-br from-recruitin-accent to-orange-600 p-8 rounded-xl shadow-xl text-white">
                             <div class="text-sm font-semibold mb-3 opacity-90">Markt Mediaan (P50)</div>
                             <div class="text-5xl font-bold mb-2">€65.000 - €75.000</div>
                             <div class="text-sm opacity-90">Bruto jaarsalaris, exclusief bonus & secundair</div>
-                            <div class="mt-6 pt-4 border-t border-emerald-400">
+                            <div class="mt-6 pt-4 border-t border-orange-400">
                                 <div class="grid grid-cols-2 gap-4 text-sm">
                                     <div>
                                         <div class="opacity-75">P25 (Junior Senior)</div>
@@ -238,9 +259,9 @@
                         </div>
 
                         <div class="space-y-4">
-                            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
-                                <h3 class="font-bold text-slate-800 mb-4 text-lg">📊 Salaris Factoren</h3>
-                                <ul class="space-y-3 text-slate-700">
+                            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                                <h3 class="font-bold text-gray-800 mb-4 text-lg">📊 Salaris Factoren</h3>
+                                <ul class="space-y-3 text-gray-700">
                                     <li class="flex items-start">
                                         <span class="mr-3 text-xl">📈</span>
                                         <div>
@@ -286,7 +307,7 @@
 
                 <!-- Required Competencies -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 mb-6 pb-3 border-b-2 border-slate-200">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
                         🛠️ Gewenste Competenties & Beschikbaarheid
                     </h2>
                     <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -295,46 +316,46 @@
                             <ul class="space-y-4">
                                 <li>
                                     <div class="flex justify-between mb-2">
-                                        <span class="text-slate-800 font-medium">Google Ads</span>
+                                        <span class="text-gray-800 font-medium">Google Ads</span>
                                         <span class="text-sm font-bold text-emerald-600">45% beschikbaar</span>
                                     </div>
-                                    <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
                                         <div class="bg-emerald-500 h-2 rounded-full" style="width: 45%"></div>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="flex justify-between mb-2">
-                                        <span class="text-slate-800 font-medium">HubSpot/CRM</span>
+                                        <span class="text-gray-800 font-medium">HubSpot/CRM</span>
                                         <span class="text-sm font-bold text-orange-600">28% beschikbaar</span>
                                     </div>
-                                    <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
                                         <div class="bg-orange-500 h-2 rounded-full" style="width: 28%"></div>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="flex justify-between mb-2">
-                                        <span class="text-slate-800 font-medium">SEO/SEA</span>
+                                        <span class="text-gray-800 font-medium">SEO/SEA</span>
                                         <span class="text-sm font-bold text-emerald-600">52% beschikbaar</span>
                                     </div>
-                                    <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
                                         <div class="bg-emerald-500 h-2 rounded-full" style="width: 52%"></div>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="flex justify-between mb-2">
-                                        <span class="text-slate-800 font-medium">Analytics (GA4)</span>
+                                        <span class="text-gray-800 font-medium">Analytics (GA4)</span>
                                         <span class="text-sm font-bold text-orange-600">35% beschikbaar</span>
                                     </div>
-                                    <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
                                         <div class="bg-orange-500 h-2 rounded-full" style="width: 35%"></div>
                                     </div>
                                 </li>
                                 <li>
                                     <div class="flex justify-between mb-2">
-                                        <span class="text-slate-800 font-medium">Marketing Automation</span>
+                                        <span class="text-gray-800 font-medium">Marketing Automation</span>
                                         <span class="text-sm font-bold text-red-600">22% beschikbaar</span>
                                     </div>
-                                    <div class="w-full bg-slate-200 rounded-full h-2">
+                                    <div class="w-full bg-gray-200 rounded-full h-2">
                                         <div class="bg-red-500 h-2 rounded-full" style="width: 22%"></div>
                                     </div>
                                 </li>
@@ -345,23 +366,23 @@
                             <h3 class="font-bold text-emerald-900 mb-5 text-lg">Soft Skills (Prioriteit)</h3>
                             <ul class="space-y-4">
                                 <li class="flex items-center justify-between p-3 bg-white rounded-lg">
-                                    <span class="text-slate-800 font-medium">Leadership</span>
+                                    <span class="text-gray-800 font-medium">Leadership</span>
                                     <span class="px-3 py-1 bg-red-600 text-white rounded-full font-bold text-sm">Kritiek</span>
                                 </li>
                                 <li class="flex items-center justify-between p-3 bg-white rounded-lg">
-                                    <span class="text-slate-800 font-medium">Communicatie</span>
+                                    <span class="text-gray-800 font-medium">Communicatie</span>
                                     <span class="px-3 py-1 bg-red-600 text-white rounded-full font-bold text-sm">Kritiek</span>
                                 </li>
                                 <li class="flex items-center justify-between p-3 bg-white rounded-lg">
-                                    <span class="text-slate-800 font-medium">Strategic Thinking</span>
+                                    <span class="text-gray-800 font-medium">Strategic Thinking</span>
                                     <span class="px-3 py-1 bg-orange-600 text-white rounded-full font-bold text-sm">Hoog</span>
                                 </li>
                                 <li class="flex items-center justify-between p-3 bg-white rounded-lg">
-                                    <span class="text-slate-800 font-medium">Data-Driven</span>
+                                    <span class="text-gray-800 font-medium">Data-Driven</span>
                                     <span class="px-3 py-1 bg-orange-600 text-white rounded-full font-bold text-sm">Hoog</span>
                                 </li>
                                 <li class="flex items-center justify-between p-3 bg-white rounded-lg">
-                                    <span class="text-slate-800 font-medium">Stakeholder Mgmt</span>
+                                    <span class="text-gray-800 font-medium">Stakeholder Mgmt</span>
                                     <span class="px-3 py-1 bg-emerald-600 text-white rounded-full font-bold text-sm">Medium</span>
                                 </li>
                             </ul>
@@ -371,15 +392,15 @@
 
                 <!-- Recruitment Strategy -->
                 <section>
-                    <h2 class="text-3xl font-bold text-slate-900 mb-6 pb-3 border-b-2 border-slate-200">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6 pb-3 border-b-2 border-gray-200">
                         🎯 Aanbevolen Recruitment Strategie
                     </h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
                         <div class="flex items-start space-x-4 bg-blue-50 p-6 rounded-xl border border-blue-200">
                             <div class="text-4xl flex-shrink-0">🎯</div>
                             <div>
-                                <h4 class="font-bold text-slate-900 mb-2 text-lg">Direct Search</h4>
-                                <p class="text-slate-700 mb-3">Actief benaderen van passive kandidaten via LinkedIn en netwerk.</p>
+                                <h4 class="font-bold text-gray-900 mb-2 text-lg">Direct Search</h4>
+                                <p class="text-gray-700 mb-3">Actief benaderen van passive kandidaten via LinkedIn en netwerk.</p>
                                 <div class="text-sm font-semibold text-blue-700">Success rate: 15-25%</div>
                             </div>
                         </div>
@@ -387,8 +408,8 @@
                         <div class="flex items-start space-x-4 bg-emerald-50 p-6 rounded-xl border border-emerald-200">
                             <div class="text-4xl flex-shrink-0">📢</div>
                             <div>
-                                <h4 class="font-bold text-slate-900 mb-2 text-lg">Job Boards Premium</h4>
-                                <p class="text-slate-700 mb-3">LinkedIn Premium, Indeed Sponsored, specialist platforms.</p>
+                                <h4 class="font-bold text-gray-900 mb-2 text-lg">Job Boards Premium</h4>
+                                <p class="text-gray-700 mb-3">LinkedIn Premium, Indeed Sponsored, specialist platforms.</p>
                                 <div class="text-sm font-semibold text-emerald-700">Success rate: 10-18%</div>
                             </div>
                         </div>
@@ -396,8 +417,8 @@
                         <div class="flex items-start space-x-4 bg-purple-50 p-6 rounded-xl border border-purple-200">
                             <div class="text-4xl flex-shrink-0">🤝</div>
                             <div>
-                                <h4 class="font-bold text-slate-900 mb-2 text-lg">Referral Program</h4>
-                                <p class="text-slate-700 mb-3">Employee referrals met €2.500 - €5.000 bonus.</p>
+                                <h4 class="font-bold text-gray-900 mb-2 text-lg">Referral Program</h4>
+                                <p class="text-gray-700 mb-3">Employee referrals met €2.500 - €5.000 bonus.</p>
                                 <div class="text-sm font-semibold text-purple-700">Success rate: 25-35%</div>
                             </div>
                         </div>
@@ -405,8 +426,8 @@
                         <div class="flex items-start space-x-4 bg-orange-50 p-6 rounded-xl border border-orange-200">
                             <div class="text-4xl flex-shrink-0">⚡</div>
                             <div>
-                                <h4 class="font-bold text-slate-900 mb-2 text-lg">Recruitment Agency</h4>
-                                <p class="text-slate-700 mb-3">Specialized marketing recruitment partners.</p>
+                                <h4 class="font-bold text-gray-900 mb-2 text-lg">Recruitment Agency</h4>
+                                <p class="text-gray-700 mb-3">Specialized marketing recruitment partners.</p>
                                 <div class="text-sm font-semibold text-orange-700">Cost: 15-20% annual salary</div>
                             </div>
                         </div>
@@ -414,53 +435,53 @@
                 </section>
 
                 <!-- Timeline & Expectations -->
-                <section class="bg-slate-900 text-white p-10 rounded-xl -mx-10">
+                <section class="bg-gray-900 text-white p-10 rounded-xl -mx-10">
                     <h2 class="text-3xl font-bold mb-6">⏱️ Verwachte Tijdslijn</h2>
                     <div class="grid grid-cols-1 md:grid-cols-4 gap-6 text-center">
-                        <div class="bg-slate-800 p-6 rounded-lg">
+                        <div class="bg-gray-800 p-6 rounded-lg">
                             <div class="text-4xl mb-3">📝</div>
-                            <div class="text-2xl font-bold text-emerald-400">Week 1-2</div>
-                            <div class="text-slate-300 mt-2">Sourcing & Screening</div>
+                            <div class="text-2xl font-bold text-orange-400">Week 1-2</div>
+                            <div class="text-gray-300 mt-2">Sourcing & Screening</div>
                         </div>
-                        <div class="bg-slate-800 p-6 rounded-lg">
+                        <div class="bg-gray-800 p-6 rounded-lg">
                             <div class="text-4xl mb-3">👥</div>
                             <div class="text-2xl font-bold text-blue-400">Week 3-4</div>
-                            <div class="text-slate-300 mt-2">Eerste Interviews</div>
+                            <div class="text-gray-300 mt-2">Eerste Interviews</div>
                         </div>
-                        <div class="bg-slate-800 p-6 rounded-lg">
+                        <div class="bg-gray-800 p-6 rounded-lg">
                             <div class="text-4xl mb-3">🎯</div>
                             <div class="text-2xl font-bold text-purple-400">Week 5-6</div>
-                            <div class="text-slate-300 mt-2">Assessment & Cases</div>
+                            <div class="text-gray-300 mt-2">Assessment & Cases</div>
                         </div>
-                        <div class="bg-slate-800 p-6 rounded-lg">
+                        <div class="bg-gray-800 p-6 rounded-lg">
                             <div class="text-4xl mb-3">✅</div>
                             <div class="text-2xl font-bold text-orange-400">Week 7-8</div>
-                            <div class="text-slate-300 mt-2">Offer & Onboarding</div>
+                            <div class="text-gray-300 mt-2">Offer & Onboarding</div>
                         </div>
                     </div>
 
-                    <div class="bg-emerald-600 p-6 rounded-xl mt-8 shadow-xl">
+                    <div class="bg-recruitin-accent p-6 rounded-xl mt-8 shadow-xl">
                         <p class="font-bold text-2xl mb-2">📊 VERWACHTING: 45-65 DAGEN TOTALE TIJDSLIJN</p>
-                        <p class="text-emerald-100 text-lg">Bij optimale marktcondities en concurrerende propositie</p>
+                        <p class="text-orange-100 text-lg">Bij optimale marktcondities en concurrerende propositie</p>
                     </div>
                 </section>
 
                 <!-- Contact Form Section -->
-                <section class="print-hide border-t-2 border-slate-200 pt-10 mt-10">
+                <section class="print-hide border-t-2 border-gray-200 pt-10 mt-10">
                     <div class="text-center mb-8">
-                        <h2 class="text-3xl font-bold text-slate-900 mb-3">
+                        <h2 class="text-3xl font-bold text-gray-900 mb-3">
                             📧 Vraag volledig marktrapport aan
                         </h2>
-                        <p class="text-slate-600 text-lg max-w-2xl mx-auto">
+                        <p class="text-gray-600 text-lg max-w-2xl mx-auto">
                             Ontvang een gedetailleerde arbeidsmarktanalyse specifiek voor uw vacature.
                             Upload uw vacaturetekst voor een gepersonaliseerde analyse.
                         </p>
                     </div>
 
-                    <form id="contactForm" class="space-y-6 max-w-3xl mx-auto bg-slate-50 p-8 rounded-xl border border-slate-200">
+                    <form id="contactForm" class="space-y-6 max-w-3xl mx-auto bg-gray-50 p-8 rounded-xl border border-gray-200">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2" for="name">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2" for="name">
                                     Naam <span class="text-red-500">*</span>
                                 </label>
                                 <input
@@ -468,13 +489,13 @@
                                     id="name"
                                     name="name"
                                     required
-                                    class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-recruitin-primary focus:border-gray-500 transition-all"
                                     placeholder="Uw volledige naam"
                                 />
                             </div>
 
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2" for="email">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2" for="email">
                                     Email <span class="text-red-500">*</span>
                                 </label>
                                 <input
@@ -482,7 +503,7 @@
                                     id="email"
                                     name="email"
                                     required
-                                    class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-recruitin-primary focus:border-gray-500 transition-all"
                                     placeholder="uw.email@bedrijf.nl"
                                 />
                             </div>
@@ -490,20 +511,20 @@
 
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2" for="phone">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2" for="phone">
                                     Telefoon
                                 </label>
                                 <input
                                     type="tel"
                                     id="phone"
                                     name="phone"
-                                    class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-recruitin-primary focus:border-gray-500 transition-all"
                                     placeholder="+31 6 12345678"
                                 />
                             </div>
 
                             <div>
-                                <label class="block text-sm font-semibold text-slate-700 mb-2" for="company">
+                                <label class="block text-sm font-semibold text-gray-700 mb-2" for="company">
                                     Bedrijf <span class="text-red-500">*</span>
                                 </label>
                                 <input
@@ -511,28 +532,28 @@
                                     id="company"
                                     name="company"
                                     required
-                                    class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-recruitin-primary focus:border-gray-500 transition-all"
                                     placeholder="Uw bedrijfsnaam"
                                 />
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2" for="vacancy_url">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2" for="vacancy_url">
                                 Vacature URL
                             </label>
                             <input
                                 type="url"
                                 id="vacancy_url"
                                 name="vacancy_url"
-                                class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-recruitin-primary focus:border-gray-500 transition-all"
                                 placeholder="https://www.uwbedrijf.nl/vacatures/senior-marketing-manager"
                             />
-                            <p class="text-sm text-slate-500 mt-1">Link naar uw online vacature voor automatische analyse</p>
+                            <p class="text-sm text-gray-500 mt-1">Link naar uw online vacature voor automatische analyse</p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2" for="vacancy_file">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2" for="vacancy_file">
                                 Upload Vacaturetekst <span class="text-red-500">*</span>
                             </label>
                             <div class="relative">
@@ -542,40 +563,40 @@
                                     name="vacancy_file"
                                     accept=".pdf,.doc,.docx,.txt"
                                     required
-                                    class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-slate-900 file:text-white hover:file:bg-slate-800"
+                                    class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-recruitin-primary focus:border-recruitin-primary transition-all file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-recruitin-primary file:text-white hover:file:bg-recruitin-primary-dark"
                                 />
                             </div>
-                            <p class="text-sm text-slate-500 mt-1">Upload uw volledige vacaturetekst voor gepersonaliseerde marktanalyse (.pdf, .doc, .docx, .txt - max 5MB)</p>
+                            <p class="text-sm text-gray-500 mt-1">Upload uw volledige vacaturetekst voor gepersonaliseerde marktanalyse (.pdf, .doc, .docx, .txt - max 5MB)</p>
                         </div>
 
                         <div>
-                            <label class="block text-sm font-semibold text-slate-700 mb-2" for="message">
+                            <label class="block text-sm font-semibold text-gray-700 mb-2" for="message">
                                 Aanvullende informatie
                             </label>
                             <textarea
                                 id="message"
                                 name="message"
                                 rows="4"
-                                class="w-full px-4 py-3 border-2 border-slate-300 rounded-lg focus:ring-2 focus:ring-slate-500 focus:border-slate-500 transition-all"
+                                class="w-full px-4 py-3 border-2 border-gray-300 rounded-lg focus:ring-2 focus:ring-recruitin-primary focus:border-gray-500 transition-all"
                                 placeholder="Eventuele specifieke vragen over de doelgroep, timing of recruitment strategie..."
                             ></textarea>
                         </div>
 
                         <div class="flex items-start">
                             <input type="checkbox" id="privacy" required class="mt-1 mr-3 w-4 h-4">
-                            <label for="privacy" class="text-sm text-slate-600">
-                                Ik ga akkoord met de verwerking van mijn gegevens conform de <a href="#" class="text-slate-900 font-semibold hover:underline">privacyverklaring</a>. <span class="text-red-500">*</span>
+                            <label for="privacy" class="text-sm text-gray-600">
+                                Ik ga akkoord met de verwerking van mijn gegevens conform de <a href="#" class="text-gray-900 font-semibold hover:underline">privacyverklaring</a>. <span class="text-red-500">*</span>
                             </label>
                         </div>
 
                         <button
                             type="submit"
-                            class="w-full md:w-auto px-10 py-4 bg-slate-900 text-white font-bold text-lg rounded-lg hover:bg-slate-800 transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                            class="w-full md:w-auto px-10 py-4 bg-recruitin-primary text-white font-bold text-lg rounded-lg hover:bg-recruitin-primary-dark transition-all shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
                         >
                             Vraag Volledig Rapport Aan →
                         </button>
 
-                        <p class="text-sm text-slate-500 text-center">
+                        <p class="text-sm text-gray-500 text-center">
                             We leveren binnen 48 uur • Vertrouwelijke behandeling • Geen verplichtingen
                         </p>
                     </form>
@@ -584,16 +605,16 @@
             </div>
 
             <!-- Footer -->
-            <div class="bg-slate-100 px-10 py-8 border-t-2 border-slate-200">
-                <div class="flex flex-col md:flex-row justify-between items-center text-sm text-slate-600">
+            <div class="bg-gray-100 px-10 py-8 border-t-2 border-gray-200">
+                <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
                     <div class="mb-3 md:mb-0">
-                        <strong class="text-slate-900">Recruitin BV</strong> - Professional Labour Market Intelligence Platform
+                        <strong class="text-gray-900">Recruitin BV</strong> - Professional Labour Market Intelligence Platform
                     </div>
                     <div>
                         Generated: Oktober 2025 | Data Sources: 12.500+ vacatures | Version: A
                     </div>
                 </div>
-                <div class="text-center mt-4 text-xs text-slate-500">
+                <div class="text-center mt-4 text-xs text-gray-500">
                     © 2025 Recruitin BV - All rights reserved | info@recruitin.com
                 </div>
             </div>
