@@ -1,0 +1,11 @@
+# Netlify Headers - Force Public Access
+/*
+  X-Robots-Tag: all
+  Access-Control-Allow-Origin: *
+
+# Allow public access to all pages
+/
+  Cache-Control: public, max-age=0, must-revalidate
+
+/*
+  Cache-Control: public, max-age=0, must-revalidate
