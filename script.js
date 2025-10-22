@@ -1,62 +1,18 @@
 // Labour Market Intelligence - Landing Page Script
 class LandingPageController {
   constructor() {
-    this.stripe = null;
-    this.elements = null;
-    this.cardElement = null;
     this.selectedPlan = 'single';
     // Use production API URL or fallback to current ngrok
-    this.apiUrl = window.location.hostname === 'localhost' 
-      ? 'http://localhost:3002' 
+    this.apiUrl = window.location.hostname === 'localhost'
+      ? 'http://localhost:3002'
       : 'https://del-untreadable-nonspeciously.ngrok-free.dev';
-    
+
     this.init();
   }
 
   async init() {
-    await this.initStripe();
     this.bindEvents();
     this.initSliders();
-  }
-
-  async initStripe() {
-    try {
-      // Initialize Stripe (you'll need your publishable key)
-      this.stripe = Stripe('pk_test_YOUR_STRIPE_PUBLISHABLE_KEY_HERE'); // Replace with your key
-      
-      this.elements = this.stripe.elements({
-        appearance: {
-          theme: 'stripe',
-          variables: {
-            colorPrimary: '#FF6B35',
-            colorBackground: '#ffffff',
-            colorText: '#1F2937',
-            colorDanger: '#EF4444',
-            fontFamily: 'Inter, system-ui, sans-serif',
-            spacingUnit: '4px',
-            borderRadius: '8px',
-          }
-        }
-      });
-
-      this.cardElement = this.elements.create('card');
-      this.cardElement.mount('#card-element');
-
-      this.cardElement.on('change', (event) => {
-        const displayError = document.getElementById('card-errors');
-        if (event.error) {
-          displayError.textContent = event.error.message;
-        } else {
-          displayError.textContent = '';
-        }
-      });
-
-    } catch (error) {
-      console.error('Stripe initialization failed:', error);
-      // Show fallback message
-      document.getElementById('card-element').innerHTML = 
-        '<div style="padding: 16px; background: #FEF2F2; border: 1px solid #FECACA; border-radius: 8px; color: #DC2626;">Stripe loading... Please refresh the page if this persists.</div>';
-    }
   }
 
   bindEvents() {
@@ -125,35 +81,6 @@ class LandingPageController {
 
     // Scroll to order form
     this.scrollToSection('order');
-    
-    // Update pricing if needed
-    this.updatePricing(plan);
-  }
-
-  updatePricing(plan) {
-    const priceMap = {
-      single: { price: 59.00, description: 'Professional Assessment Rapport' },
-      monthly: { price: 199.00, description: 'Maandelijks Pakket (5 rapporten)' },
-      enterprise: { price: 999.00, description: 'Enterprise Pakket (50 rapporten)' }
-    };
-
-    const planData = priceMap[plan];
-    if (planData) {
-      const priceElement = document.querySelector('.payment-item span:last-child');
-      const descriptionElement = document.querySelector('.payment-item span:first-child');
-      const totalElement = document.querySelector('.payment-total span:last-child');
-      const submitButton = document.getElementById('submit-button');
-      
-      if (priceElement && descriptionElement && totalElement && submitButton) {
-        const vat = planData.price * 0.21;
-        const total = planData.price + vat;
-        
-        priceElement.textContent = `€${planData.price.toFixed(2)}`;
-        descriptionElement.textContent = planData.description;
-        totalElement.textContent = `€${total.toFixed(2)}`;
-        submitButton.innerHTML = `<i class="fas fa-credit-card"></i> Betaal €${total.toFixed(2)} & Genereer Rapport`;
-      }
-    }
   }
 
   async handleSubmit(event) {
@@ -168,26 +95,19 @@ class LandingPageController {
 
     try {
       const formData = this.collectFormData();
-      
+
       // Validate form data
       if (!this.validateFormData(formData)) {
         throw new Error('Please fill in all required fields');
       }
 
-      // Process payment (mock for demo)
-      const paymentResult = await this.processPayment(formData);
-      
-      if (paymentResult.success) {
-        // Generate report
-        const reportResult = await this.generateReport(formData);
-        
-        if (reportResult.success) {
-          this.showSuccessModal(reportResult);
-        } else {
-          throw new Error('Report generation failed');
-        }
+      // Generate report
+      const reportResult = await this.generateReport(formData);
+
+      if (reportResult.success) {
+        this.showSuccessModal(reportResult);
       } else {
-        throw new Error(paymentResult.error || 'Payment failed');
+        throw new Error('Report generation failed');
       }
 
     } catch (error) {
@@ -233,46 +153,6 @@ class LandingPageController {
     }
     
     return true;
-  }
-
-  async processPayment(formData) {
-    // Mock payment processing for demo
-    // In production, you'd create a PaymentIntent on your backend
-    // and confirm it with Stripe
-    
-    try {
-      // Simulate payment processing delay
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // For demo purposes, always succeed
-      return {
-        success: true,
-        paymentId: 'pi_demo_' + Date.now(),
-        amount: this.calculateTotal(this.selectedPlan)
-      };
-      
-      // Real Stripe implementation would look like:
-      /*
-      const {error, paymentIntent} = await this.stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: this.cardElement,
-          billing_details: {
-            name: formData.candidateName,
-            email: formData.candidateEmail,
-          },
-        }
-      });
-      
-      if (error) {
-        return { success: false, error: error.message };
-      } else {
-        return { success: true, paymentId: paymentIntent.id };
-      }
-      */
-      
-    } catch (error) {
-      return { success: false, error: error.message };
-    }
   }
 
   async generateReport(formData) {
