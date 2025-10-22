@@ -25,7 +25,6 @@ class LandingPageController {
     // Smooth scrolling
     window.scrollToOrder = () => this.scrollToSection('order');
     window.scrollToDemo = () => this.scrollToSection('demo');
-    window.selectPlan = (plan) => this.selectPlan(plan);
     window.downloadReport = () => this.downloadReport();
     window.viewReport = () => this.viewReport();
 
@@ -66,22 +65,7 @@ class LandingPageController {
     }
   }
 
-  selectPlan(plan) {
-    this.selectedPlan = plan;
-    
-    // Update UI to show selected plan
-    const cards = document.querySelectorAll('.pricing-card');
-    cards.forEach(card => card.classList.remove('selected'));
-    
-    // Add visual feedback (you might want to add CSS for this)
-    const selectedCard = document.querySelector(`[onclick="selectPlan('${plan}')"]`).closest('.pricing-card');
-    if (selectedCard) {
-      selectedCard.classList.add('selected');
-    }
-
-    // Scroll to order form
-    this.scrollToSection('order');
-  }
+  // Pricing section removed - no longer needed
 
   async handleSubmit(event) {
     event.preventDefault();
