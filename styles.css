@@ -1992,6 +1992,17 @@ body {
   box-shadow: var(--box-shadow);
 }
 
+/* JotForm Container Styling */
+.jotform-container {
+  overflow: hidden;
+  min-height: 500px;
+}
+
+.jotform-container iframe {
+  border: none;
+  width: 100%;
+}
+
 .form-section {
   margin-bottom: var(--space-8);
 }
