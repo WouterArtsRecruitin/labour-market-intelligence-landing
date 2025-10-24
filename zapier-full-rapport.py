@@ -35,6 +35,7 @@ bedrijfsgrootte = input_data.get('bedrijfsgrootte', '50-200 medewerkers')
 werkomgeving = input_data.get('werkomgeving', 'Hybrid')
 groei_fase = input_data.get('groei_fase', 'Scale-up')
 key_skills = input_data.get('key_skills', '')
+vacature_url = input_data.get('vacature_url', '')
 jobdigger_url = input_data.get('jobdigger_url', '')
 linkedin_ti_url = input_data.get('linkedin_ti_url', '')
 extra_info = input_data.get('extra_info', '')
@@ -81,23 +82,34 @@ if extra_info:
     </tr>
     """
 
-# Attachments section
-attachments_html = ""
-if jobdigger_url or linkedin_ti_url:
+# Source Materials section (Vacature URL + Attachments)
+source_materials_html = ""
+if vacature_url or jobdigger_url or linkedin_ti_url:
     links = []
+    if vacature_url:
+        links.append(f'<li style="margin: 8px 0;"><a href="{vacature_url}" style="color: #EF7D00; text-decoration: none; font-weight: 600;">🔗 Originele Vacature</a></li>')
     if jobdigger_url:
         links.append(f'<li style="margin: 8px 0;"><a href="{jobdigger_url}" style="color: #EF7D00; text-decoration: none; font-weight: 600;">📄 Jobdigger Marktrapport</a></li>')
     if linkedin_ti_url:
-        links.append(f'<li style="margin: 8px 0;"><a href="{linkedin_ti_url}" style="color: #EF7D00; text-decoration: none; font-weight: 600;">📄 LinkedIn Talent Insights</a></li>')
-    attachments_html = f"""
+        links.append(f'<li style="margin: 8px 0;"><a href="{linkedin_ti_url}" style="color: #EF7D00; text-decoration: none; font-weight: 600;">📊 LinkedIn Talent Insights</a></li>')
+    source_materials_html = f"""
     <tr>
         <td style="padding: 0 40px 30px 40px;">
             <h2 style="margin: 0 0 16px 0; color: #1f2937; font-size: 22px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
-                📎 Bijgevoegde Marktdata
+                📚 Bronmateriaal
             </h2>
-            <ul style="margin: 0; padding-left: 24px; color: #374151; line-height: 1.8;">
-                {"".join(links)}
-            </ul>
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb; padding: 16px;">
+                <tr>
+                    <td style="padding: 12px;">
+                        <ul style="margin: 0; padding-left: 24px; color: #374151; line-height: 2;">
+                            {"".join(links)}
+                        </ul>
+                        <p style="margin: 12px 0 0 0; padding-top: 12px; border-top: 1px solid #e5e7eb; color: #6b7280; font-size: 13px; font-style: italic;">
+                            💡 Dit rapport is gebaseerd op de ingediende gegevens. Voor een volledig AI-gedreven analyse van alle bronmaterialen, neem contact op.
+                        </p>
+                    </td>
+                </tr>
+            </table>
         </td>
     </tr>
     """
@@ -729,7 +741,7 @@ email_body_html = f"""<!DOCTYPE html>
                         </td>
                     </tr>
 
-                    {attachments_html}
+                    {source_materials_html}
 
                     <!-- Call to Action -->
                     <tr>
@@ -802,6 +814,7 @@ output = {
     'notion_ervaringsniveau': ervaringsniveau,
     'notion_status': '🆕 Nieuwe Aanvraag',
     'notion_intelligence': 'Volledig Rapport - Alle Secties',
+    'notion_vacature_url': vacature_url,
     'notion_jobdigger_url': jobdigger_url,
     'notion_linkedin_url': linkedin_ti_url,
     'notion_jotform_url': submission_url,
