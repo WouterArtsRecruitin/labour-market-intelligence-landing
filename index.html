@@ -5,10 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recruitin - AI Recruitment Reports | Labour Market Intelligence</title>
     <meta name="description" content="Recruitin's AI-powered recruitment rapporten in seconden. 85% betrouwbaar, €59 per rapport. Bespaar €26.191 per maand vs handmatige processen.">
-    
-    <!-- Stripe Integration -->
-    <script src="https://js.stripe.com/v3/"></script>
-    
+
     <!-- Chart.js for Data Visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
@@ -65,10 +62,10 @@
                             <i class="fas fa-chart-bar"></i>
                             Analyseer Je Markt Nu
                         </button>
-                        <button class="btn-secondary" onclick="scrollToDemo()">
+                        <a href="demo-rapport.html" target="_blank" class="btn-secondary" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
                             <i class="fas fa-play"></i>
                             Bekijk Demo Rapport
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="hero-visual">
@@ -171,262 +168,11 @@
     <!-- Demo Section -->
     <section id="demo" class="demo-section">
         <div class="container">
-            <h2>Bekijk Een Echt Rapport</h2>
+            <h2>Bekijk Een Echt Arbeidsmarkt Intelligence Rapport</h2>
             <div class="demo-container">
-                <div class="demo-preview">
-                    <div class="comprehensive-report-preview">
-                        <div class="report-notice">
-                            <div class="notice-content">
-                                <h3>⚠️ DEMO VOORBEELD (2/32 PAGINA'S)</h3>
-                                <p><strong>BELANGRIJKE DISCLAIMER:</strong> Demo data is fictief en niet voor besluitvorming. Het complete €59 rapport bevat:</p>
-                                <div class="report-stats">
-                                    <div class="stat"><strong>32 pagina's</strong> gedetailleerde analyse</div>
-                                    <div class="stat"><strong>15+ echte</strong> data bronnen (APIs)</div>
-                                    <div class="stat"><strong>200+ data punten</strong> & benchmarks</div>
-                                    <div class="stat"><strong>Real-time</strong> markt intelligence</div>
-                                </div>
-                                <div class="demo-warning">
-                                    <p>🔴 <strong>Demo cijfers zijn NIET echt</strong> - Echte data via LinkedIn, Glassdoor, CBS & Indeed APIs</p>
-                                </div>
-                            </div>
-                        </div>
-                        
-                        <div class="preview-report-container">
-                            <!-- Executive Header -->
-                            <div class="exec-header">
-                                <div class="header-brand">
-                                    <div class="brand-logo">
-                                        <i class="fas fa-chart-line"></i>
-                                        <span>Recruitin Intelligence</span>
-                                    </div>
-                                    <div class="confidence-score">
-                                        <span class="score">96.2%</span>
-                                        <span class="label">Betrouwbaarheid</span>
-                                    </div>
-                                </div>
-                                <div class="report-meta">
-                                    <h1>🚀 COMPREHENSIVE MARKET INTELLIGENCE</h1>
-                                    <h2>Senior Marketing Manager • Tech & Digital</h2>
-                                    <div class="meta-details">
-                                        <span class="date">📅 Generated: Oktober 2025</span>
-                                        <span class="region">🌍 Focus: Nederland + DACH Region</span>
-                                        <span class="version">📊 Version: Executive 2.1</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Executive Dashboard -->
-                            <div class="exec-dashboard">
-                                <div class="dashboard-title">
-                                    <h3>⚡ EXECUTIVE DASHBOARD</h3>
-                                    <p>Realtime markt intelligence • Laatste update: 2 uur geleden</p>
-                                </div>
-                                <div class="key-metrics-grid">
-                                    <div class="metric-tile demand">
-                                        <div class="metric-header">
-                                            <span class="icon">🔥</span>
-                                            <span class="trend up">+34%</span>
-                                        </div>
-                                        <div class="metric-number">2,847</div>
-                                        <div class="metric-desc">Active Openings</div>
-                                        <div class="metric-sub">vs 2,124 vorig jaar</div>
-                                    </div>
-                                    <div class="metric-tile competition">
-                                        <div class="metric-header">
-                                            <span class="icon">👥</span>
-                                            <span class="trend down">-12%</span>
-                                        </div>
-                                        <div class="metric-number">38</div>
-                                        <div class="metric-desc">Avg Candidates</div>
-                                        <div class="metric-sub">per vacature (gunstig)</div>
-                                    </div>
-                                    <div class="metric-tile salary">
-                                        <div class="metric-header">
-                                            <span class="icon">💎</span>
-                                            <span class="trend neutral">+6%</span>
-                                        </div>
-                                        <div class="metric-number">€67k</div>
-                                        <div class="metric-desc">Market Sweet Spot</div>
-                                        <div class="metric-sub">€58k - €76k range</div>
-                                    </div>
-                                    <div class="metric-tile timeline">
-                                        <div class="metric-header">
-                                            <span class="icon">⚡</span>
-                                            <span class="trend up">-8d</span>
-                                        </div>
-                                        <div class="metric-number">22</div>
-                                        <div class="metric-desc">Days to Hire</div>
-                                        <div class="metric-sub">industry avg: 31d</div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Market Opportunity Score -->
-                            <div class="opportunity-score">
-                                <div class="score-container">
-                                    <div class="score-visual">
-                                        <div class="score-circle">
-                                            <div class="score-fill" style="--score: 89"></div>
-                                            <div class="score-number">89/100</div>
-                                        </div>
-                                        <div class="score-label">Market Opportunity Score</div>
-                                    </div>
-                                    <div class="score-breakdown">
-                                        <div class="breakdown-item">
-                                            <span class="breakdown-label">Demand Level</span>
-                                            <div class="breakdown-bar">
-                                                <div class="fill" style="width: 94%"></div>
-                                            </div>
-                                            <span class="breakdown-score">94/100</span>
-                                        </div>
-                                        <div class="breakdown-item">
-                                            <span class="breakdown-label">Talent Availability</span>
-                                            <div class="breakdown-bar">
-                                                <div class="fill" style="width: 78%"></div>
-                                            </div>
-                                            <span class="breakdown-score">78/100</span>
-                                        </div>
-                                        <div class="breakdown-item">
-                                            <span class="breakdown-label">Salary Competitiveness</span>
-                                            <div class="breakdown-bar">
-                                                <div class="fill" style="width: 92%"></div>
-                                            </div>
-                                            <span class="breakdown-score">92/100</span>
-                                        </div>
-                                        <div class="breakdown-item">
-                                            <span class="breakdown-label">Market Timing</span>
-                                            <div class="breakdown-bar">
-                                                <div class="fill" style="width: 96%"></div>
-                                            </div>
-                                            <span class="breakdown-score">96/100</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="opportunity-insights">
-                                    <h4>🎯 KEY OPPORTUNITIES</h4>
-                                    <div class="insight-list">
-                                        <div class="insight-item high">
-                                            <span class="insight-priority">HIGH</span>
-                                            <span class="insight-text">Post binnen 72 uur - optimaal momentum</span>
-                                        </div>
-                                        <div class="insight-item high">
-                                            <span class="insight-priority">HIGH</span>
-                                            <span class="insight-text">Target €64-68k voor 23% meer responses</span>
-                                        </div>
-                                        <div class="insight-item medium">
-                                            <span class="insight-priority">MED</span>
-                                            <span class="insight-text">Focus op hybrid werk (89% candidate preference)</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Page Break Indicator -->
-                            <div class="page-break">
-                                <div class="page-indicator">
-                                    <span class="page-number">PAGINA 2 VAN 32</span>
-                                    <span class="demo-label">DEMO PREVIEW - FICTIEVE DATA</span>
-                                </div>
-                            </div>
-
-                            <!-- Truncated Content Notice -->
-                            <div class="content-locked">
-                                <div class="locked-overlay">
-                                    <div class="lock-icon">
-                                        <i class="fas fa-lock"></i>
-                                    </div>
-                                    <h4>🔒 RESTERENDE 30 PAGINA'S VERGRENDELD</h4>
-                                    <p>Het volledige rapport bevat nog:</p>
-                                    <div class="locked-features">
-                                        <div class="feature-grid">
-                                            <div class="feature-item">
-                                                <span class="icon">💰</span>
-                                                <span>Gedetailleerde salary benchmarks (P10-P90)</span>
-                                            </div>
-                                            <div class="feature-item">
-                                                <span class="icon">🏆</span>
-                                                <span>Volledige concurrent analyse (200+ bedrijven)</span>
-                                            </div>
-                                            <div class="feature-item">
-                                                <span class="icon">📊</span>
-                                                <span>15+ interactieve charts & grafieken</span>
-                                            </div>
-                                            <div class="feature-item">
-                                                <span class="icon">🎯</span>
-                                                <span>Skills gap analyse (50+ competenties)</span>
-                                            </div>
-                                            <div class="feature-item">
-                                                <span class="icon">🚀</span>
-                                                <span>Complete recruitment strategie</span>
-                                            </div>
-                                            <div class="feature-item">
-                                                <span class="icon">📈</span>
-                                                <span>12-maanden markt forecast</span>
-                                            </div>
-                                            <div class="feature-item">
-                                                <span class="icon">🗺️</span>
-                                                <span>Geografische heatmaps</span>
-                                            </div>
-                                            <div class="feature-item">
-                                                <span class="icon">💹</span>
-                                                <span>ROI calculaties per kanaal</span>
-                                            </div>
-                                            <div class="feature-item">
-                                                <span class="icon">📅</span>
-                                                <span>Optimale timing strategie</span>
-                                            </div>
-                                            <div class="feature-item">
-                                                <span class="icon">📜</span>
-                                                <span>Interview vragenbank</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="data-sources">
-                                        <h5>🔍 ECHTE DATA BRONNEN IN VOLLEDIG RAPPORT:</h5>
-                                        <div class="sources-list">
-                                            <span>• LinkedIn Jobs API (real-time)</span>
-                                            <span>• Glassdoor Salary Data</span>
-                                            <span>• Indeed Market Intelligence</span>
-                                            <span>• CBS Nederland</span>
-                                            <span>• UWV Arbeidsmarktinfo</span>
-                                            <span>• PayScale Nederland</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Report Footer -->
-                            <div class="report-footer">
-                                <div class="footer-stats">
-                                    <div class="stat">
-                                        <div class="stat-number">47</div>
-                                        <div class="stat-label">Pagina's analyse</div>
-                                    </div>
-                                    <div class="stat">
-                                        <div class="stat-number">156</div>
-                                        <div class="stat-label">Data punten</div>
-                                    </div>
-                                    <div class="stat">
-                                        <div class="stat-number">23</div>
-                                        <div class="stat-label">Charts & grafieken</div>
-                                    </div>
-                                    <div class="stat">
-                                        <div class="stat-number">96.2%</div>
-                                        <div class="stat-label">Accuracy rate</div>
-                                    </div>
-                                </div>
-                                <div class="unlock-button">
-                                    <button class="btn-unlock" onclick="scrollToOrder()">
-                                        🔓 UNLOCK VOLLEDIG RAPPORT - €59
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="demo-info">
+                <div class="demo-info" style="max-width: 800px; margin: 0 auto; text-align: center;">
                     <h3>Complete arbeidsmarkt intelligence binnen 30 seconden:</h3>
-                    <ul>
+                    <ul style="text-align: left; max-width: 600px; margin: 2rem auto;">
                         <li>✅ Markt vraag & aanbod analyse</li>
                         <li>✅ Concurrentie niveau & benchmarking</li>
                         <li>✅ Salaris bandbreedte & trends</li>
@@ -435,9 +181,15 @@
                         <li>✅ Optimale timing & kanaal advies</li>
                         <li>✅ Professional markt rapport (PDF)</li>
                     </ul>
-                    <button class="btn-primary" onclick="scrollToOrder()">
-                        Analyseer Je Markt Nu
-                    </button>
+                    <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
+                        <a href="demo-rapport.html" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none;">
+                            <i class="fas fa-file-pdf"></i>
+                            Bekijk Demo Rapport
+                        </a>
+                        <button class="btn-secondary" onclick="scrollToOrder()">
+                            Analyseer Je Markt Nu
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -632,33 +384,9 @@
                             </div>
                         </div>
 
-                        <div class="payment-section">
-                            <h3>💳 Betaling</h3>
-                            <div class="payment-summary">
-                                <div class="payment-item">
-                                    <span>Complete Arbeidsmarkt Analyse Rapport</span>
-                                    <span>€59,00</span>
-                                </div>
-                                <div class="payment-item">
-                                    <span>BTW (21%)</span>
-                                    <span>€12,39</span>
-                                </div>
-                                <div class="payment-total">
-                                    <span>Totaal</span>
-                                    <span>€71,39</span>
-                                </div>
-                            </div>
-
-                            <!-- Stripe Card Element -->
-                            <div id="card-element">
-                                <!-- Stripe Elements will create form elements here -->
-                            </div>
-                            <div id="card-errors" role="alert"></div>
-                        </div>
-
                         <button type="submit" id="submit-button" class="btn-submit">
                             <i class="fas fa-chart-bar"></i>
-                            Betaal €71,39 & Start Markt Analyse
+                            Vraag Offerte Aan
                         </button>
 
                         <div class="security-badges">
@@ -668,11 +396,11 @@
                             </div>
                             <div class="badge">
                                 <i class="fas fa-lock"></i>
-                                <span>Stripe Payments</span>
+                                <span>GDPR Compliant</span>
                             </div>
                             <div class="badge">
-                                <i class="fas fa-undo"></i>
-                                <span>30 Dagen Geld Terug</span>
+                                <i class="fas fa-clock"></i>
+                                <span>24/48u Response</span>
                             </div>
                         </div>
                     </form>
