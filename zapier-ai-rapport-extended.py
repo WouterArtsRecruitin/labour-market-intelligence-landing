@@ -435,8 +435,732 @@ def get_extended_fallback_data(sector, functietitel):
         }
     }
 
-# Run UITGEBREIDE AI Analysis
-ai_analysis = analyze_with_claude_extended(vacature_text, jobdigger_text, linkedin_ti_text, functietitel, sector, locatie)
 
-# Save for later - we'll build the HTML in the next part
-print("Extended AI analysis completed - building comprehensive report...")
+# ========================================
+# GENERATE EXTENDED EMAIL REPORT
+# ========================================
+
+def generate_extended_email_report(
+    ai_analysis,
+    bedrijfsnaam,
+    functietitel,
+    contactpersoon,
+    email,
+    telefoon,
+    sector,
+    locatie,
+    urgentie,
+    vacature_url,
+    jobdigger_url,
+    linkedin_ti_url
+):
+    """Generate comprehensive HTML email report from AI analysis"""
+
+    from datetime import datetime
+    current_date = datetime.now().strftime('%d-%m-%Y')
+
+    # Extract data from AI analysis
+    exec_summary = ai_analysis['executive_summary']
+    vacature_data = ai_analysis['vacature_analyse']
+    jobdigger_data = ai_analysis['jobdigger_data']
+    linkedin_data = ai_analysis['linkedin_ti_data']
+    salaris_data = ai_analysis['salaris_benchmark_uitgebreid']
+    trends = ai_analysis.get('arbeidsmarkt_trends', {})
+    comparison = ai_analysis.get('bron_vergelijking', {})
+
+    # Build Vacature Analyse HTML
+    vacature_html = f"""
+<tr>
+    <td style="padding: 0 40px 30px 40px;">
+        <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">📋 Vacature Analyse</h2>
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tr>
+                <td width="48%" valign="top" style="background-color: #fef2f2; padding: 20px; border-radius: 12px; border: 2px solid #fecaca;">
+                    <h3 style="margin: 0 0 16px 0; color: #991b1b; font-size: 16px; font-weight: 700;">✅ Vereiste Skills</h3>
+                    <ul style="margin: 0; padding-left: 20px; color: #374151;">
+                        {''.join([f'<li style="margin: 6px 0;">{skill}</li>' for skill in vacature_data['vereiste_skills']])}
+                    </ul>
+                </td>
+                <td width="4%"></td>
+                <td width="48%" valign="top" style="background-color: #f0fdf4; padding: 20px; border-radius: 12px; border: 2px solid #bbf7d0;">
+                    <h3 style="margin: 0 0 16px 0; color: #15803d; font-size: 16px; font-weight: 700;">💡 Nice-to-Have</h3>
+                    <ul style="margin: 0; padding-left: 20px; color: #374151;">
+                        {''.join([f'<li style="margin: 6px 0;">{skill}</li>' for skill in vacature_data['nice_to_have_skills']])}
+                    </ul>
+                </td>
+            </tr>
+        </table>
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 20px; background-color: #eff6ff; padding: 20px; border-radius: 12px; border: 2px solid #bfdbfe;">
+            <tr>
+                <td>
+                    <p style="margin: 4px 0; color: #374151;"><strong>Opleiding:</strong> {vacature_data['opleiding']}</p>
+                    <p style="margin: 4px 0; color: #374151;"><strong>Ervaring:</strong> {vacature_data['ervaring_jaren']}</p>
+                    <p style="margin: 4px 0; color: #374151;"><strong>Type:</strong> {vacature_data['functie_type']}</p>
+                    <p style="margin: 4px 0; color: #374151;"><strong>Werkvorm:</strong> {vacature_data['remote_mogelijk']}</p>
+                    <p style="margin: 8px 0 4px 0; color: #374151;"><strong>Benefits:</strong></p>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        {''.join([f'<li style="margin: 2px 0; color: #374151;">{benefit}</li>' for benefit in vacature_data['benefits_genoemd']])}
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+"""
+
+    # Build Jobdigger Data HTML
+    jobdigger_html = f"""
+<tr>
+    <td style="padding: 0 40px 30px 40px;">
+        <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">📊 Jobdigger Marktrapport Data</h2>
+
+        <!-- Key Statistics Cards -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tr>
+                <td width="32%" valign="top" style="background-color: #eff6ff; padding: 20px; border-radius: 12px; border: 2px solid #bfdbfe; text-align: center;">
+                    <div style="font-size: 36px; font-weight: 700; color: #2563eb; margin: 10px 0;">{jobdigger_data['totaal_werkenden']:,}</div>
+                    <h3 style="margin: 0; color: #1e3a8a; font-size: 14px; font-weight: 700;">Totaal Werkenden</h3>
+                    <p style="margin: 6px 0 0 0; color: #3b82f6; font-size: 12px;">In deze functie NL-breed</p>
+                </td>
+                <td width="2%"></td>
+                <td width="32%" valign="top" style="background-color: #f0fdf4; padding: 20px; border-radius: 12px; border: 2px solid #86efac; text-align: center;">
+                    <div style="font-size: 36px; font-weight: 700; color: #10b981; margin: 10px 0;">+{jobdigger_data['groei_percentage_jaar']}%</div>
+                    <h3 style="margin: 0; color: #15803d; font-size: 14px; font-weight: 700;">Groei per Jaar</h3>
+                    <p style="margin: 6px 0 0 0; color: #059669; font-size: 12px;">Trend: {jobdigger_data['werkgelegenheid_trend']}</p>
+                </td>
+                <td width="2%"></td>
+                <td width="32%" valign="top" style="background-color: #fef3c7; padding: 20px; border-radius: 12px; border: 2px solid #fcd34d; text-align: center;">
+                    <div style="font-size: 36px; font-weight: 700; color: #f59e0b; margin: 10px 0;">{jobdigger_data['aantal_vacatures_markt']}</div>
+                    <h3 style="margin: 0; color: #92400e; font-size: 14px; font-weight: 700;">Openstaande Vacatures</h3>
+                    <p style="margin: 6px 0 0 0; color: #d97706; font-size: 12px;">Actueel in markt</p>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Contract Verdeling -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 20px; background-color: #f9fafb; padding: 20px; border-radius: 12px; border: 1px solid #e5e7eb;">
+            <tr>
+                <td>
+                    <h3 style="margin: 0 0 16px 0; color: #1f2937; font-size: 16px; font-weight: 700;">📝 Contract Verdeling</h3>
+                    <div style="margin-bottom: 16px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding-bottom: 6px;"><span style="color: #374151; font-weight: 600;">Vast contract</span></td>
+                                <td align="right" style="padding-bottom: 6px;"><span style="color: #10b981; font-weight: 700; font-size: 16px;">{jobdigger_data['contract_verdeling']['vast']}%</span></td>
+                            </tr>
+                        </table>
+                        <div style="width: 100%; background-color: #e5e7eb; border-radius: 8px; height: 10px; overflow: hidden;">
+                            <div style="width: {jobdigger_data['contract_verdeling']['vast']}%; background-color: #10b981; height: 10px;"></div>
+                        </div>
+                    </div>
+                    <div style="margin-bottom: 16px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding-bottom: 6px;"><span style="color: #374151; font-weight: 600;">Tijdelijk contract</span></td>
+                                <td align="right" style="padding-bottom: 6px;"><span style="color: #f59e0b; font-weight: 700; font-size: 16px;">{jobdigger_data['contract_verdeling']['tijdelijk']}%</span></td>
+                            </tr>
+                        </table>
+                        <div style="width: 100%; background-color: #e5e7eb; border-radius: 8px; height: 10px; overflow: hidden;">
+                            <div style="width: {jobdigger_data['contract_verdeling']['tijdelijk']}%; background-color: #f59e0b; height: 10px;"></div>
+                        </div>
+                    </div>
+                    <div>
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td style="padding-bottom: 6px;"><span style="color: #374151; font-weight: 600;">ZZP</span></td>
+                                <td align="right" style="padding-bottom: 6px;"><span style="color: #6366f1; font-weight: 700; font-size: 16px;">{jobdigger_data['contract_verdeling']['zzp']}%</span></td>
+                            </tr>
+                        </table>
+                        <div style="width: 100%; background-color: #e5e7eb; border-radius: 8px; height: 10px; overflow: hidden;">
+                            <div style="width: {jobdigger_data['contract_verdeling']['zzp']}%; background-color: #6366f1; height: 10px;"></div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Regionale Verdeling & Top Werkgevers -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 20px;">
+            <tr>
+                <td width="48%" valign="top" style="background-color: #fef3c7; padding: 20px; border-radius: 12px; border: 2px solid #fcd34d;">
+                    <h3 style="margin: 0 0 16px 0; color: #92400e; font-size: 16px; font-weight: 700;">📍 Regionale Verdeling</h3>
+                    {''.join([f'''
+                    <div style="margin-bottom: 12px;">
+                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                            <tr>
+                                <td><span style="color: #374151; font-size: 14px;">{regio['regio']}</span></td>
+                                <td align="right"><span style="color: #d97706; font-weight: 700; font-size: 14px;">{regio['percentage']}%</span></td>
+                            </tr>
+                        </table>
+                        <div style="width: 100%; background-color: #fef9c3; border-radius: 6px; height: 8px; overflow: hidden;">
+                            <div style="width: {regio['percentage']}%; background-color: #f59e0b; height: 8px;"></div>
+                        </div>
+                    </div>
+                    ''' for regio in jobdigger_data['regionale_verdeling']])}
+                </td>
+                <td width="4%"></td>
+                <td width="48%" valign="top" style="background-color: #eff6ff; padding: 20px; border-radius: 12px; border: 2px solid #bfdbfe;">
+                    <h3 style="margin: 0 0 16px 0; color: #1e3a8a; font-size: 16px; font-weight: 700;">🏢 Top Werkgevers</h3>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        {''.join([f'<li style="margin: 8px 0; color: #374151; font-size: 14px;">{werkgever}</li>' for werkgever in jobdigger_data['top_werkgevers']])}
+                    </ul>
+                    <p style="margin: 16px 0 8px 0; color: #1e3a8a; font-size: 13px; font-weight: 600;">Demografie:</p>
+                    <p style="margin: 4px 0; color: #374151; font-size: 13px;">Gem. leeftijd: <strong>{jobdigger_data['gemiddelde_leeftijd']} jaar</strong></p>
+                    <p style="margin: 4px 0; color: #374151; font-size: 13px;">M/V ratio: <strong>{jobdigger_data['man_vrouw_ratio']}</strong></p>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Prognose -->
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 20px; background-color: #f0fdf4; padding: 20px; border-radius: 12px; border: 2px solid #86efac;">
+            <tr>
+                <td>
+                    <h3 style="margin: 0 0 12px 0; color: #15803d; font-size: 16px; font-weight: 700;">🔮 Toekomst Outlook</h3>
+                    <p style="margin: 4px 0; color: #374151;"><strong>Sector groei prognose:</strong> {jobdigger_data['sector_groei_prognose']}</p>
+                    <p style="margin: 4px 0; color: #374151;"><strong>Automatisering risico:</strong> {jobdigger_data['automatisering_risico']}</p>
+                    <p style="margin: 8px 0 4px 0; color: #374151;"><strong>Toekomst skills:</strong></p>
+                    <ul style="margin: 0; padding-left: 20px;">
+                        {''.join([f'<li style="margin: 2px 0; color: #374151;">{skill}</li>' for skill in jobdigger_data['toekomst_skills']])}
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+"""
+
+    # LinkedIn TI Data HTML
+    linkedin_html = f"""
+<tr>
+    <td style="padding: 30px 0;">
+        <h2 style="color: #0077b5; font-size: 24px; margin: 0 0 20px 0; border-bottom: 3px solid #0077b5; padding-bottom: 10px;">
+            📊 LinkedIn Talent Insights
+        </h2>
+
+        <!-- Talent Pool Statistics -->
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 25px;">
+            <tr>
+                <td width="32%" style="background: linear-gradient(135deg, #0077b5 0%, #005885 100%); padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="color: white; font-size: 14px; margin-bottom: 5px;">Talent Pool</div>
+                    <div style="color: white; font-size: 28px; font-weight: bold;">{linkedin_data['talent_pool_size']:,}</div>
+                    <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 5px;">professionals</div>
+                </td>
+                <td width="2%"></td>
+                <td width="32%" style="background: linear-gradient(135deg, #00a0dc 0%, #0077b5 100%); padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="color: white; font-size: 14px; margin-bottom: 5px;">Hiring Velocity</div>
+                    <div style="color: white; font-size: 28px; font-weight: bold;">{linkedin_data['hiring_velocity_maand']}</div>
+                    <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 5px;">hires/maand</div>
+                </td>
+                <td width="2%"></td>
+                <td width="32%" style="background: linear-gradient(135deg, #00c9ff 0%, #00a0dc 100%); padding: 20px; border-radius: 10px; text-align: center;">
+                    <div style="color: white; font-size: 14px; margin-bottom: 5px;">Gemiddeld Salaris</div>
+                    <div style="color: white; font-size: 28px; font-weight: bold;">€{linkedin_data['gemiddeld_salaris']:,}</div>
+                    <div style="color: rgba(255,255,255,0.8); font-size: 12px; margin-top: 5px;">per jaar</div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Competitor Companies -->
+        <div style="background: #f8f9fa; padding: 20px; border-radius: 10px; margin-bottom: 20px;">
+            <h3 style="color: #2c3e50; font-size: 18px; margin: 0 0 15px 0;">🏢 Top Concurrerende Werkgevers</h3>
+            <table width="100%" cellpadding="8" cellspacing="0">"""
+
+    # Add competitor companies
+    for i, company in enumerate(linkedin_data['concurrent_bedrijven'][:5]):
+        linkedin_html += f"""
+                <tr style="{'border-top: 1px solid #dee2e6;' if i > 0 else ''}">
+                    <td style="width: 5%; color: #6c757d; font-weight: bold;">#{i+1}</td>
+                    <td style="width: 50%; color: #2c3e50; font-weight: 600;">{company['bedrijf']}</td>
+                    <td style="width: 25%; color: #495057;">{company['aantal_werknemers']} werknemers</td>
+                    <td style="width: 20%; text-align: right;">
+                        <span style="background: #e3f2fd; color: #1976d2; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;">
+                            {company['hiring_rate']} hires/mnd
+                        </span>
+                    </td>
+                </tr>"""
+
+    linkedin_html += """
+            </table>
+        </div>
+
+        <!-- Education & Skills -->
+        <table width="100%" cellpadding="0" cellspacing="0">
+            <tr>
+                <td width="48%" valign="top">
+                    <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 4px solid #ffc107;">
+                        <h3 style="color: #856404; font-size: 16px; margin: 0 0 15px 0;">🎓 Opleidingsniveau</h3>"""
+
+    # Add education levels
+    for edu in linkedin_data['opleidingsniveau']:
+        linkedin_html += f"""
+                        <div style="margin-bottom: 10px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 5px;">
+                                <span style="color: #856404; font-size: 14px;">{edu['niveau']}</span>
+                                <span style="color: #856404; font-weight: bold; font-size: 14px;">{edu['percentage']}%</span>
+                            </div>
+                            <div style="background: rgba(255,193,7,0.2); height: 8px; border-radius: 4px; overflow: hidden;">
+                                <div style="background: #ffc107; height: 100%; width: {edu['percentage']}%;"></div>
+                            </div>
+                        </div>"""
+
+    linkedin_html += """
+                    </div>
+                </td>
+                <td width="4%"></td>
+                <td width="48%" valign="top">
+                    <div style="background: #d1ecf1; padding: 20px; border-radius: 10px; border-left: 4px solid #17a2b8;">
+                        <h3 style="color: #0c5460; font-size: 16px; margin: 0 0 15px 0;">🔄 Mobiliteit & Retentie</h3>
+                        <div style="margin-bottom: 12px;">
+                            <span style="color: #0c5460; font-size: 14px; display: block; margin-bottom: 5px;">Gemiddelde Retentie</span>
+                            <span style="color: #0c5460; font-size: 20px; font-weight: bold;">""" + str(linkedin_data['retentie_jaren']) + """ jaar</span>
+                        </div>
+                        <div style="margin-bottom: 12px;">
+                            <span style="color: #0c5460; font-size: 14px; display: block; margin-bottom: 5px;">Mobiliteit Index</span>
+                            <span style="color: #0c5460; font-size: 20px; font-weight: bold;">""" + str(linkedin_data['mobiliteit_index']) + """</span>
+                        </div>
+                        <div>
+                            <span style="color: #0c5460; font-size: 14px; display: block; margin-bottom: 5px;">Skill Gaps</span>"""
+
+    # Add top 3 skill gaps
+    for gap in linkedin_data['skill_gaps'][:3]:
+        linkedin_html += f"""
+                            <span style="background: rgba(23,162,184,0.2); color: #0c5460; padding: 4px 10px; border-radius: 12px; font-size: 12px; display: inline-block; margin: 3px 5px 3px 0;">
+                                {gap}
+                            </span>"""
+
+    linkedin_html += """
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+    </td>
+</tr>
+"""
+
+    # Extended Salary Breakdown HTML
+    salaris_html = f"""
+<tr>
+    <td style="padding: 30px 0;">
+        <h2 style="color: #28a745; font-size: 24px; margin: 0 0 20px 0; border-bottom: 3px solid #28a745; padding-bottom: 10px;">
+            💰 Uitgebreide Salaris Benchmark
+        </h2>
+
+        <!-- Salary by Seniority Level -->
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 25px; border: 1px solid #dee2e6; border-radius: 10px; overflow: hidden;">
+            <tr style="background: linear-gradient(135deg, #28a745 0%, #20903a 100%);">
+                <th style="color: white; padding: 15px; text-align: left; font-size: 14px;">Niveau</th>
+                <th style="color: white; padding: 15px; text-align: right; font-size: 14px;">Min</th>
+                <th style="color: white; padding: 15px; text-align: right; font-size: 14px;">Gemiddeld</th>
+                <th style="color: white; padding: 15px; text-align: right; font-size: 14px;">Max</th>
+                <th style="color: white; padding: 15px; text-align: right; font-size: 14px;">Bonus</th>
+            </tr>"""
+
+    # Add salary rows for each level
+    levels = ['junior', 'medior', 'senior', 'lead']
+    level_names = {'junior': '👶 Junior', 'medior': '👨 Medior', 'senior': '👴 Senior', 'lead': '👑 Lead'}
+    row_colors = ['#f8f9fa', 'white']
+
+    for idx, level in enumerate(levels):
+        level_data = salaris_data[f'salaris_{level}']
+        salaris_html += f"""
+            <tr style="background: {row_colors[idx % 2]};">
+                <td style="padding: 15px; color: #2c3e50; font-weight: 600; border-top: 1px solid #dee2e6;">{level_names[level]}</td>
+                <td style="padding: 15px; color: #495057; text-align: right; border-top: 1px solid #dee2e6;">€{level_data['min']:,}</td>
+                <td style="padding: 15px; color: #28a745; font-weight: bold; text-align: right; border-top: 1px solid #dee2e6;">€{level_data['gemiddeld']:,}</td>
+                <td style="padding: 15px; color: #495057; text-align: right; border-top: 1px solid #dee2e6;">€{level_data['max']:,}</td>
+                <td style="padding: 15px; color: #17a2b8; font-weight: 600; text-align: right; border-top: 1px solid #dee2e6;">{level_data['bonus']}</td>
+            </tr>"""
+
+    salaris_html += """
+        </table>
+
+        <!-- Secundaire Voorwaarden -->
+        <div style="background: #d4edda; padding: 20px; border-radius: 10px; border-left: 4px solid #28a745; margin-bottom: 20px;">
+            <h3 style="color: #155724; font-size: 18px; margin: 0 0 15px 0;">🎁 Secundaire Arbeidsvoorwaarden</h3>
+            <table width="100%" cellpadding="8" cellspacing="0">"""
+
+    # Add secundaire voorwaarden
+    for i, benefit in enumerate(salaris_data['secundaire_voorwaarden']):
+        salaris_html += f"""
+                <tr style="{'border-top: 1px solid #c3e6cb;' if i > 0 else ''}">
+                    <td style="width: 50%; color: #155724; font-weight: 600;">{benefit['voorwaarde']}</td>
+                    <td style="width: 30%; color: #155724;">{benefit['percentage']}% werkgevers</td>
+                    <td style="width: 20%; text-align: right;">
+                        <span style="background: #28a745; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;">
+                            {benefit['gemiddelde_waarde']}
+                        </span>
+                    </td>
+                </tr>"""
+
+    salaris_html += """
+            </table>
+        </div>
+
+        <!-- Regional Differences -->
+        <div style="background: #fff3cd; padding: 20px; border-radius: 10px; border-left: 4px solid #ffc107;">
+            <h3 style="color: #856404; font-size: 18px; margin: 0 0 15px 0;">📍 Regionale Salarisverschillen</h3>
+            <table width="100%" cellpadding="8" cellspacing="0">"""
+
+    # Add regional differences
+    for i, region in enumerate(salaris_data['regionale_verschillen']):
+        color = '#28a745' if '+' in region['verschil'] else '#dc3545'
+        salaris_html += f"""
+                <tr style="{'border-top: 1px solid #fff3cd;' if i > 0 else ''}">
+                    <td style="width: 40%; color: #856404; font-weight: 600;">{region['regio']}</td>
+                    <td style="width: 30%; color: #856404;">€{region['gemiddeld_salaris']:,}</td>
+                    <td style="width: 30%; text-align: right;">
+                        <span style="background: {color}; color: white; padding: 4px 12px; border-radius: 12px; font-size: 12px; font-weight: 600;">
+                            {region['verschil']} vs landelijk
+                        </span>
+                    </td>
+                </tr>"""
+
+    salaris_html += """
+            </table>
+        </div>
+    </td>
+</tr>
+"""
+
+    # Source Comparison HTML
+    comparison_html = f"""
+<tr>
+    <td style="padding: 30px 0;">
+        <h2 style="color: #6f42c1; font-size: 24px; margin: 0 0 20px 0; border-bottom: 3px solid #6f42c1; padding-bottom: 10px;">
+            🆚 Bronvergelijking & Betrouwbaarheid
+        </h2>
+
+        <!-- Similarities -->
+        <div style="background: #d1f2eb; padding: 20px; border-radius: 10px; border-left: 4px solid #00bfa5; margin-bottom: 20px;">
+            <h3 style="color: #004d40; font-size: 18px; margin: 0 0 15px 0;">✅ Overeenkomsten tussen bronnen</h3>
+            <ul style="margin: 0; padding-left: 20px; color: #004d40;">"""
+
+    for overeenkomst in comparison['overeenkomsten']:
+        comparison_html += f"""
+                <li style="margin-bottom: 8px; line-height: 1.6;">{overeenkomst}</li>"""
+
+    comparison_html += """
+            </ul>
+        </div>
+
+        <!-- Differences -->
+        <div style="background: #ffe0b2; padding: 20px; border-radius: 10px; border-left: 4px solid #ff9800; margin-bottom: 20px;">
+            <h3 style="color: #e65100; font-size: 18px; margin: 0 0 15px 0;">⚠️ Verschillen tussen bronnen</h3>
+            <table width="100%" cellpadding="10" cellspacing="0">"""
+
+    for i, verschil in enumerate(comparison['verschillen']):
+        comparison_html += f"""
+                <tr style="{'border-top: 1px solid #ffcc80;' if i > 0 else ''}">
+                    <td style="width: 25%; color: #e65100; font-weight: 600; vertical-align: top;">{verschil['aspect']}</td>
+                    <td style="width: 75%; color: #bf360c;">
+                        <strong>{verschil['bron']}:</strong> {verschil['waarde']}
+                    </td>
+                </tr>"""
+
+    comparison_html += """
+            </table>
+        </div>
+
+        <!-- Reliability Ratings -->
+        <div style="background: #e1bee7; padding: 20px; border-radius: 10px; border-left: 4px solid #9c27b0;">
+            <h3 style="color: #4a148c; font-size: 18px; margin: 0 0 15px 0;">⭐ Betrouwbaarheidsscores</h3>
+            <table width="100%" cellpadding="0" cellspacing="0">"""
+
+    # Reliability ratings with star visualization
+    for i, rating in enumerate(comparison['betrouwbaarheid']):
+        stars = '⭐' * rating['score']
+        comparison_html += f"""
+                <tr>
+                    <td style="padding: 12px 0; {'border-top: 1px solid #ce93d8;' if i > 0 else ''}">
+                        <div style="margin-bottom: 5px;">
+                            <span style="color: #4a148c; font-weight: 600; font-size: 14px;">{rating['bron']}</span>
+                            <span style="float: right; font-size: 18px;">{stars}</span>
+                        </div>
+                        <div style="color: #6a1b9a; font-size: 13px; font-style: italic;">{rating['opmerking']}</div>
+                    </td>
+                </tr>"""
+
+    comparison_html += """
+            </table>
+        </div>
+    </td>
+</tr>
+"""
+
+    # Trends & Future Outlook HTML
+    trends_html = f"""
+<tr>
+    <td style="padding: 30px 0;">
+        <h2 style="color: #ff6b6b; font-size: 24px; margin: 0 0 20px 0; border-bottom: 3px solid #ff6b6b; padding-bottom: 10px;">
+            📈 Arbeidsmarkt Trends & Toekomst
+        </h2>
+
+        <!-- Current Trends -->
+        <div style="background: #fff5f5; padding: 20px; border-radius: 10px; border-left: 4px solid #ff6b6b; margin-bottom: 20px;">
+            <h3 style="color: #c92a2a; font-size: 18px; margin: 0 0 15px 0;">🔥 Huidige Trends</h3>
+            <table width="100%" cellpadding="10" cellspacing="0">"""
+
+    # Add trends with impact badges
+    for i, trend in enumerate(trends['huidige_trends']):
+        impact_colors = {
+            'Hoog': '#dc3545',
+            'Medium': '#ffc107',
+            'Laag': '#28a745'
+        }
+        impact_color = impact_colors.get(trend['impact'], '#6c757d')
+
+        trends_html += f"""
+                <tr style="{'border-top: 1px solid #ffe0e0;' if i > 0 else ''}">
+                    <td style="width: 70%; color: #c92a2a;">
+                        <strong>{trend['trend']}</strong>
+                        <div style="color: #e03131; font-size: 13px; margin-top: 5px;">{trend['beschrijving']}</div>
+                    </td>
+                    <td style="width: 30%; text-align: right; vertical-align: top;">
+                        <span style="background: {impact_color}; color: white; padding: 6px 14px; border-radius: 12px; font-size: 12px; font-weight: 600;">
+                            {trend['impact']} impact
+                        </span>
+                    </td>
+                </tr>"""
+
+    trends_html += """
+            </table>
+        </div>
+
+        <!-- Automation Risk -->
+        <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 20px;">
+            <tr>
+                <td width="48%" valign="top">
+                    <div style="background: #f1f3f5; padding: 20px; border-radius: 10px; border-left: 4px solid #495057;">
+                        <h3 style="color: #212529; font-size: 16px; margin: 0 0 15px 0;">🤖 Automatiseringsrisico</h3>
+                        <div style="text-align: center; margin: 20px 0;">
+                            <div style="font-size: 48px; font-weight: bold; color: """ + ('#28a745' if trends['automatisering_risico'] == 'Laag' else '#ffc107' if trends['automatisering_risico'] == 'Gemiddeld' else '#dc3545') + """;">
+                                """ + trends['automatisering_risico'] + """
+                            </div>
+                            <div style="color: #6c757d; font-size: 14px; margin-top: 10px;">
+                                risico niveau
+                            </div>
+                        </div>
+                        <p style="color: #495057; font-size: 13px; margin: 0; line-height: 1.6;">
+                            """ + trends['automatisering_toelichting'] + """
+                        </p>
+                    </div>
+                </td>
+                <td width="4%"></td>
+                <td width="48%" valign="top">
+                    <div style="background: #e7f5ff; padding: 20px; border-radius: 10px; border-left: 4px solid #1971c2;">
+                        <h3 style="color: #1864ab; font-size: 16px; margin: 0 0 15px 0;">🔮 Toekomstige Skills</h3>
+                        <p style="color: #1971c2; font-size: 13px; margin: 0 0 15px 0;">
+                            Skills die de komende 2-3 jaar steeds belangrijker worden:
+                        </p>"""
+
+    # Add future skills
+    for skill in trends['toekomstige_skills'][:6]:
+        trends_html += f"""
+                        <div style="background: white; padding: 10px 15px; border-radius: 8px; margin-bottom: 8px; border-left: 3px solid #1971c2;">
+                            <span style="color: #1864ab; font-weight: 600; font-size: 14px;">{skill}</span>
+                        </div>"""
+
+    trends_html += """
+                    </div>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Sector Prognosis -->
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 25px; border-radius: 10px; color: white;">
+            <h3 style="color: white; font-size: 18px; margin: 0 0 15px 0;">🎯 Sector Prognose</h3>
+            <p style="color: rgba(255,255,255,0.95); font-size: 15px; line-height: 1.7; margin: 0;">
+                """ + trends['sector_prognose'] + """
+            </p>
+        </div>
+    </td>
+</tr>
+"""
+
+    # Assemble complete email template
+    email_body_html = f"""
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Intelligence Rapport</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif; background-color: #f5f5f5;">
+    <table width="100%" cellpadding="0" cellspacing="0" border="0" style="background-color: #f5f5f5; padding: 30px 0;">
+        <tr>
+            <td align="center">
+                <table width="700" cellpadding="0" cellspacing="0" border="0" style="background-color: white; box-shadow: 0 4px 6px rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden;">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 40px 30px; text-align: center;">
+                            <h1 style="margin: 0; color: white; font-size: 32px; font-weight: 700;">Recruitment Intelligence Rapport</h1>
+                            <p style="margin: 10px 0 0 0; color: rgba(255,255,255,0.9); font-size: 16px;">{bedrijfsnaam} • {functietitel}</p>
+                            <p style="margin: 8px 0 0 0; color: rgba(255,255,255,0.8); font-size: 14px;">Gegenereerd op: {current_date}</p>
+                        </td>
+                    </tr>
+
+                    <!-- Main Content -->
+                    <tr>
+                        <td style="padding: 30px;">
+
+                            <!-- Executive Summary -->
+                            <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); padding: 25px; border-radius: 10px; margin-bottom: 30px; color: white;">
+                                <h2 style="margin: 0 0 15px 0; font-size: 20px; font-weight: 700;">📋 Executive Summary</h2>
+                                <p style="margin: 0; font-size: 15px; line-height: 1.7; opacity: 0.95;">{exec_summary['samenvatting']}</p>
+                                <div style="margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.2); border-radius: 8px;">
+                                    <p style="margin: 0; font-size: 14px;"><strong>Status Arbeidsmarkt:</strong> {exec_summary['arbeidsmarkt_status']}</p>
+                                    <p style="margin: 8px 0 0 0; font-size: 14px;"><strong>Advies:</strong> {exec_summary['advies']}</p>
+                                </div>
+                            </div>
+
+                            <!-- Vacature Analyse -->
+                            {vacature_html}
+
+                            <!-- Jobdigger Data -->
+                            {jobdigger_html}
+
+                            <!-- LinkedIn TI Data -->
+                            {linkedin_html}
+
+                            <!-- Extended Salary -->
+                            {salaris_html}
+
+                            <!-- Source Comparison -->
+                            {comparison_html}
+
+                            <!-- Trends -->
+                            {trends_html}
+
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background: #f8f9fa; padding: 30px; text-align: center; border-top: 1px solid #dee2e6;">
+                            <p style="margin: 0 0 10px 0; color: #6c757d; font-size: 14px;">Dit rapport is automatisch gegenereerd met AI-analyse van meerdere databronnen.</p>
+                            <p style="margin: 0; color: #6c757d; font-size: 12px;">Voor vragen, neem contact op met <a href="mailto:warts@recruitin.nl" style="color: #667eea; text-decoration: none;">warts@recruitin.nl</a></p>
+                            <div style="margin-top: 20px;">
+                                <span style="background: #667eea; color: white; padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 600;">Powered by Recruitin.nl</span>
+                            </div>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
+"""
+
+    # Prepare output for Zapier
+    return {
+        'email_to': 'warts@recruitin.nl',
+        'email_subject': f'🤖 AI Recruitment Intelligence: {bedrijfsnaam} - {functietitel}',
+        'email_body_html': email_body_html,
+
+        # Notion fields
+        'notion_bedrijfsnaam': bedrijfsnaam,
+        'notion_functietitel': functietitel,
+        'notion_contactpersoon': contactpersoon,
+        'notion_email': email,
+        'notion_telefoon': telefoon,
+        'notion_sector': sector,
+        'notion_locatie': locatie,
+        'notion_salaris_range': f"€{salaris_data['salaris_medior']['min']:,} - €{salaris_data['salaris_senior']['max']:,}",
+        'notion_urgentie': urgentie,
+        'notion_intelligence': 'AI-Gedreven Uitgebreid Rapport',
+        'notion_status': '🤖 AI Analyse Compleet',
+        'notion_datum': current_date,
+        'notion_ai_schaarste': exec_summary.get('schaarste_niveau', 'Gemiddeld'),
+        'notion_ai_time_to_hire': exec_summary.get('time_to_hire', '30-45 dagen'),
+
+        # URL fields - gebruik None voor lege velden
+        'notion_vacature_url': vacature_url if vacature_url else None,
+        'notion_jobdigger_url': jobdigger_url if jobdigger_url else None,
+        'notion_linkedin_ti_url': linkedin_ti_url if linkedin_ti_url else None,
+
+        # Extended data for potential future use
+        'ai_analysis_summary': exec_summary['samenvatting'],
+        'arbeidsmarkt_status': exec_summary['arbeidsmarkt_status'],
+        'talent_pool_size': linkedin_data['talent_pool_size'],
+        'total_workers_market': jobdigger_data['totaal_werkenden'],
+        'automation_risk': trends['automatisering_risico'],
+        'sector_prognose': trends['sector_prognose']
+    }
+
+
+# Main function for Zapier
+def main():
+    """
+    Main function that Zapier will call.
+    Expected input_data fields from Zapier:
+    - claude_api_key: Your Anthropic API key
+    - bedrijfsnaam, functietitel, contactpersoon, email, telefoon
+    - sector, locatie, urgentie
+    - vacature_url, jobdigger_url, linkedin_ti_url (URLs to documents)
+    - vacature_text, jobdigger_text, linkedin_ti_text (extracted text from PDFs)
+    - extra_info (optional)
+    """
+
+    # Get input data from Zapier
+    claude_api_key = input_data.get('claude_api_key', '')
+
+    # Basic info
+    bedrijfsnaam = input_data.get('bedrijfsnaam', 'Onbekend Bedrijf')
+    functietitel = input_data.get('functietitel', 'Onbekende Functie')
+    contactpersoon = input_data.get('contactpersoon', '')
+    email = input_data.get('email', '')
+    telefoon = input_data.get('telefoon', '')
+    sector = input_data.get('sector', 'Algemeen')
+    locatie = input_data.get('locatie', 'Nederland')
+    urgentie = input_data.get('urgentie', 'Normaal')
+    extra_info = input_data.get('extra_info', '')
+
+    # Document URLs
+    vacature_url = input_data.get('vacature_url', '').strip()
+    jobdigger_url = input_data.get('jobdigger_url', '').strip()
+    linkedin_ti_url = input_data.get('linkedin_ti_url', '').strip()
+
+    # Extracted text from documents
+    vacature_text = input_data.get('vacature_text', '')
+    jobdigger_text = input_data.get('jobdigger_text', '')
+    linkedin_ti_text = input_data.get('linkedin_ti_text', '')
+
+    # Analyze with AI or use fallback
+    ai_analysis = analyze_with_claude_extended(
+        claude_api_key,
+        bedrijfsnaam,
+        functietitel,
+        vacature_text,
+        jobdigger_text,
+        linkedin_ti_text,
+        sector,
+        locatie,
+        extra_info
+    )
+
+    # Generate report
+    output = generate_extended_email_report(
+        ai_analysis,
+        bedrijfsnaam,
+        functietitel,
+        contactpersoon,
+        email,
+        telefoon,
+        sector,
+        locatie,
+        urgentie,
+        vacature_url,
+        jobdigger_url,
+        linkedin_ti_url
+    )
+
+    return output
+
+
+# This is what Zapier will execute
+output = main()
