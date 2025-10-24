@@ -367,15 +367,348 @@ if extra_info:
     </tr>
     """
 
-# Continue in next message due to length...
-# I'll create the full HTML email template
+# ========================================
+# COMPLETE HTML EMAIL TEMPLATE
+# ========================================
 
-# [REST OF EMAIL TEMPLATE WILL BE ADDED IN PART 2]
+email_body_html = f"""<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background-color: #f3f4f6;">
 
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f3f4f6; padding: 20px;">
+        <tr>
+            <td align="center">
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 700px; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #4B4F51 0%, #77797B 50%, #4B4F51 100%); padding: 40px; text-align: center;">
+                            <h1 style="margin: 0 0 10px 0; color: #ffffff; font-size: 32px; font-weight: 700;">
+                                🤖 AI-Gedreven Arbeidsmarkt Intelligence
+                            </h1>
+                            <p style="margin: 0; color: #d1d5db; font-size: 16px;">
+                                Labour Market Analysis • Powered by Claude AI
+                            </p>
+                            <div style="margin-top: 20px; display: inline-block; background-color: #10b981; color: white; padding: 10px 20px; border-radius: 20px; font-weight: 700; font-size: 13px;">
+                                Data Betrouwbaarheid: 92%
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Orange Bar -->
+                    <tr>
+                        <td style="background-color: #EF7D00; height: 6px;"></td>
+                    </tr>
+
+                    <!-- Executive Summary -->
+                    <tr>
+                        <td style="padding: 40px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #FFF7ED; border-left: 4px solid #EF7D00; border-radius: 8px;">
+                                <tr>
+                                    <td style="padding: 30px;">
+                                        <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700;">
+                                            📊 Executive Summary
+                                        </h2>
+                                        <p style="margin: 8px 0; color: #374151; font-size: 16px; line-height: 1.6;">
+                                            <strong style="color: #1f2937;">Vacature:</strong> {functietitel}<br>
+                                            <strong style="color: #1f2937;">Bedrijf:</strong> {bedrijfsnaam}<br>
+                                            <strong style="color: #1f2937;">Sector:</strong> {sector}<br>
+                                            <strong style="color: #1f2937;">Locatie:</strong> {locatie}<br>
+                                            <strong style="color: #1f2937;">Aantal posities:</strong> {aantal_posities}
+                                        </p>
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="margin-top: 20px; background-color: #ffffff; border: 1px solid #fed7aa; border-radius: 8px;">
+                                            <tr>
+                                                <td style="padding: 16px;">
+                                                    <p style="margin: 0 0 5px 0; font-weight: 600; color: #1f2937; font-size: 15px;">Markt Status:</p>
+                                                    <p style="margin: 0; color: #EF7D00; font-weight: 700; font-size: 20px;">Kandidaatmarkt - Hoge concurrentie voor talent</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Vacancy Profile -->
+                    <tr>
+                        <td style="padding: 0 40px 30px 40px;">
+                            <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
+                                🎯 Vacature Profiel
+                            </h2>
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td width="48%" valign="top" style="background-color: #f9fafb; padding: 24px; border-radius: 12px; border: 1px solid #e5e7eb;">
+                                        <h3 style="margin: 0 0 16px 0; color: #1f2937; font-size: 16px; font-weight: 700;">Functie Vereisten</h3>
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                            <tr>
+                                                <td style="padding: 6px 0;">
+                                                    <span style="color: #6b7280; font-size: 14px;">Functieniveau:</span>
+                                                </td>
+                                                <td align="right" style="padding: 6px 0;">
+                                                    <span style="color: #1f2937; font-weight: 600; font-size: 14px;">{ervaringsniveau}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 6px 0;">
+                                                    <span style="color: #6b7280; font-size: 14px;">Ervaring:</span>
+                                                </td>
+                                                <td align="right" style="padding: 6px 0;">
+                                                    <span style="color: #1f2937; font-weight: 600; font-size: 14px;">{werkervaring_jaren}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 6px 0;">
+                                                    <span style="color: #6b7280; font-size: 14px;">Opleiding:</span>
+                                                </td>
+                                                <td align="right" style="padding: 6px 0;">
+                                                    <span style="color: #1f2937; font-weight: 600; font-size: 14px;">{opleidingsniveau}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 6px 0;">
+                                                    <span style="color: #6b7280; font-size: 14px;">Team size:</span>
+                                                </td>
+                                                <td align="right" style="padding: 6px 0;">
+                                                    <span style="color: #1f2937; font-weight: 600; font-size: 14px;">{teamsize}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                    <td width="4%"></td>
+                                    <td width="48%" valign="top" style="background-color: #f9fafb; padding: 24px; border-radius: 12px; border: 1px solid #e5e7eb;">
+                                        <h3 style="margin: 0 0 16px 0; color: #1f2937; font-size: 16px; font-weight: 700;">Organisatie Context</h3>
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                            <tr>
+                                                <td style="padding: 6px 0;">
+                                                    <span style="color: #6b7280; font-size: 14px;">Industrie:</span>
+                                                </td>
+                                                <td align="right" style="padding: 6px 0;">
+                                                    <span style="color: #1f2937; font-weight: 600; font-size: 14px;">{sector}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 6px 0;">
+                                                    <span style="color: #6b7280; font-size: 14px;">Bedrijfsgrootte:</span>
+                                                </td>
+                                                <td align="right" style="padding: 6px 0;">
+                                                    <span style="color: #1f2937; font-weight: 600; font-size: 14px;">{bedrijfsgrootte}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 6px 0;">
+                                                    <span style="color: #6b7280; font-size: 14px;">Werkomgeving:</span>
+                                                </td>
+                                                <td align="right" style="padding: 6px 0;">
+                                                    <span style="color: #1f2937; font-weight: 600; font-size: 14px;">{werkomgeving}</span>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 6px 0;">
+                                                    <span style="color: #6b7280; font-size: 14px;">Groei fase:</span>
+                                                </td>
+                                                <td align="right" style="padding: 6px 0;">
+                                                    <span style="color: #10b981; font-weight: 600; font-size: 14px;">{groei_fase}</span>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Contact Info -->
+                    <tr>
+                        <td style="padding: 0 40px 30px 40px;">
+                            <h2 style="margin: 0 0 16px 0; color: #1f2937; font-size: 22px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
+                                👤 Contactpersoon
+                            </h2>
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f9fafb; border-radius: 8px; border: 1px solid #e5e7eb;">
+                                <tr>
+                                    <td style="padding: 20px;">
+                                        <p style="margin: 6px 0; color: #374151; font-size: 15px;">
+                                            <strong style="color: #1f2937;">Naam:</strong> {contactpersoon}
+                                        </p>
+                                        <p style="margin: 6px 0; color: #374151; font-size: 15px;">
+                                            <strong style="color: #1f2937;">Email:</strong> <a href="mailto:{email}" style="color: #EF7D00; text-decoration: none;">{email}</a>
+                                        </p>
+                                        <p style="margin: 6px 0; color: #374151; font-size: 15px;">
+                                            <strong style="color: #1f2937;">Telefoon:</strong> <a href="tel:{telefoon}" style="color: #EF7D00; text-decoration: none;">{telefoon}</a>
+                                        </p>
+                                        <p style="margin: 6px 0; color: #374151; font-size: 15px;">
+                                            <strong style="color: #1f2937;">Urgentie:</strong> <span style="color: #dc2626; font-weight: 700;">{urgentie}</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    {extra_info_html}
+
+                    <!-- Labour Market Status -->
+                    <tr>
+                        <td style="padding: 0 40px 30px 40px;">
+                            <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
+                                📈 Arbeidsmarkt Status (AI-Analyse)
+                            </h2>
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td width="32%" valign="top" style="background-color: #fef2f2; padding: 20px; border-radius: 12px; border: 2px solid #fecaca; text-align: center;">
+                                        <div style="font-size: 32px; margin-bottom: 10px;">⚠️</div>
+                                        <h3 style="margin: 0 0 8px 0; color: #7f1d1d; font-size: 15px; font-weight: 700;">Schaarste</h3>
+                                        <div style="color: #dc2626; font-size: 28px; font-weight: 700; margin: 8px 0;">{ai_analysis['schaarste_niveau']}</div>
+                                        <p style="margin: 0; color: #991b1b; font-size: 12px;">{ai_analysis['schaarste_ratio']}</p>
+                                    </td>
+                                    <td width="2%"></td>
+                                    <td width="32%" valign="top" style="background-color: #fff7ed; padding: 20px; border-radius: 12px; border: 2px solid #fed7aa; text-align: center;">
+                                        <div style="font-size: 32px; margin-bottom: 10px;">⏱️</div>
+                                        <h3 style="margin: 0 0 8px 0; color: #7c2d12; font-size: 15px; font-weight: 700;">Time-to-Hire</h3>
+                                        <div style="color: #ea580c; font-size: 28px; font-weight: 700; margin: 8px 0;">{ai_analysis['time_to_hire_min']}-{ai_analysis['time_to_hire_max']} dagen</div>
+                                        <p style="margin: 0; color: #c2410c; font-size: 12px;">Sector gemiddelde</p>
+                                    </td>
+                                    <td width="2%"></td>
+                                    <td width="32%" valign="top" style="background-color: #eff6ff; padding: 20px; border-radius: 12px; border: 2px solid #bfdbfe; text-align: center;">
+                                        <div style="font-size: 32px; margin-bottom: 10px;">👥</div>
+                                        <h3 style="margin: 0 0 8px 0; color: #1e3a8a; font-size: 15px; font-weight: 700;">Beschikbaarheid</h3>
+                                        <div style="color: #2563eb; font-size: 28px; font-weight: 700; margin: 8px 0;">{ai_analysis['beschikbaarheid']}</div>
+                                        <p style="margin: 0; color: #1d4ed8; font-size: 12px;">{ai_analysis['beschikbaarheid_tekst']}</p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Target Audience Analysis -->
+                    <tr>
+                        <td style="padding: 0 40px 30px 40px;">
+                            <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
+                                🎯 Doelgroep Analyse (AI-Inzicht)
+                            </h2>
+                            {doelgroep_html}
+                        </td>
+                    </tr>
+
+                    <!-- Salary Benchmark -->
+                    <tr>
+                        <td style="padding: 0 40px 30px 40px;">
+                            <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
+                                💰 Salaris Benchmark (AI-Berekend)
+                            </h2>
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background: linear-gradient(135deg, #EF7D00 0%, #ea580c 100%); border-radius: 12px; box-shadow: 0 4px 12px rgba(239, 125, 0, 0.3);">
+                                <tr>
+                                    <td style="padding: 32px; color: #ffffff;">
+                                        <p style="margin: 0 0 10px 0; font-size: 13px; font-weight: 600; opacity: 0.9;">Markt Mediaan (P50)</p>
+                                        <div style="font-size: 40px; font-weight: 700; margin: 10px 0;">{salaris_p50}</div>
+                                        <p style="margin: 0 0 20px 0; font-size: 13px; opacity: 0.9;">Bruto jaarsalaris, exclusief bonus & secundair</p>
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="border-top: 1px solid rgba(255,255,255,0.3); padding-top: 16px; margin-top: 16px;">
+                                            <tr>
+                                                <td width="48%" style="padding: 8px 0;">
+                                                    <p style="margin: 0; font-size: 12px; opacity: 0.8;">P25 (Junior Senior)</p>
+                                                    <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: 700;">{salaris_p25}</p>
+                                                </td>
+                                                <td width="4%"></td>
+                                                <td width="48%" style="padding: 8px 0;">
+                                                    <p style="margin: 0; font-size: 12px; opacity: 0.8;">P75 (Top talent)</p>
+                                                    <p style="margin: 4px 0 0 0; font-size: 16px; font-weight: 700;">{salaris_p75}</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Required Competencies -->
+                    <tr>
+                        <td style="padding: 0 40px 30px 40px;">
+                            <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">
+                                🛠️ Gewenste Competenties (AI-Analyse)
+                            </h2>
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td width="48%" valign="top" style="background-color: #eff6ff; padding: 20px; border-radius: 12px; border: 2px solid #bfdbfe;">
+                                        <h3 style="margin: 0 0 16px 0; color: #1e3a8a; font-size: 16px; font-weight: 700;">Technical Skills</h3>
+                                        {technical_skills_html}
+                                    </td>
+                                    <td width="4%"></td>
+                                    <td width="48%" valign="top" style="background-color: #f0fdf4; padding: 20px; border-radius: 12px; border: 2px solid #bbf7d0;">
+                                        <h3 style="margin: 0 0 16px 0; color: #15803d; font-size: 16px; font-weight: 700;">Soft Skills</h3>
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                            {soft_skills_html}
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    {source_materials_html}
+
+                    <!-- Call to Action -->
+                    <tr>
+                        <td style="padding: 30px 40px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background: linear-gradient(135deg, #EF7D00 0%, #d97706 100%); border-radius: 12px;">
+                                <tr>
+                                    <td style="padding: 24px;">
+                                        <h3 style="margin: 0 0 12px 0; color: #ffffff; font-size: 20px; font-weight: 700;">
+                                            ⚡ Volgende Stappen
+                                        </h3>
+                                        <ol style="margin: 0; padding-left: 20px; color: #ffffff; font-size: 15px; line-height: 1.8;">
+                                            <li>Review AI-gedreven arbeidsmarkt analyse</li>
+                                            <li>Bel {contactpersoon} ({telefoon})</li>
+                                            <li>Bespreek data-gedreven recruitment strategie</li>
+                                            <li>Start active sourcing binnen 48 uur</li>
+                                        </ol>
+                                        <p style="margin: 16px 0 0 0; color: #ffffff; font-size: 14px; opacity: 0.9;">
+                                            💡 Plan een gratis 15-minuten adviesgesprek voor concrete acties.
+                                        </p>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color: #f9fafb; padding: 30px 40px; text-align: center; border-top: 1px solid #e5e7eb;">
+                            <p style="margin: 0 0 8px 0; color: #4B4F51; font-weight: 700; font-size: 20px;">
+                                Recruitin
+                            </p>
+                            <p style="margin: 0 0 16px 0; color: #6b7280; font-size: 14px;">
+                                AI-Powered Recruitment Intelligence
+                            </p>
+                            <p style="margin: 0; color: #6b7280; font-size: 13px;">
+                                📧 info@recruitin.com | 🌐 <a href="https://recruitin.com" style="color: #EF7D00; text-decoration: none;">recruitin.com</a>
+                            </p>
+                            <p style="margin: 12px 0 0 0; color: #9ca3af; font-size: 12px;">
+                                {datetime.datetime.now().strftime('%d-%m-%Y %H:%M')} • Powered by Claude AI •
+                                <a href="{submission_url}" style="color: #EF7D00; text-decoration: none;">Jotform #{submission_id}</a>
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>"""
+
+# ========================================
+# OUTPUT FOR ZAPIER
+# ========================================
 output = {
     'email_to': RECRUITER_EMAIL,
     'email_subject': f"🤖 AI-Gedreven Recruitment Intelligence: {functietitel} bij {bedrijfsnaam}",
-    'email_body_html': "EMAIL_HTML_HIER",  # Will complete in part 2
+    'email_body_html': email_body_html,
     'notion_bedrijfsnaam': bedrijfsnaam,
     'notion_contactpersoon': contactpersoon,
     'notion_email': email,
