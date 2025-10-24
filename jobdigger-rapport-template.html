@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jobdigger Arbeidsmarkt Intelligence Rapport - {{FUNCTIE_TITEL}}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+        }
+
+        @media print {
+            .print-hide {
+                display: none !important;
+            }
+            body {
+                background: white;
+            }
+            .print-break {
+                page-break-after: always;
+            }
+        }
+
+        /* Recruitin Brand Colors */
+        .bg-recruitin-primary { background-color: #4B4F51; }
+        .bg-recruitin-secondary { background-color: #77797B; }
+        .bg-recruitin-accent { background-color: #EF7D00; }
+        .text-recruitin-accent { color: #EF7D00; }
+        .border-recruitin-accent { border-color: #EF7D00; }
+        .hover\:bg-recruitin-primary-dark:hover { background-color: #3A3E40; }
+
+        /* Chart containers */
+        .chart-container {
+            position: relative;
+            height: 300px;
+            margin: 20px 0;
+        }
+
+        .chart-container-large {
+            position: relative;
+            height: 400px;
+            margin: 20px 0;
+        }
+    </style>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'recruitin-primary': '#4B4F51',
+                        'recruitin-secondary': '#77797B',
+                        'recruitin-accent': '#EF7D00',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Print Button -->
+    <div class="print-hide fixed top-4 right-4 z-50">
+        <button onclick="window.print()" class="bg-recruitin-primary text-white px-6 py-3 rounded-lg shadow-lg hover:bg-recruitin-primary-dark transition-colors flex items-center gap-2">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            Print Rapport
+        </button>
+    </div>
+
+    <!-- Main Container -->
+    <div class="min-h-screen py-8 px-4">
+        <div class="max-w-6xl mx-auto bg-white shadow-2xl rounded-xl overflow-hidden">
+
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-recruitin-primary via-recruitin-secondary to-recruitin-primary text-white p-10">
+                <div class="flex justify-between items-start">
+                    <div>
+                        <h1 class="text-5xl font-bold mb-3">Jobdigger Insights Rapport</h1>
+                        <p class="text-gray-200 text-2xl mb-2">{{FUNCTIE_TITEL}}</p>
+                        <p class="text-gray-300 text-lg">Arbeidsmarkt Intelligence Analyse</p>
+                    </div>
+                    <div class="text-right">
+                        <div class="bg-recruitin-accent text-white px-6 py-3 rounded-full text-sm font-bold shadow-lg mb-2">
+                            Powered by Recruitin
+                        </div>
+                        <div class="text-sm text-gray-300">
+                            Gegenereerd: {{DATUM}}<br>
+                            Periode: {{PERIODE}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Content -->
+            <div class="p-10 space-y-12">
+
+                <!-- 1. GEPUBLICEERDE VACATURES -->
+                <section id="vacatures" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">1. Gepubliceerde Vacatures</h2>
+                        <p class="text-gray-600 mt-2">Analyse van {{TOTAAL_VACATURES}} vacatures over de afgelopen {{PERIODE}}</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-recruitin-accent to-orange-600 p-8 rounded-xl shadow-xl text-white mb-6">
+                        <div class="text-sm font-semibold mb-2 opacity-90">Totaal Aantal Vacatures</div>
+                        <div class="text-6xl font-bold mb-2">{{TOTAAL_VACATURES}}</div>
+                        <div class="text-sm opacity-90">Periode: {{PERIODE}}</div>
+                    </div>
+
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">Top 10 Aanverwante Functietitels</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">{{FUNCTIE_1}}</span>
+                                <span class="text-blue-600 font-bold text-lg">{{AANTAL_1}}x</span>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">{{FUNCTIE_2}}</span>
+                                <span class="text-blue-600 font-bold text-lg">{{AANTAL_2}}x</span>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">{{FUNCTIE_3}}</span>
+                                <span class="text-blue-600 font-bold text-lg">{{AANTAL_3}}x</span>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">{{FUNCTIE_4}}</span>
+                                <span class="text-blue-600 font-bold text-lg">{{AANTAL_4}}x</span>
+                            </div>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="flex justify-between items-center">
+                                <span class="font-semibold text-gray-800">{{FUNCTIE_5}}</span>
+                                <span class="text-blue-600 font-bold text-lg">{{AANTAL_5}}x</span>
+                            </div>
+                        </div>
+                        <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <div class="text-center text-gray-600">
+                                <span class="font-semibold">+5 meer functietitels</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 2. GEOGRAFISCHE SPREIDING -->
+                <section id="geografie" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">2. Geografische Spreiding</h2>
+                        <p class="text-gray-600 mt-2">Regionale verdeling van vacatures in Nederland</p>
+                    </div>
+
+                    <div class="bg-orange-50 p-6 rounded-xl border-2 border-orange-200 mb-6">
+                        <h3 class="font-bold text-lg text-gray-900 mb-4">📍 Heatmap Vacatures</h3>
+                        <div class="chart-container-large">
+                            <canvas id="geoChart"></canvas>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-4 italic">* Hoogste concentratie in {{REGIO_TOP}}</p>
+                    </div>
+
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">Vacatures per Regio</h3>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{REGIO_1}}</span>
+                                <span class="text-gray-600 font-bold">{{PERCENTAGE_1}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-red-500 h-3 rounded-full" style="width: {{PERCENTAGE_1}}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{REGIO_2}}</span>
+                                <span class="text-gray-600 font-bold">{{PERCENTAGE_2}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-orange-500 h-3 rounded-full" style="width: {{PERCENTAGE_2}}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{REGIO_3}}</span>
+                                <span class="text-gray-600 font-bold">{{PERCENTAGE_3}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-yellow-500 h-3 rounded-full" style="width: {{PERCENTAGE_3}}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{REGIO_4}}</span>
+                                <span class="text-gray-600 font-bold">{{PERCENTAGE_4}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-blue-400 h-3 rounded-full" style="width: {{PERCENTAGE_4}}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 3. TRENDS & TIJD -->
+                <section id="trends" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">3. Trends & Tijd</h2>
+                        <p class="text-gray-600 mt-2">Ontwikkeling vacaturemarkt over tijd</p>
+                    </div>
+
+                    <div class="bg-blue-50 p-6 rounded-xl border-2 border-blue-200 mb-6">
+                        <h3 class="font-bold text-lg text-gray-900 mb-4">📈 Trend Vacatures</h3>
+                        <div class="chart-container-large">
+                            <canvas id="trendChart"></canvas>
+                        </div>
+                    </div>
+
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">⏱️ Gemiddeld Aantal Dagen Openstaan</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-purple-50 p-6 rounded-xl border-2 border-purple-200">
+                            <div class="text-4xl mb-2">🏢</div>
+                            <h4 class="font-bold text-purple-900 mb-2">Via Intermediair</h4>
+                            <div class="text-4xl font-bold text-purple-600">{{DAGEN_INTERMEDIAIR}} dagen</div>
+                            <p class="text-sm text-purple-700 mt-2">Gemiddelde looptijd</p>
+                        </div>
+
+                        <div class="bg-emerald-50 p-6 rounded-xl border-2 border-emerald-200">
+                            <div class="text-4xl mb-2">🎯</div>
+                            <h4 class="font-bold text-emerald-900 mb-2">Direct Werkgever</h4>
+                            <div class="text-4xl font-bold text-emerald-600">{{DAGEN_DIRECT}} dagen</div>
+                            <p class="text-sm text-emerald-700 mt-2">Gemiddelde looptijd</p>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 4. OPLEIDINGSNIVEAU -->
+                <section id="opleiding">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">4. Opleidingsniveau</h2>
+                        <p class="text-gray-600 mt-2">Vereiste opleidingsniveaus in vacatures</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <div class="chart-container">
+                                <canvas id="opleidingChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="space-y-3">
+                            <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-blue-900">MBO</span>
+                                    <span class="text-3xl font-bold text-blue-600">{{OPL_MBO}}%</span>
+                                </div>
+                            </div>
+                            <div class="bg-green-50 p-4 rounded-lg border-2 border-green-200">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-green-900">VMBO</span>
+                                    <span class="text-3xl font-bold text-green-600">{{OPL_VMBO}}%</span>
+                                </div>
+                            </div>
+                            <div class="bg-purple-50 p-4 rounded-lg border-2 border-purple-200">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-purple-900">HBO</span>
+                                    <span class="text-3xl font-bold text-purple-600">{{OPL_HBO}}%</span>
+                                </div>
+                            </div>
+                            <div class="bg-gray-50 p-4 rounded-lg border-2 border-gray-200">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-gray-900">Overige</span>
+                                    <span class="text-3xl font-bold text-gray-600">{{OPL_OVERIG}}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 5. WERKERVARING -->
+                <section id="ervaring" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">5. Werkervaring</h2>
+                        <p class="text-gray-600 mt-2">Vereiste ervaring in jaren</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-gradient-to-br from-green-500 to-emerald-600 p-8 rounded-xl shadow-xl text-white">
+                            <div class="text-sm font-semibold mb-2 opacity-90">Junior</div>
+                            <div class="text-5xl font-bold mb-2">{{ERV_JUNIOR}}%</div>
+                            <div class="text-sm opacity-90">0-3 jaar ervaring</div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-8 rounded-xl shadow-xl text-white">
+                            <div class="text-sm font-semibold mb-2 opacity-90">Medior</div>
+                            <div class="text-5xl font-bold mb-2">{{ERV_MEDIOR}}%</div>
+                            <div class="text-sm opacity-90">3-7 jaar ervaring</div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-purple-500 to-purple-600 p-8 rounded-xl shadow-xl text-white">
+                            <div class="text-sm font-semibold mb-2 opacity-90">Senior</div>
+                            <div class="text-5xl font-bold mb-2">{{ERV_SENIOR}}%</div>
+                            <div class="text-sm opacity-90">7+ jaar ervaring</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 6. GEVRAAGDE SKILLS (Technisch) -->
+                <section id="skills-tech" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">6. Gevraagde Technische Skills</h2>
+                        <p class="text-gray-600 mt-2">Top 10 meest gevraagde technische vaardigheden</p>
+                    </div>
+
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{SKILL_1}}</span>
+                                <span class="text-gray-600 font-bold">{{SKILL_1_PCT}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-blue-600 h-4 rounded-full" style="width: {{SKILL_1_PCT}}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{SKILL_2}}</span>
+                                <span class="text-gray-600 font-bold">{{SKILL_2_PCT}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-blue-600 h-4 rounded-full" style="width: {{SKILL_2_PCT}}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{SKILL_3}}</span>
+                                <span class="text-gray-600 font-bold">{{SKILL_3_PCT}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-blue-600 h-4 rounded-full" style="width: {{SKILL_3_PCT}}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{SKILL_4}}</span>
+                                <span class="text-gray-600 font-bold">{{SKILL_4_PCT}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-emerald-500 h-4 rounded-full" style="width: {{SKILL_4_PCT}}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{SKILL_5}}</span>
+                                <span class="text-gray-600 font-bold">{{SKILL_5_PCT}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-4">
+                                <div class="bg-emerald-500 h-4 rounded-full" style="width: {{SKILL_5_PCT}}%"></div>
+                            </div>
+                        </div>
+                        <!-- More skills... -->
+                    </div>
+                </section>
+
+                <!-- 7. SOFT SKILLS -->
+                <section id="soft-skills" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">7. Soft Skills</h2>
+                        <p class="text-gray-600 mt-2">Top 10 meest gevraagde soft skills</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+                        <div class="bg-purple-50 p-4 rounded-lg border border-purple-200 text-center">
+                            <div class="text-2xl mb-2">🎯</div>
+                            <div class="font-bold text-purple-900">{{SOFT_1}}</div>
+                            <div class="text-2xl font-bold text-purple-600 mt-2">{{SOFT_1_PCT}}%</div>
+                        </div>
+                        <div class="bg-blue-50 p-4 rounded-lg border border-blue-200 text-center">
+                            <div class="text-2xl mb-2">💼</div>
+                            <div class="font-bold text-blue-900">{{SOFT_2}}</div>
+                            <div class="text-2xl font-bold text-blue-600 mt-2">{{SOFT_2_PCT}}%</div>
+                        </div>
+                        <div class="bg-green-50 p-4 rounded-lg border border-green-200 text-center">
+                            <div class="text-2xl mb-2">🤝</div>
+                            <div class="font-bold text-green-900">{{SOFT_3}}</div>
+                            <div class="text-2xl font-bold text-green-600 mt-2">{{SOFT_3_PCT}}%</div>
+                        </div>
+                        <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-200 text-center">
+                            <div class="text-2xl mb-2">⚡</div>
+                            <div class="font-bold text-yellow-900">{{SOFT_4}}</div>
+                            <div class="text-2xl font-bold text-yellow-600 mt-2">{{SOFT_4_PCT}}%</div>
+                        </div>
+                        <div class="bg-pink-50 p-4 rounded-lg border border-pink-200 text-center">
+                            <div class="text-2xl mb-2">📚</div>
+                            <div class="font-bold text-pink-900">{{SOFT_5}}</div>
+                            <div class="text-2xl font-bold text-pink-600 mt-2">{{SOFT_5_PCT}}%</div>
+                        </div>
+                        <div class="bg-indigo-50 p-4 rounded-lg border border-indigo-200 text-center">
+                            <div class="text-2xl mb-2">💪</div>
+                            <div class="font-bold text-indigo-900">{{SOFT_6}}</div>
+                            <div class="text-2xl font-bold text-indigo-600 mt-2">{{SOFT_6_PCT}}%</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 8. CERTIFICATEN -->
+                <section id="certificaten">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">8. Certificaten & Diploma's</h2>
+                        <p class="text-gray-600 mt-2">Vereiste certificeringen</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex items-center space-x-4 bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <div class="text-3xl">🚗</div>
+                            <div class="flex-1">
+                                <div class="font-bold text-gray-900">{{CERT_1}}</div>
+                                <div class="text-sm text-gray-600">{{CERT_1_PCT}}% van vacatures</div>
+                            </div>
+                            <div class="text-2xl font-bold text-blue-600">{{CERT_1_PCT}}%</div>
+                        </div>
+                        <div class="flex items-center space-x-4 bg-green-50 p-4 rounded-lg border border-green-200">
+                            <div class="text-3xl">✅</div>
+                            <div class="flex-1">
+                                <div class="font-bold text-gray-900">{{CERT_2}}</div>
+                                <div class="text-sm text-gray-600">{{CERT_2_PCT}}% van vacatures</div>
+                            </div>
+                            <div class="text-2xl font-bold text-green-600">{{CERT_2_PCT}}%</div>
+                        </div>
+                        <div class="flex items-center space-x-4 bg-purple-50 p-4 rounded-lg border border-purple-200">
+                            <div class="text-3xl">🎓</div>
+                            <div class="flex-1">
+                                <div class="font-bold text-gray-900">{{CERT_3}}</div>
+                                <div class="text-sm text-gray-600">{{CERT_3_PCT}}% van vacatures</div>
+                            </div>
+                            <div class="text-2xl font-bold text-purple-600">{{CERT_3_PCT}}%</div>
+                        </div>
+                        <div class="flex items-center space-x-4 bg-orange-50 p-4 rounded-lg border border-orange-200">
+                            <div class="text-3xl">📜</div>
+                            <div class="flex-1">
+                                <div class="font-bold text-gray-900">{{CERT_4}}</div>
+                                <div class="text-sm text-gray-600">{{CERT_4_PCT}}% van vacatures</div>
+                            </div>
+                            <div class="text-2xl font-bold text-orange-600">{{CERT_4_PCT}}%</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 9. TALEN -->
+                <section id="talen" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">9. Talen</h2>
+                        <p class="text-gray-600 mt-2">Gevraagde taalvaardigheden</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div class="bg-gradient-to-br from-orange-500 to-red-500 p-8 rounded-xl shadow-xl text-white">
+                            <div class="text-4xl mb-3">🇳🇱</div>
+                            <div class="text-sm font-semibold mb-2 opacity-90">Nederlands</div>
+                            <div class="text-5xl font-bold mb-2">{{TAAL_NL}}%</div>
+                            <div class="text-sm opacity-90">Expliciet vereist in vacatures</div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-blue-500 to-blue-600 p-8 rounded-xl shadow-xl text-white">
+                            <div class="text-4xl mb-3">🇬🇧</div>
+                            <div class="text-sm font-semibold mb-2 opacity-90">Engels</div>
+                            <div class="text-5xl font-bold mb-2">{{TAAL_EN}}%</div>
+                            <div class="text-sm opacity-90">Expliciet vereist in vacatures</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 11. SALARIS -->
+                <section id="salaris" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">11. Salaris Analyse</h2>
+                        <p class="text-gray-600 mt-2">Bruto jaarsalaris in Euro's</p>
+                    </div>
+
+                    <div class="bg-gradient-to-br from-recruitin-accent to-orange-600 p-8 rounded-xl shadow-xl text-white mb-6">
+                        <div class="text-sm font-semibold mb-3 opacity-90">Gemiddeld Bruto Jaarsalaris</div>
+                        <div class="text-6xl font-bold mb-2">€{{SALARIS_GEM}}</div>
+                        <div class="text-sm opacity-90">Gebaseerd op {{TOTAAL_VACATURES}} vacatures</div>
+                    </div>
+
+                    <h3 class="font-bold text-xl text-gray-900 mb-4">Salaris per Ervaringsniveau</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div class="bg-green-50 p-6 rounded-xl border-2 border-green-200">
+                            <h4 class="font-bold text-green-900 mb-2">Junior (0-3 jaar)</h4>
+                            <div class="text-3xl font-bold text-green-600 mb-2">€{{SALARIS_JUNIOR}}</div>
+                            <div class="text-sm text-green-700">Bruto per jaar</div>
+                        </div>
+
+                        <div class="bg-blue-50 p-6 rounded-xl border-2 border-blue-200">
+                            <h4 class="font-bold text-blue-900 mb-2">Medior (3-7 jaar)</h4>
+                            <div class="text-3xl font-bold text-blue-600 mb-2">€{{SALARIS_MEDIOR}}</div>
+                            <div class="text-sm text-blue-700">Bruto per jaar</div>
+                        </div>
+
+                        <div class="bg-purple-50 p-6 rounded-xl border-2 border-purple-200">
+                            <h4 class="font-bold text-purple-900 mb-2">Senior (7+ jaar)</h4>
+                            <div class="text-3xl font-bold text-purple-600 mb-2">€{{SALARIS_SENIOR}}</div>
+                            <div class="text-sm text-purple-700">Bruto per jaar</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 12. FULLTIME/PARTTIME -->
+                <section id="contracturen">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">12. Fulltime / Parttime</h2>
+                        <p class="text-gray-600 mt-2">Verdeling contracturen</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <div class="chart-container">
+                                <canvas id="contracturenChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center space-y-4">
+                            <div class="bg-blue-50 p-6 rounded-xl border-2 border-blue-200">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-blue-900 text-xl">Fulltime</span>
+                                    <span class="text-4xl font-bold text-blue-600">{{FULLTIME}}%</span>
+                                </div>
+                            </div>
+                            <div class="bg-orange-50 p-6 rounded-xl border-2 border-orange-200">
+                                <div class="flex justify-between items-center">
+                                    <span class="font-bold text-orange-900 text-xl">Parttime</span>
+                                    <span class="text-4xl font-bold text-orange-600">{{PARTTIME}}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 13. DIENSTVERBAND -->
+                <section id="dienstverband" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">13. Dienstverband</h2>
+                        <p class="text-gray-600 mt-2">Type dienstverbanden</p>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+                        <div class="bg-green-50 p-6 rounded-xl border-2 border-green-200 text-center">
+                            <div class="text-3xl mb-2">📝</div>
+                            <div class="font-bold text-green-900">Vast</div>
+                            <div class="text-3xl font-bold text-green-600 mt-2">{{VAST}}%</div>
+                        </div>
+                        <div class="bg-blue-50 p-6 rounded-xl border-2 border-blue-200 text-center">
+                            <div class="text-3xl mb-2">⏱️</div>
+                            <div class="font-bold text-blue-900">Tijdelijk</div>
+                            <div class="text-3xl font-bold text-blue-600 mt-2">{{TIJDELIJK}}%</div>
+                        </div>
+                        <div class="bg-purple-50 p-6 rounded-xl border-2 border-purple-200 text-center">
+                            <div class="text-3xl mb-2">🎓</div>
+                            <div class="font-bold text-purple-900">Stage</div>
+                            <div class="text-3xl font-bold text-purple-600 mt-2">{{STAGE}}%</div>
+                        </div>
+                        <div class="bg-orange-50 p-6 rounded-xl border-2 border-orange-200 text-center">
+                            <div class="text-3xl mb-2">💼</div>
+                            <div class="font-bold text-orange-900">ZZP/Interim</div>
+                            <div class="text-3xl font-bold text-orange-600 mt-2">{{ZZP}}%</div>
+                        </div>
+                    </div>
+
+                    <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+                        <h3 class="font-bold text-lg text-gray-900 mb-4">Vast vs Tijdelijk (specifiek)</h3>
+                        <div class="chart-container">
+                            <canvas id="dienstverbandChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 14. TOP INTERMEDIAIRS -->
+                <section id="intermediairs" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">14. Top Intermediairs</h2>
+                        <p class="text-gray-600 mt-2">Top 10 uitzendbureaus en recruitment agencies</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex items-center justify-between bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <span class="font-semibold text-gray-800">1. {{INTER_1}}</span>
+                            <span class="text-blue-600 font-bold text-xl">{{INTER_1_COUNT}}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <span class="font-semibold text-gray-800">2. {{INTER_2}}</span>
+                            <span class="text-blue-600 font-bold text-xl">{{INTER_2_COUNT}}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <span class="font-semibold text-gray-800">3. {{INTER_3}}</span>
+                            <span class="text-blue-600 font-bold text-xl">{{INTER_3_COUNT}}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <span class="font-semibold text-gray-800">4. {{INTER_4}}</span>
+                            <span class="text-blue-600 font-bold text-xl">{{INTER_4_COUNT}}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-blue-50 p-4 rounded-lg border border-blue-200">
+                            <span class="font-semibold text-gray-800">5. {{INTER_5}}</span>
+                            <span class="text-blue-600 font-bold text-xl">{{INTER_5_COUNT}}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <span class="font-semibold text-gray-600">+5 meer intermediairs</span>
+                            <span class="text-gray-400 font-bold text-xl">...</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 15. TOP DIRECTE WERKGEVERS -->
+                <section id="werkgevers">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">15. Top Directe Werkgevers</h2>
+                        <p class="text-gray-600 mt-2">Top 10 organisaties die direct werven</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="flex items-center justify-between bg-green-50 p-4 rounded-lg border border-green-200">
+                            <span class="font-semibold text-gray-800">1. {{WERK_1}}</span>
+                            <span class="text-green-600 font-bold text-xl">{{WERK_1_COUNT}}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-green-50 p-4 rounded-lg border border-green-200">
+                            <span class="font-semibold text-gray-800">2. {{WERK_2}}</span>
+                            <span class="text-green-600 font-bold text-xl">{{WERK_2_COUNT}}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-green-50 p-4 rounded-lg border border-green-200">
+                            <span class="font-semibold text-gray-800">3. {{WERK_3}}</span>
+                            <span class="text-green-600 font-bold text-xl">{{WERK_3_COUNT}}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-green-50 p-4 rounded-lg border border-green-200">
+                            <span class="font-semibold text-gray-800">4. {{WERK_4}}</span>
+                            <span class="text-green-600 font-bold text-xl">{{WERK_4_COUNT}}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-green-50 p-4 rounded-lg border border-green-200">
+                            <span class="font-semibold text-gray-800">5. {{WERK_5}}</span>
+                            <span class="text-green-600 font-bold text-xl">{{WERK_5_COUNT}}</span>
+                        </div>
+                        <div class="flex items-center justify-between bg-gray-50 p-4 rounded-lg border border-gray-200">
+                            <span class="font-semibold text-gray-600">+5 meer werkgevers</span>
+                            <span class="text-gray-400 font-bold text-xl">...</span>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 17. DIRECT VS BEMIDDELAAR -->
+                <section id="bemiddeling" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">17. Direct vs Bemiddelaar</h2>
+                        <p class="text-gray-600 mt-2">Verdeling wervingskanalen</p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <div class="chart-container">
+                                <canvas id="bemiddelingChart"></canvas>
+                            </div>
+                        </div>
+                        <div class="flex flex-col justify-center space-y-6">
+                            <div class="bg-purple-50 p-8 rounded-xl border-2 border-purple-200">
+                                <div class="text-3xl mb-2">🏢</div>
+                                <div class="font-bold text-purple-900 text-xl mb-2">Via Bemiddelaar</div>
+                                <div class="text-5xl font-bold text-purple-600">{{BEMIDDELAAR}}%</div>
+                            </div>
+                            <div class="bg-blue-50 p-8 rounded-xl border-2 border-blue-200">
+                                <div class="text-3xl mb-2">🎯</div>
+                                <div class="font-bold text-blue-900 text-xl mb-2">Direct</div>
+                                <div class="text-5xl font-bold text-blue-600">{{DIRECT}}%</div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- 18. VACATURESITES -->
+                <section id="vacaturesites" class="print-break">
+                    <div class="border-l-4 border-recruitin-accent pl-6 mb-6">
+                        <h2 class="text-3xl font-bold text-gray-900">18. Vacaturesites</h2>
+                        <p class="text-gray-600 mt-2">Top 10 meest gebruikte vacaturesites</p>
+                    </div>
+
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{SITE_1}}</span>
+                                <span class="text-gray-600 font-bold">{{SITE_1_PCT}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-blue-500 h-3 rounded-full" style="width: {{SITE_1_PCT}}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{SITE_2}}</span>
+                                <span class="text-gray-600 font-bold">{{SITE_2_PCT}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-blue-500 h-3 rounded-full" style="width: {{SITE_2_PCT}}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{SITE_3}}</span>
+                                <span class="text-gray-600 font-bold">{{SITE_3_PCT}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-green-500 h-3 rounded-full" style="width: {{SITE_3_PCT}}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{SITE_4}}</span>
+                                <span class="text-gray-600 font-bold">{{SITE_4_PCT}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-green-500 h-3 rounded-full" style="width: {{SITE_4_PCT}}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between mb-2">
+                                <span class="font-semibold text-gray-800">{{SITE_5}}</span>
+                                <span class="text-gray-600 font-bold">{{SITE_5_PCT}}%</span>
+                            </div>
+                            <div class="w-full bg-gray-200 rounded-full h-3">
+                                <div class="bg-purple-500 h-3 rounded-full" style="width: {{SITE_5_PCT}}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- Footer -->
+            <div class="bg-gray-100 px-10 py-8 border-t-2 border-gray-200">
+                <div class="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
+                    <div class="mb-3 md:mb-0">
+                        <strong class="text-gray-900">Recruitin BV</strong> - Jobdigger Labour Market Intelligence Platform
+                    </div>
+                    <div>
+                        Gegenereerd: {{DATUM}} | Databronnen: {{TOTAAL_VACATURES}} vacatures | Powered by Recruitin
+                    </div>
+                </div>
+                <div class="text-center mt-4 text-xs text-gray-500">
+                    © 2025 Recruitin BV - All rights reserved | info@recruitin.com
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        // Initialize Charts
+        document.addEventListener('DOMContentLoaded', function() {
+
+            // Trend Chart
+            const trendCtx = document.getElementById('trendChart');
+            if (trendCtx) {
+                new Chart(trendCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Q3 2023', 'Q4 2023', 'Q1 2024', 'Q2 2024', 'Q3 2024', 'Q4 2024', 'Q1 2025', 'Q2 2025', 'Q3 2025'],
+                        datasets: [{
+                            label: 'Aantal Vacatures',
+                            data: [2200, 2400, 2800, 3200, 3500, 3200, 3000, 2900, 2800],
+                            borderColor: '#EF7D00',
+                            backgroundColor: 'rgba(239, 125, 0, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false }
+                        },
+                        scales: {
+                            y: { beginAtZero: true }
+                        }
+                    }
+                });
+            }
+
+            // Opleiding Chart
+            const opleidingCtx = document.getElementById('opleidingChart');
+            if (opleidingCtx) {
+                new Chart(opleidingCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['MBO', 'VMBO', 'HBO', 'Overige'],
+                        datasets: [{
+                            data: [92, 6, 1, 1],
+                            backgroundColor: ['#3B82F6', '#10B981', '#8B5CF6', '#6B7280']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+
+            // Contracturen Chart
+            const contracturenCtx = document.getElementById('contracturenChart');
+            if (contracturenCtx) {
+                new Chart(contracturenCtx, {
+                    type: 'pie',
+                    data: {
+                        labels: ['Fulltime', 'Parttime'],
+                        datasets: [{
+                            data: [80, 20],
+                            backgroundColor: ['#3B82F6', '#F97316']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+
+            // Dienstverband Chart
+            const dienstverbandCtx = document.getElementById('dienstverbandChart');
+            if (dienstverbandCtx) {
+                new Chart(dienstverbandCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Vast', 'Tijdelijk'],
+                        datasets: [{
+                            label: 'Percentage',
+                            data: [93, 7],
+                            backgroundColor: ['#10B981', '#F59E0B']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 100
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Bemiddeling Chart
+            const bemiddelingCtx = document.getElementById('bemiddelingChart');
+            if (bemiddelingCtx) {
+                new Chart(bemiddelingCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Via Bemiddelaar', 'Direct'],
+                        datasets: [{
+                            data: [72, 28],
+                            backgroundColor: ['#8B5CF6', '#3B82F6']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+
+            // Geo Chart (placeholder - replace with actual map)
+            const geoCtx = document.getElementById('geoChart');
+            if (geoCtx) {
+                new Chart(geoCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Amsterdam', 'Rotterdam', 'Utrecht', 'Den Haag', 'Eindhoven'],
+                        datasets: [{
+                            label: 'Vacatures',
+                            data: [40, 25, 15, 12, 8],
+                            backgroundColor: ['#EF4444', '#F97316', '#FBBF24', '#60A5FA', '#93C5FD']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        indexAxis: 'y'
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+</html>
