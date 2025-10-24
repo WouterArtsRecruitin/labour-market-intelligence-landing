@@ -7,8 +7,8 @@ class LandingPageController {
       ? 'http://localhost:3002'
       : 'https://del-untreadable-nonspeciously.ngrok-free.dev';
 
-    // Zapier webhook URL - vervang met jouw eigen webhook URL
-    this.zapierWebhookUrl = 'REPLACE_WITH_YOUR_ZAPIER_WEBHOOK_URL';
+    // Zapier webhook URL
+    this.zapierWebhookUrl = 'https://hooks.zapier.com/hooks/catch/23933997/ur74o8p/';
 
     this.init();
   }
