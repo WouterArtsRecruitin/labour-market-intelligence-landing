@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recruitment Intelligence Rapport</title>
+</head>
+<body style="margin: 0; padding: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif; background-color: #f3f4f6; line-height: 1.6;">
+
+    <!-- Main Container -->
+    <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #f3f4f6; padding: 40px 20px;">
+        <tr>
+            <td align="center">
+
+                <!-- Email Content -->
+                <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="max-width: 650px; background-color: #ffffff; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+
+                    <!-- Header -->
+                    <tr>
+                        <td style="background: linear-gradient(135deg, #4B4F51 0%, #77797B 100%); padding: 40px 40px; text-align: center;">
+                            <h1 style="margin: 0; color: #ffffff; font-size: 28px; font-weight: 700; letter-spacing: -0.5px;">
+                                🎯 Recruitment Intelligence Rapport
+                            </h1>
+                            <p style="margin: 10px 0 0 0; color: #e5e7eb; font-size: 16px;">
+                                Arbeidsmarkt Analyse • Powered by Claude AI
+                            </p>
+                        </td>
+                    </tr>
+
+                    <!-- Orange Accent Bar -->
+                    <tr>
+                        <td style="background-color: #EF7D00; height: 6px;"></td>
+                    </tr>
+
+                    <!-- Executive Summary -->
+                    <tr>
+                        <td style="padding: 40px 40px 20px 40px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%" style="background-color: #FFF7ED; border-left: 4px solid #EF7D00; border-radius: 8px;">
+                                <tr>
+                                    <td style="padding: 24px;">
+                                        <h2 style="margin: 0 0 16px 0; color: #1f2937; font-size: 22px; font-weight: 700;">
+                                            📊 Executive Summary
+                                        </h2>
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                            <tr>
+                                                <td style="padding: 8px 0; color: #374151; font-size: 15px;">
+                                                    <strong style="color: #1f2937;">Bedrijf:</strong> {{BEDRIJF}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px 0; color: #374151; font-size: 15px;">
+                                                    <strong style="color: #1f2937;">Functie:</strong> {{FUNCTIE}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px 0; color: #374151; font-size: 15px;">
+                                                    <strong style="color: #1f2937;">Locatie:</strong> {{LOCATIE}}
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td style="padding: 8px 0; color: #374151; font-size: 15px;">
+                                                    <strong style="color: #1f2937;">Ervaring:</strong> {{ERVARING}}
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- AI Analysis -->
+                    <tr>
+                        <td style="padding: 20px 40px;">
+                            <h2 style="margin: 0 0 16px 0; color: #1f2937; font-size: 22px; font-weight: 700; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px;">
+                                🤖 Claude AI Analyse
+                            </h2>
+                            <div style="color: #374151; font-size: 15px; line-height: 1.8;">
+                                {{AI_ANALYSE}}
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- Market Insights -->
+                    <tr>
+                        <td style="padding: 20px 40px;">
+                            <h2 style="margin: 0 0 16px 0; color: #1f2937; font-size: 22px; font-weight: 700; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px;">
+                                📈 Arbeidsmarkt Inzichten
+                            </h2>
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td style="padding: 12px; background-color: #f9fafb; border-radius: 6px; margin-bottom: 8px;">
+                                        <strong style="color: #EF7D00;">💰 Salaris Range:</strong>
+                                        <span style="color: #374151; font-size: 15px;">{{SALARIS}}</span>
+                                    </td>
+                                </tr>
+                                <tr><td style="height: 8px;"></td></tr>
+                                <tr>
+                                    <td style="padding: 12px; background-color: #f9fafb; border-radius: 6px;">
+                                        <strong style="color: #EF7D00;">📊 Markt Status:</strong>
+                                        <span style="color: #374151; font-size: 15px;">{{MARKT_STATUS}}</span>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Recommendations -->
+                    <tr>
+                        <td style="padding: 20px 40px;">
+                            <h2 style="margin: 0 0 16px 0; color: #1f2937; font-size: 22px; font-weight: 700; border-bottom: 2px solid #f3f4f6; padding-bottom: 12px;">
+                                💡 Aanbevelingen
+                            </h2>
+                            <div style="color: #374151; font-size: 15px; line-height: 1.8;">
+                                {{AANBEVELINGEN}}
+                            </div>
+                        </td>
+                    </tr>
+
+                    <!-- CTA Button -->
+                    <tr>
+                        <td style="padding: 30px 40px;">
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td align="center" style="background: linear-gradient(135deg, #EF7D00 0%, #d97706 100%); border-radius: 8px; padding: 16px 32px;">
+                                        <a href="https://recruitin.com/contact" style="color: #ffffff; text-decoration: none; font-weight: 600; font-size: 16px; display: block;">
+                                            📞 Plan een Gratis Adviesgesprek →
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <!-- Footer -->
+                    <tr>
+                        <td style="background-color: #f9fafb; padding: 30px 40px; text-align: center; border-top: 1px solid #e5e7eb;">
+                            <p style="margin: 0 0 8px 0; color: #4B4F51; font-weight: 700; font-size: 18px;">
+                                Recruitin
+                            </p>
+                            <p style="margin: 0 0 16px 0; color: #6b7280; font-size: 14px;">
+                                AI-Powered Recruitment Intelligence
+                            </p>
+                            <p style="margin: 0; color: #6b7280; font-size: 13px;">
+                                📧 info@recruitin.com | 🌐 <a href="https://recruitin.com" style="color: #EF7D00; text-decoration: none;">recruitin.com</a>
+                            </p>
+                            <p style="margin: 16px 0 0 0; color: #9ca3af; font-size: 12px;">
+                                © 2025 WouterArts Recruitin - All rights reserved
+                            </p>
+                        </td>
+                    </tr>
+
+                </table>
+
+            </td>
+        </tr>
+    </table>
+
+</body>
+</html>
