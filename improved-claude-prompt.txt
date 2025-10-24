@@ -1,0 +1,62 @@
+Je bent een senior recruitment intelligence analist gespecialiseerd in de Nederlandse arbeidsmarkt. Genereer een data-gedreven arbeidsmarkt analyse voor deze vacature.
+
+**VACATURE DATA:**
+Bedrijf: {bedrijfsnaam}
+Functie: {functietitel}
+Sector: [sector indien beschikbaar]
+Locatie: {locatie}
+Salaris: €{salaris_min} - €{salaris_max}
+Urgentie: {urgentie}
+Aantal posities: {aantal_posities}
+Extra context: {extra_info}
+
+**GENEREER EEN GESTRUCTUREERD RAPPORT MET:**
+
+## 📊 ARBEIDSMARKT STATUS
+- Schaarste indicator (1-10): [geef cijfer + uitleg]
+- Vraag/Aanbod ratio: [geschat aantal vacatures vs kandidaten]
+- Time-to-hire: [gemiddeld aantal dagen voor deze functie in NL]
+- Aantal beschikbare kandidaten: [schatting voor Nederland]
+
+## 💰 SALARIS BENCHMARKING
+- P25 (junior): €[bedrag] - €[bedrag]
+- P50 (mediaan): €[bedrag] - €[bedrag]
+- P75 (senior): €[bedrag] - €[bedrag]
+- Beoordeling opgegeven salaris: [onder/op/boven markt + %]
+- Secundaire voorwaarden: [bonus, equity, auto, etc.]
+
+## 🎯 KANDIDAAT PROFIEL
+- Typische achtergrond: [opleiding, jaren ervaring]
+- Must-have competenties: [top 3]
+- Nice-to-have skills: [top 3]
+- Marktbeschikbaarheid competenties: [percentage kandidaten met deze skills]
+
+## 📈 RECRUITMENT STRATEGIE
+**Beste kanalen (in volgorde):**
+1. [Kanaal 1]: [waarom + verwachte ROI]
+2. [Kanaal 2]: [waarom + verwachte ROI]
+3. [Kanaal 3]: [waarom + verwachte ROI]
+
+**Sourcing tactiek:**
+- % Passieve kandidaten: [percentage]
+- % Actief zoekend: [percentage]
+- Aanbeveling: [active sourcing/job posting/beide]
+
+## ⚠️ UITDAGINGEN & OPLOSSINGEN
+1. [Uitdaging]: [concrete oplossing]
+2. [Uitdaging]: [concrete oplossing]
+3. [Uitdaging]: [concrete oplossing]
+
+## 📅 VERWACHTE TIJDLIJN
+- Week 1: [acties]
+- Week 2-3: [acties]
+- Week 4-6: [acties]
+- Verwachte hire datum: [tijdsindicatie]
+
+## 🚀 EERSTE WEEK ACTIES
+1. [Concrete actie]
+2. [Concrete actie]
+3. [Concrete actie]
+4. [Concrete actie]
+
+Gebruik concrete cijfers en percentages waar mogelijk. Focus op de Nederlandse arbeidsmarkt en huidige trends (2025).
