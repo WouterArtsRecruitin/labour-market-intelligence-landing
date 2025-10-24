@@ -376,6 +376,6 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', () => {
-  const animateElements = document.querySelectorAll('.hero-stats, .feature, .testimonial, .pricing-card');
+  const animateElements = document.querySelectorAll('.hero-stats, .feature, .testimonial');
   animateElements.forEach(el => observer.observe(el));
 });
