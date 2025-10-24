@@ -541,5 +541,9 @@ output = {
     'notion_intelligence': 'AI-Gedreven Rapport',
     'notion_ai_schaarste': ai_analysis['schaarste_niveau'],
     'notion_ai_time_to_hire': f"{ai_analysis['time_to_hire_min']}-{ai_analysis['time_to_hire_max']} dagen",
-    'notion_datum': datetime.datetime.now().strftime('%Y-%m-%d')
+    'notion_datum': datetime.datetime.now().strftime('%Y-%m-%d'),
+    # URLs - gebruik None als URL leeg is (Notion accepteert geen lege strings)
+    'notion_vacature_url': vacature_url if vacature_url else None,
+    'notion_jobdigger_url': jobdigger_url if jobdigger_url else None,
+    'notion_linkedin_ti_url': linkedin_ti_url if linkedin_ti_url else None
 }
