@@ -87,6 +87,27 @@ Geef JSON response (gebruik realistische data uit documenten):
   "time_to_hire_max": 50,
   "beschikbaarheid": "±X.XXX",
   "beschikbaarheid_tekst": "Geschikte kandidaten NL",
+  "werkzoekend_ratio": {{
+    "actief": 15,
+    "latent": 45,
+    "niet_werkzoekend": 40
+  }},
+  "leeftijd_verdeling": [
+    {{"leeftijd": "20-30 jaar", "percentage": 25}},
+    {{"leeftijd": "30-40 jaar", "percentage": 35}},
+    {{"leeftijd": "40-50 jaar", "percentage": 28}},
+    {{"leeftijd": "50+ jaar", "percentage": 12}}
+  ],
+  "push_factors": [
+    {{"factor": "Hoger salaris", "impact": "Hoog"}},
+    {{"factor": "Betere secundaire arbeidsvoorwaarden", "impact": "Hoog"}},
+    {{"factor": "Carrièremogelijkheden", "impact": "Medium"}}
+  ],
+  "pull_factors": [
+    {{"factor": "Werk-privé balans", "impact": "Hoog"}},
+    {{"factor": "Innovatieve werkgever", "impact": "Medium"}},
+    {{"factor": "Flexibiliteit", "impact": "Hoog"}}
+  ],
   "doelgroep_skills": [
     {{"naam": "Digital Skills", "percentage": 35, "beschrijving": "Van professionals"}},
     {{"naam": "Leadership", "percentage": 18, "beschrijving": "Met ervaring"}},
@@ -154,6 +175,27 @@ Gebruik ALLEEN data uit documenten. Anders realistische schattingen voor {sector
             "time_to_hire_max": 65,
             "beschikbaarheid": "±1.200",
             "beschikbaarheid_tekst": "Geschikte kandidaten NL",
+            "werkzoekend_ratio": {
+                "actief": 15,
+                "latent": 45,
+                "niet_werkzoekend": 40
+            },
+            "leeftijd_verdeling": [
+                {"leeftijd": "20-30 jaar", "percentage": 22},
+                {"leeftijd": "30-40 jaar", "percentage": 35},
+                {"leeftijd": "40-50 jaar", "percentage": 28},
+                {"leeftijd": "50+ jaar", "percentage": 15}
+            ],
+            "push_factors": [
+                {"factor": "Hoger salaris", "impact": "Hoog"},
+                {"factor": "Betere secundaire arbeidsvoorwaarden", "impact": "Hoog"},
+                {"factor": "Carrièremogelijkheden", "impact": "Medium"}
+            ],
+            "pull_factors": [
+                {"factor": "Werk-privé balans", "impact": "Hoog"},
+                {"factor": "Innovatieve werkgever", "impact": "Medium"},
+                {"factor": "Flexibiliteit", "impact": "Hoog"}
+            ],
             "doelgroep_skills": [
                 {"naam": "Digital Skills", "percentage": 35, "beschrijving": "Van professionals"},
                 {"naam": "Leadership", "percentage": 18, "beschrijving": "Met ervaring"},
@@ -255,6 +297,89 @@ for i, skill in enumerate(ai_analysis['soft_skills']):
         </td>
     </tr>
     {spacer}
+    """
+
+# Werkzoekend Ratio HTML
+werkzoekend_ratio = ai_analysis['werkzoekend_ratio']
+werkzoekend_html = f"""
+<table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+    <tr>
+        <td width="32%" valign="top" style="background-color: #dcfce7; padding: 20px; border-radius: 12px; border: 2px solid #86efac; text-align: center;">
+            <div style="font-size: 40px; font-weight: 700; color: #15803d; margin: 10px 0;">{werkzoekend_ratio['actief']}%</div>
+            <h3 style="margin: 0; color: #166534; font-size: 14px; font-weight: 700;">Actief Werkzoekend</h3>
+            <p style="margin: 6px 0 0 0; color: #15803d; font-size: 12px;">Direct beschikbaar</p>
+        </td>
+        <td width="2%"></td>
+        <td width="32%" valign="top" style="background-color: #fef3c7; padding: 20px; border-radius: 12px; border: 2px solid #fcd34d; text-align: center;">
+            <div style="font-size: 40px; font-weight: 700; color: #b45309; margin: 10px 0;">{werkzoekend_ratio['latent']}%</div>
+            <h3 style="margin: 0; color: #92400e; font-size: 14px; font-weight: 700;">Latent Werkzoekend</h3>
+            <p style="margin: 6px 0 0 0; color: #b45309; font-size: 12px;">Open voor kansen</p>
+        </td>
+        <td width="2%"></td>
+        <td width="32%" valign="top" style="background-color: #f3f4f6; padding: 20px; border-radius: 12px; border: 2px solid #d1d5db; text-align: center;">
+            <div style="font-size: 40px; font-weight: 700; color: #4b5563; margin: 10px 0;">{werkzoekend_ratio['niet_werkzoekend']}%</div>
+            <h3 style="margin: 0; color: #374151; font-size: 14px; font-weight: 700;">Niet Werkzoekend</h3>
+            <p style="margin: 6px 0 0 0; color: #6b7280; font-size: 12px;">Passief bereikbaar</p>
+        </td>
+    </tr>
+</table>
+"""
+
+# Leeftijd Verdeling HTML
+leeftijd_html = ""
+for leeftijd in ai_analysis['leeftijd_verdeling']:
+    leeftijd_html += f"""
+    <div style="margin-bottom: 16px;">
+        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+            <tr>
+                <td style="padding-bottom: 6px;">
+                    <span style="color: #1f2937; font-weight: 600; font-size: 14px;">{leeftijd['leeftijd']}</span>
+                </td>
+                <td align="right" style="padding-bottom: 6px;">
+                    <span style="color: #EF7D00; font-weight: 700; font-size: 14px;">{leeftijd['percentage']}%</span>
+                </td>
+            </tr>
+        </table>
+        <div style="width: 100%; background-color: #e5e7eb; border-radius: 8px; height: 10px; overflow: hidden;">
+            <div style="width: {leeftijd['percentage']}%; background-color: #EF7D00; height: 10px;"></div>
+        </div>
+    </div>
+    """
+
+# Push & Pull Factors HTML
+impact_colors = {'Hoog': '#dc2626', 'Medium': '#ea580c', 'Laag': '#10b981'}
+push_html = ""
+for factor in ai_analysis['push_factors']:
+    badge_color = impact_colors.get(factor['impact'], '#10b981')
+    push_html += f"""
+    <tr>
+        <td style="padding: 12px; background-color: #ffffff; border-radius: 8px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td><span style="color: #1f2937; font-weight: 500; font-size: 14px;">• {factor['factor']}</span></td>
+                    <td align="right"><span style="background-color: {badge_color}; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;">{factor['impact']}</span></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr><td style="height: 8px;"></td></tr>
+    """
+
+pull_html = ""
+for factor in ai_analysis['pull_factors']:
+    badge_color = impact_colors.get(factor['impact'], '#10b981')
+    pull_html += f"""
+    <tr>
+        <td style="padding: 12px; background-color: #ffffff; border-radius: 8px;">
+            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                <tr>
+                    <td><span style="color: #1f2937; font-weight: 500; font-size: 14px;">• {factor['factor']}</span></td>
+                    <td align="right"><span style="background-color: {badge_color}; color: white; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 700;">{factor['impact']}</span></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr><td style="height: 8px;"></td></tr>
     """
 
 # Source materials section
@@ -422,6 +547,48 @@ email_body_html = f"""<!DOCTYPE html>
                         <td style="padding: 0 40px 30px 40px;">
                             <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">🎯 Doelgroep Analyse (AI)</h2>
                             {doelgroep_html}
+                        </td>
+                    </tr>
+
+                    <!-- Werkzoekend Ratio -->
+                    <tr>
+                        <td style="padding: 0 40px 30px 40px;">
+                            <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">👥 Werkzoekend Verhouding (AI)</h2>
+                            {werkzoekend_html}
+                        </td>
+                    </tr>
+
+                    <!-- Leeftijd Verdeling -->
+                    <tr>
+                        <td style="padding: 0 40px 30px 40px;">
+                            <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">📊 Leeftijdsverdeling Doelgroep (AI)</h2>
+                            {leeftijd_html}
+                        </td>
+                    </tr>
+
+                    <!-- Push & Pull Factors -->
+                    <tr>
+                        <td style="padding: 0 40px 30px 40px;">
+                            <h2 style="margin: 0 0 20px 0; color: #1f2937; font-size: 24px; font-weight: 700; border-bottom: 2px solid #e5e7eb; padding-bottom: 12px;">🔄 Motivatiefactoren (AI)</h2>
+                            <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                <tr>
+                                    <td width="48%" valign="top" style="background-color: #fef2f2; padding: 20px; border-radius: 12px; border: 2px solid #fecaca;">
+                                        <h3 style="margin: 0 0 16px 0; color: #991b1b; font-size: 16px; font-weight: 700;">⬆️ Push Factoren</h3>
+                                        <p style="margin: 0 0 16px 0; color: #7f1d1d; font-size: 13px;">Redenen om huidige baan te verlaten</p>
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                            {push_html}
+                                        </table>
+                                    </td>
+                                    <td width="4%"></td>
+                                    <td width="48%" valign="top" style="background-color: #f0fdf4; padding: 20px; border-radius: 12px; border: 2px solid #bbf7d0;">
+                                        <h3 style="margin: 0 0 16px 0; color: #15803d; font-size: 16px; font-weight: 700;">⬇️ Pull Factoren</h3>
+                                        <p style="margin: 0 0 16px 0; color: #166534; font-size: 13px;">Wat trekt kandidaten aan</p>
+                                        <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="100%">
+                                            {pull_html}
+                                        </table>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
 
