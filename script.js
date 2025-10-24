@@ -7,6 +7,9 @@ class LandingPageController {
       ? 'http://localhost:3002'
       : 'https://del-untreadable-nonspeciously.ngrok-free.dev';
 
+    // Zapier webhook URL - vervang met jouw eigen webhook URL
+    this.zapierWebhookUrl = 'REPLACE_WITH_YOUR_ZAPIER_WEBHOOK_URL';
+
     this.init();
   }
 
@@ -69,10 +72,10 @@ class LandingPageController {
 
   async handleSubmit(event) {
     event.preventDefault();
-    
+
     const submitButton = document.getElementById('submit-button');
     const originalText = submitButton.innerHTML;
-    
+
     // Show loading state
     submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verwerken...';
     submitButton.disabled = true;
@@ -85,8 +88,14 @@ class LandingPageController {
         throw new Error('Please fill in all required fields');
       }
 
+      // Send to Zapier webhook (parallel with report generation)
+      const zapierPromise = this.sendToZapier(formData);
+
       // Generate report
       const reportResult = await this.generateReport(formData);
+
+      // Wait for Zapier to complete
+      await zapierPromise;
 
       if (reportResult.success) {
         this.showSuccessModal(reportResult);
@@ -120,23 +129,52 @@ class LandingPageController {
   }
 
   validateFormData(data) {
-    const required = ['company', 'position', 'candidateName', 'candidateEmail', 'experience', 'skills'];
-    
+    // Validate required fields based on actual form
+    const required = ['contactName', 'contactEmail', 'company', 'position', 'sector', 'location', 'experienceLevel', 'keySkills'];
+
     for (let field of required) {
       if (!data[field] || data[field].trim() === '') {
         this.showError(`Veld '${field}' is verplicht`);
         return false;
       }
     }
-    
+
     // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(data.candidateEmail)) {
+    if (!emailRegex.test(data.contactEmail)) {
       this.showError('Voer een geldig email adres in');
       return false;
     }
-    
+
     return true;
+  }
+
+  async sendToZapier(formData) {
+    // Skip if webhook URL not configured
+    if (!this.zapierWebhookUrl || this.zapierWebhookUrl === 'REPLACE_WITH_YOUR_ZAPIER_WEBHOOK_URL') {
+      console.log('Zapier webhook not configured - skipping');
+      return { success: true, skipped: true };
+    }
+
+    try {
+      const response = await fetch(this.zapierWebhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (!response.ok) {
+        console.warn('Zapier webhook failed, but continuing anyway');
+      }
+
+      return { success: true };
+    } catch (error) {
+      // Don't fail the whole form submission if Zapier fails
+      console.error('Zapier error (non-blocking):', error);
+      return { success: false, error: error.message };
+    }
   }
 
   async generateReport(formData) {
@@ -145,19 +183,24 @@ class LandingPageController {
       const apiData = {
         company: formData.company,
         position: formData.position,
-        candidate: {
-          name: formData.candidateName,
-          email: formData.candidateEmail,
-          experience: formData.experience,
-          skills: formData.skills.split(',').map(s => s.trim()),
-          education: formData.education,
-          location: formData.location || 'Nederland'
+        sector: formData.sector,
+        location: formData.location || 'Nederland',
+        contact: {
+          name: formData.contactName,
+          email: formData.contactEmail
         },
-        scores: {
-          technical: parseInt(formData.technicalScore) || 7,
-          communication: parseInt(formData.communicationScore) || 8,
-          teamwork: parseInt(formData.teamworkScore) || 7,
-          leadership: parseInt(formData.leadershipScore) || 6
+        details: {
+          experienceLevel: formData.experienceLevel,
+          keySkills: formData.keySkills.split(',').map(s => s.trim()),
+          minSalary: formData.minSalary,
+          maxSalary: formData.maxSalary,
+          analysisFocus: formData.analysisFocus
+        },
+        priorities: {
+          marketDemand: parseInt(formData.marketDemand) || 9,
+          competitionAnalysis: parseInt(formData.competitionAnalysis) || 8,
+          salaryBenchmarking: parseInt(formData.salaryBenchmarking) || 8,
+          recruitmentStrategy: parseInt(formData.recruitmentStrategy) || 7
         }
       };
 

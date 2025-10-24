@@ -66,12 +66,12 @@ phase_2_build:
       expected: "JS files exist and have content"
 
     - name: "Validate form configuration"
-      command: "grep -o 'action=' index.html | head -1"
-      expected: "Form action configured"
+      command: "grep -c 'recruitment-form' index.html"
+      expected: "Form present"
 
-    - name: "Check Stripe integration"
-      command: "grep -c 'stripe' script.js index.html"
-      expected: "Stripe integration present"
+    - name: "Check Zapier webhook integration"
+      command: "grep -c 'zapierWebhookUrl' script.js"
+      expected: "Zapier integration configured"
 
     - name: "Create build manifest"
       command: "echo '{\"build_date\":\"'$(date -u +%Y-%m-%dT%H:%M:%SZ)'\",\"version\":\"1.0.0\",\"files\":[\"index.html\",\"demo-rapport.html\",\"styles.css\",\"script.js\",\"charts.js\"]}' > build-manifest.json"
@@ -222,4 +222,4 @@ notes:
   - "Run with: claude-code execute deploy/claude-code-orchestration.yaml"
   - "Manual Netlify authentication may be required on first run"
   - "Backend API proxy configured via netlify.toml"
-  - "Stripe integration requires separate API key configuration"
+  - "Zapier webhook URL must be configured in script.js for automation"
