@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Recruitin - AI Recruitment Reports | Labour Market Intelligence</title>
-    <meta name="description" content="Recruitin's AI-powered recruitment rapporten in seconden. 85% betrouwbaar arbeidsmarkt intelligence. Bespaar tijd vs handmatige processen.">
+    <meta name="description" content="Recruitin's AI-powered recruitment rapporten in seconden. 85% betrouwbaar arbeidsmarkt intelligence. Gratis demo rapport beschikbaar.">
 
+    <!-- Cache-busting deployment trigger: 2025-10-24 -->
     <!-- Chart.js for Data Visualization -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
@@ -218,114 +219,83 @@
                     </div>
                 </div>
 
-                <div class="order-form">
-                    <form id="recruitment-form">
-                        <div class="form-section">
-                            <h3>🎯 Markt Analyse Details</h3>
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="company">Bedrijfsnaam</label>
-                                    <input type="text" id="company" name="company" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="position">Functietitel voor Analyse</label>
-                                    <input type="text" id="position" name="position" placeholder="Senior Marketing Manager" required>
-                                </div>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="sector">Sector/Industrie</label>
-                                    <input type="text" id="sector" name="sector" placeholder="Tech, Finance, Healthcare..." required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="location">Regio voor Analyse</label>
-                                    <input type="text" id="location" name="location" placeholder="Amsterdam, Nederland, Europa" required>
-                                </div>
-                            </div>
-                        </div>
+                <div class="order-form jotform-container">
+                    <!-- JotForm Embed - EU Server -->
+                    <script type="text/javascript" src="https://eu.jotform.com/jsform/252881347421054"></script>
 
-                        <div class="form-section">
-                            <h3>📊 Doelgroep Specificaties</h3>
-                            <div class="form-group">
-                                <label for="experience-level">Ervaring Niveau</label>
-                                <select id="experience-level" name="experienceLevel" required>
-                                    <option value="">Selecteer niveau</option>
-                                    <option value="junior">Junior (0-3 jaar)</option>
-                                    <option value="medior">Medior (3-7 jaar)</option>
-                                    <option value="senior">Senior (7+ jaar)</option>
-                                    <option value="lead">Lead/Management (10+ jaar)</option>
-                                </select>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="key-skills">Belangrijkste Vaardigheden (komma-gescheiden)</label>
-                                <input type="text" id="key-skills" name="keySkills" placeholder="Digital Marketing, SEO, Google Ads, Leadership" required>
-                            </div>
-                            
-                            <div class="form-row">
-                                <div class="form-group">
-                                    <label for="min-salary">Min. Salaris (€)</label>
-                                    <input type="number" id="min-salary" name="minSalary" placeholder="50000" min="20000">
-                                </div>
-                                <div class="form-group">
-                                    <label for="max-salary">Max. Salaris (€)</label>
-                                    <input type="number" id="max-salary" name="maxSalary" placeholder="80000" min="25000">
-                                </div>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label for="analysis-focus">Analyse Focus</label>
-                                <textarea id="analysis-focus" name="analysisFocus" rows="2" placeholder="Specifieke vragen over de markt, concurrentie, of recruitment strategie..."></textarea>
-                            </div>
-                        </div>
+                    <!-- JotForm Custom Styling Override - Recruitin Huisstijl -->
+                    <style>
+                        /* Ensure JotForm text is visible with Recruitin colors */
+                        #jotform-252881347421054 input,
+                        #jotform-252881347421054 textarea,
+                        #jotform-252881347421054 select {
+                            color: #4B4F51 !important; /* Recruitin grijs */
+                            background: #ffffff !important;
+                            border: 2px solid #e5e7eb !important;
+                            border-radius: 8px !important;
+                            font-size: 15px !important;
+                            padding: 14px !important;
+                            font-family: 'Inter', sans-serif !important;
+                            transition: all 0.3s ease !important;
+                        }
 
-                        <div class="form-section">
-                            <h3>📊 Analyse Prioriteiten (1-10 schaal)</h3>
-                            <div class="score-grid">
-                                <div class="score-item">
-                                    <label for="market-demand">Markt Vraag Analyse</label>
-                                    <input type="range" id="market-demand" name="marketDemand" min="1" max="10" value="9">
-                                    <span class="score-value">9</span>
-                                </div>
-                                <div class="score-item">
-                                    <label for="competition-analysis">Concurrentie Analyse</label>
-                                    <input type="range" id="competition-analysis" name="competitionAnalysis" min="1" max="10" value="8">
-                                    <span class="score-value">8</span>
-                                </div>
-                                <div class="score-item">
-                                    <label for="salary-benchmarking">Salaris Benchmarking</label>
-                                    <input type="range" id="salary-benchmarking" name="salaryBenchmarking" min="1" max="10" value="8">
-                                    <span class="score-value">8</span>
-                                </div>
-                                <div class="score-item">
-                                    <label for="recruitment-strategy">Recruitment Strategie</label>
-                                    <input type="range" id="recruitment-strategy" name="recruitmentStrategy" min="1" max="10" value="7">
-                                    <span class="score-value">7</span>
-                                </div>
-                            </div>
-                        </div>
+                        #jotform-252881347421054 input:focus,
+                        #jotform-252881347421054 textarea:focus,
+                        #jotform-252881347421054 select:focus {
+                            border-color: #EF7D00 !important; /* Recruitin oranje */
+                            outline: none !important;
+                            box-shadow: 0 0 0 3px rgba(239, 125, 0, 0.15) !important;
+                        }
 
-                        <button type="submit" id="submit-button" class="btn-submit">
-                            <i class="fas fa-chart-bar"></i>
-                            Vraag Offerte Aan
-                        </button>
+                        #jotform-252881347421054 label {
+                            color: #4B4F51 !important; /* Recruitin grijs */
+                            font-weight: 600 !important;
+                            font-size: 14px !important;
+                            font-family: 'Inter', sans-serif !important;
+                        }
 
-                        <div class="security-badges">
-                            <div class="badge">
-                                <i class="fas fa-shield-alt"></i>
-                                <span>SSL Beveiligd</span>
-                            </div>
-                            <div class="badge">
-                                <i class="fas fa-lock"></i>
-                                <span>GDPR Compliant</span>
-                            </div>
-                            <div class="badge">
-                                <i class="fas fa-clock"></i>
-                                <span>24/48u Response</span>
-                            </div>
-                        </div>
-                    </form>
+                        /* Submit button - Recruitin oranje styling */
+                        #jotform-252881347421054 button[type="submit"],
+                        #jotform-252881347421054 .form-submit-button {
+                            background: #EF7D00 !important; /* Recruitin oranje */
+                            color: #ffffff !important;
+                            border: none !important;
+                            padding: 18px 40px !important;
+                            font-size: 16px !important;
+                            font-weight: 700 !important;
+                            border-radius: 8px !important;
+                            cursor: pointer !important;
+                            transition: all 0.3s ease !important;
+                            text-transform: uppercase !important;
+                            letter-spacing: 0.5px !important;
+                        }
+
+                        #jotform-252881347421054 button[type="submit"]:hover,
+                        #jotform-252881347421054 .form-submit-button:hover {
+                            background: #d66d00 !important;
+                            transform: translateY(-2px) !important;
+                            box-shadow: 0 6px 20px rgba(239, 125, 0, 0.3) !important;
+                        }
+
+                        /* JotForm iframe should be transparent */
+                        .jotform-container iframe {
+                            background: transparent !important;
+                        }
+
+                        /* Placeholder text */
+                        #jotform-252881347421054 input::placeholder,
+                        #jotform-252881347421054 textarea::placeholder {
+                            color: #9ca3af !important;
+                            opacity: 1 !important;
+                        }
+                    </style>
+
+                    <!-- JotForm Zapier Webhook Note -->
+                    <!--
+                        JotForm is configured to send submissions to Zapier.
+                        Webhook URL configured in JotForm settings:
+                        https://hooks.zapier.com/hooks/catch/[YOUR_WEBHOOK_ID]
+                    -->
                 </div>
             </div>
         </div>
