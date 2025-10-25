@@ -355,19 +355,27 @@ body {
 }
 
 .feature-icon {
-  width: 80px;
-  height: 80px;
-  background: linear-gradient(135deg, var(--brand-primary), var(--brand-accent));
+  width: 60px;
+  height: 60px;
+  background: rgba(239, 125, 0, 0.1);
+  border: 2px solid rgba(239, 125, 0, 0.3);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto var(--space-4);
+  transition: all 0.3s ease;
 }
 
 .feature-icon i {
-  font-size: 2rem;
-  color: white;
+  font-size: 1.5rem;
+  color: var(--brand-primary);
+}
+
+.feature:hover .feature-icon {
+  background: rgba(239, 125, 0, 0.15);
+  border-color: var(--brand-primary);
+  transform: scale(1.05);
 }
 
 .feature h3 {
@@ -930,26 +938,19 @@ body {
 }
 
 .metric-tile {
-  background: linear-gradient(135deg, #FFFFFF 0%, #F8FAFC 100%);
-  border-radius: 20px;
-  padding: var(--space-5);
-  box-shadow: 
-    0 8px 24px rgba(0, 0, 0, 0.12),
-    0 4px 8px rgba(0, 0, 0, 0.06),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: #FFFFFF;
+  border-radius: 12px;
+  padding: var(--space-4);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  border: 1px solid #E5E7EB;
   position: relative;
-  overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
 }
 
 .metric-tile:hover {
-  transform: translateY(-4px);
-  box-shadow: 
-    0 16px 32px rgba(0, 0, 0, 0.15),
-    0 8px 16px rgba(0, 0, 0, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  border-color: rgba(239, 125, 0, 0.3);
 }
 
 .metric-tile::before {
@@ -958,20 +959,13 @@ body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 4px;
-  background: linear-gradient(90deg, var(--brand-accent), var(--brand-primary), var(--brand-accent));
-  border-radius: 20px 20px 0 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(239, 125, 0, 0.3), transparent);
+  border-radius: 12px 12px 0 0;
 }
 
 .metric-tile::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  right: 0;
-  width: 40px;
-  height: 40px;
-  background: radial-gradient(circle, rgba(239, 125, 0, 0.1) 0%, transparent 70%);
-  border-radius: 0 20px 0 20px;
+  display: none;
 }
 
 .metric-header {
@@ -1118,7 +1112,7 @@ body {
 }
 
 .breakdown-bar .fill {
-  background: linear-gradient(90deg, var(--brand-accent), var(--brand-primary));
+  background: rgba(239, 125, 0, 0.7);
   height: 100%;
   border-radius: 3px;
   transition: width 0.8s ease;
@@ -1992,15 +1986,91 @@ body {
   box-shadow: var(--box-shadow);
 }
 
-/* JotForm Container Styling */
+/* JotForm Container Styling - Recruitin Huisstijl */
 .jotform-container {
-  overflow: hidden;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+  border: 2px solid #f5f5f5;
+  overflow: visible;
   min-height: 500px;
+  transition: all 0.3s ease;
+}
+
+.jotform-container:hover {
+  box-shadow: 0 15px 50px rgba(239, 125, 0, 0.15);
+  border-color: rgba(239, 125, 0, 0.2);
 }
 
 .jotform-container iframe {
   border: none;
   width: 100%;
+  min-height: 800px;
+}
+
+/* JotForm Input Field Styling - Recruitin Colors */
+.jotform-container input[type="text"],
+.jotform-container input[type="email"],
+.jotform-container input[type="tel"],
+.jotform-container textarea,
+.jotform-container select {
+  color: #4B4F51 !important; /* Recruitin grijs */
+  background-color: #ffffff !important;
+  border: 2px solid #e5e7eb !important;
+  font-size: 15px !important;
+  padding: 14px !important;
+  border-radius: 8px !important;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+  transition: all 0.3s ease !important;
+}
+
+.jotform-container input[type="text"]:focus,
+.jotform-container input[type="email"]:focus,
+.jotform-container input[type="tel"]:focus,
+.jotform-container textarea:focus,
+.jotform-container select:focus {
+  border-color: #EF7D00 !important; /* Recruitin oranje */
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(239, 125, 0, 0.15) !important;
+}
+
+.jotform-container label {
+  color: #4B4F51 !important; /* Recruitin grijs */
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  margin-bottom: 8px !important;
+  font-family: 'Inter', sans-serif !important;
+}
+
+/* JotForm placeholder text */
+.jotform-container input::placeholder,
+.jotform-container textarea::placeholder {
+  color: #9ca3af !important;
+  opacity: 1 !important;
+}
+
+/* JotForm Submit Button - Recruitin Oranje */
+.jotform-container button[type="submit"],
+.jotform-container .form-submit-button {
+  background: #EF7D00 !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 18px 40px !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  border-radius: 8px !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+}
+
+.jotform-container button[type="submit"]:hover,
+.jotform-container .form-submit-button:hover {
+  background: #d66d00 !important;
+  transform: translateY(-2px) !important;
+  box-shadow: 0 6px 20px rgba(239, 125, 0, 0.3) !important;
 }
 
 .form-section {

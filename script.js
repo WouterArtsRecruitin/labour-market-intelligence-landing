@@ -23,7 +23,6 @@ class LandingPageController {
     // Smooth scrolling
     window.scrollToOrder = () => this.scrollToSection('order');
     window.scrollToDemo = () => this.scrollToSection('demo');
-    window.selectPlan = (plan) => this.selectPlan(plan);
     window.downloadReport = () => this.downloadReport();
     window.viewReport = () => this.viewReport();
 
@@ -61,52 +60,6 @@ class LandingPageController {
         top: targetPosition,
         behavior: 'smooth'
       });
-    }
-  }
-
-  selectPlan(plan) {
-    this.selectedPlan = plan;
-    
-    // Update UI to show selected plan
-    const cards = document.querySelectorAll('.pricing-card');
-    cards.forEach(card => card.classList.remove('selected'));
-    
-    // Add visual feedback (you might want to add CSS for this)
-    const selectedCard = document.querySelector(`[onclick="selectPlan('${plan}')"]`).closest('.pricing-card');
-    if (selectedCard) {
-      selectedCard.classList.add('selected');
-    }
-
-    // Scroll to order form
-    this.scrollToSection('order');
-    
-    // Update pricing if needed
-    this.updatePricing(plan);
-  }
-
-  updatePricing(plan) {
-    const priceMap = {
-      single: { price: 59.00, description: 'Professional Assessment Rapport' },
-      monthly: { price: 199.00, description: 'Maandelijks Pakket (5 rapporten)' },
-      enterprise: { price: 999.00, description: 'Enterprise Pakket (50 rapporten)' }
-    };
-
-    const planData = priceMap[plan];
-    if (planData) {
-      const priceElement = document.querySelector('.payment-item span:last-child');
-      const descriptionElement = document.querySelector('.payment-item span:first-child');
-      const totalElement = document.querySelector('.payment-total span:last-child');
-      const submitButton = document.getElementById('submit-button');
-      
-      if (priceElement && descriptionElement && totalElement && submitButton) {
-        const vat = planData.price * 0.21;
-        const total = planData.price + vat;
-        
-        priceElement.textContent = `€${planData.price.toFixed(2)}`;
-        descriptionElement.textContent = planData.description;
-        totalElement.textContent = `€${total.toFixed(2)}`;
-        submitButton.innerHTML = `<i class="fas fa-credit-card"></i> Betaal €${total.toFixed(2)} & Genereer Rapport`;
-      }
     }
   }
 
@@ -265,6 +218,6 @@ const observer = new IntersectionObserver((entries) => {
 
 // Observe elements for animation
 document.addEventListener('DOMContentLoaded', () => {
-  const animateElements = document.querySelectorAll('.hero-stats, .feature, .testimonial, .pricing-card');
+  const animateElements = document.querySelectorAll('.hero-stats, .feature, .testimonial');
   animateElements.forEach(el => observer.observe(el));
 });
