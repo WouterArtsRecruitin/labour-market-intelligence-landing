@@ -1,9 +1,7 @@
 // Labour Market Intelligence - Landing Page Script
 class LandingPageController {
   constructor() {
-    // Zapier webhook URL - replace with your actual Zapier webhook
-    this.zapierWebhook = 'https://hooks.zapier.com/hooks/catch/YOUR_WEBHOOK_ID/';
-
+    // JotForm handles Zapier webhook integration directly
     this.init();
   }
 
@@ -13,12 +11,8 @@ class LandingPageController {
   }
 
   bindEvents() {
-    // Form submission
-    const form = document.getElementById('recruitment-form');
-    if (form) {
-      form.addEventListener('submit', this.handleSubmit.bind(this));
-    }
-
+    // JotForm handles its own submission - no custom form handling needed
+    
     // Smooth scrolling
     window.scrollToOrder = () => this.scrollToSection('order');
     window.scrollToDemo = () => this.scrollToSection('demo');
@@ -62,64 +56,7 @@ class LandingPageController {
     }
   }
 
-  async handleSubmit(event) {
-    event.preventDefault();
-
-    const submitButton = document.getElementById('submit-button');
-    const originalText = submitButton.innerHTML;
-
-    // Show loading state
-    submitButton.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Aanvraag verzenden...';
-    submitButton.disabled = true;
-
-    try {
-      const formData = this.collectFormData();
-
-      // Send to Zapier webhook
-      const response = await fetch(this.zapierWebhook, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData)
-      });
-
-      if (response.ok) {
-        // Show success message
-        alert('✅ Bedankt voor je aanvraag!\n\nWe hebben je aanvraag ontvangen en nemen binnen 24-48 uur contact met je op.\n\nJe ontvangt een bevestigingsmail op: ' + formData.email);
-
-        // Reset form
-        document.getElementById('recruitment-form').reset();
-      } else {
-        throw new Error('Er ging iets mis bij het verzenden');
-      }
-
-    } catch (error) {
-      console.error('Form submission error:', error);
-      // Still show success for demo purposes
-      alert('✅ Aanvraag ontvangen!\n\nWe nemen zo snel mogelijk contact met je op.');
-      document.getElementById('recruitment-form').reset();
-    } finally {
-      // Reset button state
-      submitButton.innerHTML = originalText;
-      submitButton.disabled = false;
-    }
-  }
-
-  collectFormData() {
-    const form = document.getElementById('recruitment-form');
-    const formData = new FormData(form);
-
-    const data = {};
-    for (let [key, value] of formData.entries()) {
-      data[key] = value;
-    }
-
-    // Add timestamp
-    data.submittedAt = new Date().toISOString();
-
-    return data;
-  }
+  // JotForm handles submission automatically - no custom submission methods needed
 
   showError(message) {
     // Create or update error display
