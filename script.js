@@ -1,7 +1,6 @@
 // Labour Market Intelligence - Landing Page Script
 class LandingPageController {
   constructor() {
-    this.selectedPlan = 'single';
     // Zapier webhook URL - replace with your actual Zapier webhook
     this.zapierWebhook = 'https://hooks.zapier.com/hooks/catch/YOUR_WEBHOOK_ID/';
 
@@ -116,8 +115,7 @@ class LandingPageController {
       data[key] = value;
     }
 
-    // Add selected plan and timestamp
-    data.selectedPlan = this.selectedPlan;
+    // Add timestamp
     data.submittedAt = new Date().toISOString();
 
     return data;
